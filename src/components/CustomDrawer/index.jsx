@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dashboard, History } from '@material-ui/icons';
+import { Dashboard, History, Delete } from '@material-ui/icons';
 import {
   Toolbar,
   Divider,
@@ -75,7 +75,7 @@ const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
         </List>
         <Divider />
         <ListItem key="clear">
-          <Button color="primary" variant="contained">
+          <Button endIcon={<Delete />}>
             Clear browsing data
           </Button>
         </ListItem>

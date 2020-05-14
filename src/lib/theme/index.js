@@ -53,7 +53,8 @@ const themeConfigs = [
         main: colors.indigo[600],
       },
       secondary: {
-        main: '#5850EC',
+        // main: '#5850EC',
+        main: '#ffffff',
       },
       text: {
         primary: colors.blueGrey[900],
@@ -83,7 +84,8 @@ const themeConfigs = [
         main: '#8a85ff',
       },
       secondary: {
-        main: '#8a85ff',
+        // main: '#8a85ff',
+        main: '#ffffff',
       },
       text: {
         primary: '#e6e5e8',
@@ -113,7 +115,8 @@ const themeConfigs = [
         main: '#a67dff',
       },
       secondary: {
-        main: '#a67dff',
+        // main: '#a67dff',
+        main: '#ffffff',
       },
       text: {
         primary: '#f6f5f8',

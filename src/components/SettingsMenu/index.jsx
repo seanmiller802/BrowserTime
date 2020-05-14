@@ -12,7 +12,7 @@ import { SettingsContext } from '../../context/SettingsContext';
 
 const useStyles = makeStyles(() => ({
   content: {
-    minWidth: '400px',
+    width: 300,
     margin: '8px 16px',
   },
 }));
@@ -30,20 +30,19 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
   return (
     <Popover
       id={id}
-      classes={classes.popover}
       open={open}
       anchorEl={anchorEl}
       onClose={handleClose}
       anchorOrigin={{
         vertical: 'bottom',
-        horizontal: 'left',
+        horizontal: 'right',
       }}
       transformOrigin={{
         vertical: 'top',
-        horizontal: 'center',
+        horizontal: 'right',
       }}
     >
-      <div classes={classes.content}>
+      <div className={classes.content}>
         <Typography variant="h4" align="left">Settings</Typography>
         <TextField
           id="theme-select"
@@ -53,6 +52,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           value={settingsState.theme}
           size="small"
           variant="outlined"
+          margin="normal"
           fullWidth
           onChange={handleThemeChange}
         >
