@@ -12,7 +12,7 @@ const config = {
   mode: process.env.NODE_ENV || 'development',
   devtool: process.env.NODE_ENV === 'development' ? 'cheap-module-source-map' : false,
   entry: {
-    bookmarks: './src/index.js',
+    history: './src/index.js',
   },
   output: {
     filename: '[name].bundle.js',
@@ -22,7 +22,7 @@ const config = {
     extensions: fileExtensions.concat(['.jsx', '.js', '.css']),
   },
   performance: {
-    hints: process.env.NODE_ENV === 'development' ? 'warning' : 'error',
+    hints: process.env.NODE_ENV === 'development' ? 'warning' : false,
   },
   plugins: [
     // clean build folder
@@ -32,13 +32,12 @@ const config = {
     new webpack.EnvironmentPlugin(['NODE_ENV']),
     // generate the html file where we serve our webpack bundle
     new HtmlWebpackPlugin({
-      title: 'Bookmarks',
       meta: {
         charset: 'utf-8',
         viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no',
       },
-      filename: 'bookmarks.html',
-      template: path.join(__dirname, 'src', 'templates', 'bookmarks.html'),
+      filename: 'history.html',
+      template: path.join(__dirname, 'src', 'templates', 'history.html'),
     }),
     // copy manifest and icons to build the folder
     new CopyWebpackPlugin([

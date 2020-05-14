@@ -25,7 +25,7 @@ const options = {
   hot: true,
   contentBase: path.resolve(__dirname, 'build'),
   open: true,
-  openPage: 'bookmarks.html',
+  openPage: 'history.html',
 };
 
 const server = new WebpackDevServer(compiler, options);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Dashboard, History } from '@material-ui/icons';
 import {
@@ -12,6 +13,7 @@ import {
   ListItemIcon,
   Button,
 } from '@material-ui/core';
+import rangeMappings from '../../lib/rangeMappings';
 
 const drawerWidth = 240;
 
@@ -28,9 +30,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CustomDrawer = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
+const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
+  const [selectedItem, setSelectedItem] = useState(0);
   const classes = useStyles();
+
+  const handleHistoryItemSelect = (item, index) => {
+    console.log('CUSTOMDRAWER', item);
+    setSelectedItem(index);
+    handleUpdateRange(item.value);
+  };
+
   return (
     <Drawer
       className={classes.drawer}
@@ -42,7 +51,7 @@ const CustomDrawer = () => {
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
-          <ListItem button key="Dashboard">
+          <ListItem button key="Dashboard" onClick={handleShowDashboard}>
             <ListItemIcon>
               <Dashboard />
             </ListItemIcon>
@@ -51,28 +60,33 @@ const CustomDrawer = () => {
         </List>
         <Divider />
         <List>
-          <ListSubheader>Subheader</ListSubheader>
-          {['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'].map((text, index) => (
+          <ListSubheader>History</ListSubheader>
+          {rangeMappings.map((item, index) => (
             <ListItem
               button
-              onClick={() => setSelectedItem(index)}
-              key={text}
+              onClick={() => handleHistoryItemSelect(item, index)}
+              key={item.value}
               selected={selectedItem === index}
             >
               {selectedItem === index && <ListItemIcon><History /></ListItemIcon>}
-              <ListItemText primary={text} />
+              <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
         <Divider />
         <ListItem key="clear">
           <Button color="primary" variant="contained">
-            Do something
+            Clear browsing data
           </Button>
         </ListItem>
       </div>
     </Drawer>
   );
+};
+
+CustomDrawer.propTypes = {
+  handleUpdateRange: PropTypes.func.isRequired,
+  handleShowDashboard: PropTypes.func.isRequired,
 };
 
 export default CustomDrawer;

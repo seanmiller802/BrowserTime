@@ -8,7 +8,7 @@ import { THEMES } from '../lib/constants';
 import { settingsReducer } from '../reducers/settingsReducer';
 
 const initialSettingsState = {
-  theme: THEMES.LIGHT,
+  theme: THEMES.DARK,
 };
 
 export const SettingsContext = createContext(initialSettingsState);
