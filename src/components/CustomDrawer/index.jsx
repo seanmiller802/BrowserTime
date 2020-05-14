@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(1);
   const classes = useStyles();
 
   const handleHistoryItemSelect = (item, index) => {

@@ -1,5 +1,9 @@
 export default [
   {
+    value: 'Hour',
+    text: 'Last Hour',
+  },
+  {
     value: 'Today',
     text: 'Today',
   },

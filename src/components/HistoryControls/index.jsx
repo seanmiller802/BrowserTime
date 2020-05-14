@@ -4,6 +4,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import {
+  Fade,
   Grid,
   InputLabel,
   Select,
@@ -95,51 +96,54 @@ const HistoryControls = ({
   ) : null;
 
   return (
-    <Grid
-      container
-      justify={isCustomRange ? 'space-around' : 'flex-start'}
-      alignItems="center"
-      direction="row"
-    >
-      <FormControl variant="outlined" size="small" className={classes.formControl}>
-        <InputLabel id="time-range-select-outlined-label">Time Range</InputLabel>
-        <Select
-          labelId="time-range-select-label"
-          id="time-range-select"
-          value={range}
-          onChange={(e) => handleUpdateRange(e.target.value)}
-          label="Time Range"
-        >
-          {rangeMappings.map((item) => (
-            <MenuItem value={item.value}>
-              {item.text}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      {datePickers}
-      <FormControl variant="outlined" size="small" className={classes.formControl}>
-        <InputLabel id="max-results-select-outlined-label">Max results</InputLabel>
-        <Select
-          labelId="max-results-select-label"
-          id="max-results-select"
-          value={maxResults}
-          onChange={(e) => setMaxResults(e.target.value)}
-          label="Max results"
-        >
-          {maxResultOptions.map((value) => (
-            <MenuItem value={value}>
-              {value}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </Grid>
+    <Fade in enter exit appear timeout={500}>
+      <Grid
+        container
+        justify={isCustomRange ? 'space-around' : 'flex-start'}
+        alignItems="center"
+        direction="row"
+      >
+        <FormControl variant="outlined" size="small" className={classes.formControl}>
+          <InputLabel id="time-range-select-outlined-label">Time Range</InputLabel>
+          <Select
+            labelId="time-range-select-label"
+            id="time-range-select"
+            value={range}
+            onChange={(e) => handleUpdateRange(e.target.value)}
+            label="Time Range"
+          >
+            {rangeMappings.map((item) => (
+              <MenuItem value={item.value}>
+                {item.text}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {datePickers}
+        <FormControl variant="outlined" size="small" className={classes.formControl}>
+          <InputLabel id="max-results-select-outlined-label">Max results</InputLabel>
+          <Select
+            labelId="max-results-select-label"
+            id="max-results-select"
+            value={maxResults}
+            onChange={(e) => setMaxResults(e.target.value)}
+            label="Max results"
+          >
+            {maxResultOptions.map((value) => (
+              <MenuItem value={value}>
+                {value}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Grid>
+    </Fade>
   );
 };
 
 HistoryControls.propTypes = {
   range: PropTypes.oneOf([
+    'Hour',
     'Today',
     'Yesterday',
     'Seven',

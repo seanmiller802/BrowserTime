@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
+  Button,
   InputBase,
   IconButton,
   Divider,
@@ -42,6 +43,7 @@ const HistorySearch = ({
   placeholder,
   value,
   onChange,
+  showControls,
   handleShowControls,
 }) => {
   const classes = useStyles();
@@ -65,9 +67,15 @@ const HistorySearch = ({
         </IconButton>
       )}
       <Divider className={classes.divider} orientation="vertical" />
-      <IconButton color="primary" className={classes.iconButton} onClick={handleShowControls} aria-label="directions">
-        <FilterListIcon />
-      </IconButton>
+      {
+        showControls ? (
+          <Button onClick={handleShowControls}>hide filters</Button>
+        ) : (
+          <IconButton color="primary" className={classes.iconButton} onClick={handleShowControls} aria-label="directions">
+            <FilterListIcon />
+          </IconButton>
+        )
+      }
     </Paper>
   );
 };
@@ -77,6 +85,7 @@ HistorySearch.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  showControls: PropTypes.bool.isRequired,
   handleShowControls: PropTypes.func.isRequired,
 };
 

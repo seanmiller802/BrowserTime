@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import Layout from '../Layout';
-import Searchbar from '../HistorySearch';
+import HistorySearch from '../HistorySearch';
 import HistoryControls from '../HistoryControls';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,10 +37,11 @@ const History = ({
           alignItems="center"
           className={classes.search}
         >
-          <Searchbar
+          <HistorySearch
             placeholder="Search History"
             value={searchText}
             onChange={setSearchText}
+            showControls={showControls}
             handleShowControls={() => setShowControls(!showControls)}
           />
         </Grid>
