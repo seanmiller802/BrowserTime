@@ -18,16 +18,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryList = ({ data }) => {
+const HistoryList = ({ data, getSelectedForDeleteIndex, handleUpdateSelectedForDelete }) => {
   const classes = useStyles();
   const { date, items } = data;
   console.log('HistoryList', data);
 
-  console.log("DATE IS", date);
+  const isChecked = (val) => getSelectedForDeleteIndex(val) > -1;
 
-  const Row = ({ index, style }) => (
-    <HistoryListItem item={items[index]} style={style} />
-  );
+  const Row = ({ index, style }) => {
+    const itemIsChecked = isChecked({ lastVisitTime: items[index].lastVisitTime });
+    console.log('Row item is checked', itemIsChecked);
+    return (
+      <HistoryListItem
+        item={items[index]}
+        style={style}
+        isChecked={itemIsChecked}
+        handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
+      />
+    );
+  };
 
   const title = moment(date).format('dddd, MMMM Do, Y');
   const subheader = `${items.length.toLocaleString()} results`;
@@ -50,7 +59,7 @@ const HistoryList = ({ data }) => {
         <Divider variant="fullWidth" light />
         <CardContent>
           <List
-            height={800}
+            height={1000}
             itemCount={items.length}
             itemSize={50}
             width={950}

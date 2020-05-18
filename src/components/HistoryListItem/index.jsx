@@ -30,11 +30,11 @@ const useStyles = makeStyles((theme) => ({
   },
   itemTitle: {
     marginRight: theme.spacing(2),
-    maxWidth: 650,
+    maxWidth: 600,
   },
 }));
 
-const HistoryListItem = ({ item }) => {
+const HistoryListItem = ({ item, isChecked, handleUpdateSelectedForDelete }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -54,17 +54,28 @@ const HistoryListItem = ({ item }) => {
     setAnchorEl(null);
   };
 
+  const handleCheckbox = () => {
+    handleUpdateSelectedForDelete({ lastVisitTime, url });
+  };
+
+  const getDisplayUrl = () => {
+    const { hostname } = new URL(url);
+    return hostname.substring(0, 4) === 'www.' ? hostname.substring(4) : hostname;
+  };
+
   const labelId = `checkbox-list-label-${id}`;
 
   const time = moment(lastVisitTime).toString();
   const displayTime = moment(lastVisitTime).format('h:mm A');
+  const displayUrl = getDisplayUrl();
 
   return (
-    <ListItem key={id} className={classes.item} role={undefined} onClick={() => {}}>
+    <ListItem key={id} className={classes.item} role={undefined}>
       <ListItemIcon>
         <Checkbox
           edge="start"
-          checked={false}
+          checked={isChecked}
+          onChange={handleCheckbox}
           tabIndex={-1}
           inputProps={{ 'aria-labelledby': labelId }}
         />
@@ -74,7 +85,7 @@ const HistoryListItem = ({ item }) => {
           <Typography className={classes.itemTime} variant="body2" noWrap>{displayTime}</Typography>
         </Tooltip>
         <Typography className={classes.itemTitle} variant="h6" noWrap>{title}</Typography>
-        <Typography className={classes.itemUrl} variant="body2" noWrap>github.com</Typography>
+        <Typography className={classes.itemUrl} variant="body2" noWrap>{displayUrl}</Typography>
       </div>
       <IconButton edge="end" aria-controls="history-item-menu" aria-label="options" aria-haspopup="true" onClick={handleMenuClick}>
         <MoreVertIcon />

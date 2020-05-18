@@ -28,19 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DeleteToolbar = () => {
+const DeleteToolbar = ({ count, cancel, deleteItems }) => {
   const classes = useStyles();
-  const [items, setItems] = useState([]);
   return (
     <AppBar position="fixed" className={classes.deleteToolbar}>
       <Toolbar>
         <div className={classes.grow} />
-        <IconButton className={classes.iconButton} onClick={() => {}} aria-label="clear">
+        <IconButton className={classes.iconButton} onClick={cancel} aria-label="clear">
           <CancelIcon />
         </IconButton>
-        <Typography variant="h5" className={classes.text}>{`Delete ${items.length} items?`}</Typography>
-        <Button variant="outlined" className={classes.button}>Cancel</Button>
-        <Button variant="contained" className={classes.button}>Delete</Button>
+        <Typography variant="h5" className={classes.text}>{`Delete ${count} items?`}</Typography>
+        <Button variant="outlined" className={classes.button} onClick={cancel}>Cancel</Button>
+        <Button variant="contained" className={classes.button} onClick={deleteItems}>Delete</Button>
         <div className={classes.grow} />
       </Toolbar>
     </AppBar>

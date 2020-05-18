@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
 
 const App = () => {
   const classes = useStyles();
+  const [selectedForDelete, setSelectedForDelete] = useState([]);
   const [showDashboard, setShowDashboard] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [showControls, setShowControls] = useState(false);
@@ -28,11 +29,10 @@ const App = () => {
     start: new Date(),
     end: new Date(),
   });
-
-  console.log("APP start date", customRange.start);
-  console.log("APP end date", customRange.end);
-  const [maxResults, setMaxResults] = useState(10000);
+  const [maxResults, setMaxResults] = useState(1000);
   const [history, setHistory] = useState([]);
+
+  console.log('APP selectedForDelete', selectedForDelete);
 
   // update history results if any of the controls change
   useEffect(() => {
@@ -47,22 +47,56 @@ const App = () => {
   }, [searchText, range, customRange, maxResults]);
 
   const handleUpdateRange = (val) => {
-    console.log('APP handleUpdateRange', val);
+    // console.log('APP handleUpdateRange', val);
     setShowDashboard(false);
     setRange(val);
   };
 
   const handleShowDashboard = () => {
-    console.log('APP handleShowDashboard');
+    // console.log('APP handleShowDashboard');
     setShowDashboard(true);
   };
+
+  // use lastVisitTime to check if item already exists
+  // since no two items should have the same value
+  const getSelectedForDeleteIndex = ({ lastVisitTime }) => {
+    return selectedForDelete.map((e) => e.lastVisitTime).indexOf(lastVisitTime);
+  };
+
+  // remove item if already selected. add otherwise.
+  const handleUpdateSelectedForDelete = (item) => {
+    const index = getSelectedForDeleteIndex(item);
+    let updated;
+    if (index > -1) {
+      const remaining = Array.apply([], selectedForDelete).splice(index, 1);
+      setSelectedForDelete(remaining);
+    } else {
+      updated = selectedForDelete.concat([item]);
+      setSelectedForDelete(updated);
+    }
+  };
+
+  const handleDeleteItems = () => {
+    console.log('handleDeleteItems');
+    // TODO - delete each item here
+    setSelectedForDelete([]);
+  };
+
+  const showDeleteToolbar = selectedForDelete.length > 0;
 
   return (
     <div className={classes.root}>
       <SettingsProvider>
         <ThemeProvider>
           <CssBaseline />
-          <Header />
+          {showDeleteToolbar && (
+            <DeleteToolbar
+              count={selectedForDelete.length}
+              cancel={() => setSelectedForDelete([])}
+              deleteItems={handleDeleteItems}
+            />
+          )}
+          {!showDeleteToolbar && <Header /> }
           <CustomDrawer
             handleUpdateRange={handleUpdateRange}
             handleShowDashboard={handleShowDashboard}
@@ -80,6 +114,8 @@ const App = () => {
               handleUpdateCustomRange={setCustomRange}
               maxResults={maxResults}
               setMaxResults={setMaxResults}
+              getSelectedForDeleteIndex={getSelectedForDeleteIndex}
+              handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
             />
           )}
           {showDashboard && <Dashboard />}

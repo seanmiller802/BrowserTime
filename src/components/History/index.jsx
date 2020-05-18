@@ -28,6 +28,8 @@ const History = ({
   handleUpdateCustomRange,
   maxResults,
   setMaxResults,
+  getSelectedForDeleteIndex,
+  handleUpdateSelectedForDelete,
 }) => {
   const classes = useStyles();
 
@@ -60,9 +62,13 @@ const History = ({
             setMaxResults={setMaxResults}
           />
         )}
-        {history.map((day, index) => {
-          return <HistoryList data={day} />;
-        })}
+        {history.map((day, index) => (
+          <HistoryList
+            data={day}
+            getSelectedForDeleteIndex={getSelectedForDeleteIndex}
+            handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
+          />
+        ))}
       </div>
     </Layout>
   ) : <div>empty</div>;
