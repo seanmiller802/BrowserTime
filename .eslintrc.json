@@ -1,6 +1,7 @@
 {
     "env": {
         "browser": true,
+        "node": true,
         "es6": true
     },
     "extends": [
@@ -8,6 +9,7 @@
         "airbnb"
     ],
     "globals": {
+        "chrome": "readonly",
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },

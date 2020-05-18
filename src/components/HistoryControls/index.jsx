@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DateFnsUtils from '@date-io/date-fns';
+import MomentUtils from '@date-io/moment';
 import { makeStyles } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import {
@@ -46,22 +46,24 @@ const HistoryControls = ({
 
   const maxResultOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
+  // receives a moment date from the picker
   const handleStartChange = (date) => {
-    console.log('DATE', date);
-    handleUpdateCustomRange({ ...customRange, start: date });
+    console.log('handleStartChange', date._d);
+    handleUpdateCustomRange({ ...customRange, start: date._d });
   };
 
+  // receives a moment date from the picker
   const handleEndChange = (date) => {
-    console.log('DATE', date);
-    handleUpdateCustomRange({ ...customRange, end: date });
+    console.log('handleEndChange', date._d);
+    handleUpdateCustomRange({ ...customRange, end: date._d });
   };
 
   const datePickers = isCustomRange ? (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider utils={MomentUtils}>
       <KeyboardDatePicker
         disableToolbar
         variant="inline"
-        format="MM/dd/yyyy"
+        format="MM/D/yyyy"
         margin="none"
         id="date-picker-start"
         label="Start Date"
@@ -78,7 +80,7 @@ const HistoryControls = ({
       <KeyboardDatePicker
         disableToolbar
         variant="inline"
-        format="MM/dd/yyyy"
+        format="MM/D/yyyy"
         margin="none"
         id="date-picker-end"
         label="End Date"

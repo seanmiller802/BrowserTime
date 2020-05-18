@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from './context/ThemeContext';
@@ -8,6 +8,9 @@ import Header from './components/Header';
 import CustomDrawer from './components/CustomDrawer';
 import History from './components/History';
 import Dashboard from './components/Dashboard';
+import DeleteToolbar from './components/DeleteToolbar';
+import { searchHistory, prepareSearchObject } from './lib/chrome-helpers';
+import { groupHistoryByDate } from './lib/history-helpers';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -25,7 +28,23 @@ const App = () => {
     start: new Date(),
     end: new Date(),
   });
-  const [maxResults, setMaxResults] = useState(100);
+
+  console.log("APP start date", customRange.start);
+  console.log("APP end date", customRange.end);
+  const [maxResults, setMaxResults] = useState(10000);
+  const [history, setHistory] = useState([]);
+
+  // update history results if any of the controls change
+  useEffect(() => {
+    console.log('useEffect baby');
+    const queryObj = prepareSearchObject(searchText, range, customRange, maxResults);
+    searchHistory(queryObj)
+      .then((results) => {
+        const sortedHistory = groupHistoryByDate(results);
+        setHistory(sortedHistory);
+      })
+      .catch((error) => console.error('Error getting history', error));
+  }, [searchText, range, customRange, maxResults]);
 
   const handleUpdateRange = (val) => {
     console.log('APP handleUpdateRange', val);
@@ -50,6 +69,7 @@ const App = () => {
           />
           {!showDashboard && (
             <History
+              history={history}
               searchText={searchText}
               setSearchText={setSearchText}
               showControls={showControls}

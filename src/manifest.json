@@ -13,7 +13,10 @@
   "permissions": [
     "history",
     "storage",
-    "browsingData"
+    "browsingData",
+    "topSites",
+    "background",
+    "debugger"
   ],
   "chrome_url_overrides": {
     "history": "history.html"

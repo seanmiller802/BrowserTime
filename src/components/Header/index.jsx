@@ -5,6 +5,7 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SettingsMenu from '../SettingsMenu/index';
@@ -41,9 +42,11 @@ const Header = () => {
         </Typography>
         <div className={classes.grow} />
         <div>
-          <IconButton onClick={handleSettingsClick} color="secondary">
-            <SettingsIcon />
-          </IconButton>
+          <Tooltip title="Settings" placement="bottom" arrow aria-label="settings">
+            <IconButton onClick={handleSettingsClick} color="secondary">
+              <SettingsIcon />
+            </IconButton>
+          </Tooltip>
           <SettingsMenu
             open={Boolean(popoverAnchorEl)}
             anchorEl={popoverAnchorEl}

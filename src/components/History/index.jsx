@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import Layout from '../Layout';
 import HistorySearch from '../HistorySearch';
 import HistoryControls from '../HistoryControls';
+import HistoryList from '../HistoryList';
 
 const useStyles = makeStyles((theme) => ({
   history: {
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const History = ({
+  history,
   searchText,
   setSearchText,
   showControls,
@@ -28,7 +30,10 @@ const History = ({
   setMaxResults,
 }) => {
   const classes = useStyles();
-  return (
+
+  // DO SOMETHING TO CHECK THAT WE HAVE ITEMS
+
+  return history.length > 0 ? (
     <Layout>
       <div className={classes.history}>
         <Grid
@@ -55,12 +60,19 @@ const History = ({
             setMaxResults={setMaxResults}
           />
         )}
+        {history.map((day, index) => {
+          return <HistoryList data={day} />;
+        })}
       </div>
     </Layout>
-  );
+  ) : <div>empty</div>;
 };
 
 History.propTypes = {
+  history: PropTypes.arrayOf(PropTypes.shape({
+    date: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired,
+  })).isRequired,
   searchText: PropTypes.string.isRequired,
   setSearchText: PropTypes.func.isRequired,
   showControls: PropTypes.bool.isRequired,

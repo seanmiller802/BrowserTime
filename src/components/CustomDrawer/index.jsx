@@ -17,7 +17,7 @@ import rangeMappings from '../../lib/rangeMappings';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -27,6 +27,10 @@ const useStyles = makeStyles(() => ({
   },
   drawerContainer: {
     overflow: 'auto',
+  },
+  dashboard: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 
@@ -50,14 +54,13 @@ const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
-        <List>
-          <ListItem button key="Dashboard" onClick={handleShowDashboard}>
-            <ListItemIcon>
-              <Dashboard />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-        </List>
+        <ListItem button alignItems="center" key="Dashboard" onClick={handleShowDashboard} className={classes.dashboard}>
+          <ListItemIcon>
+            <Dashboard />
+          </ListItemIcon>
+          <ListItemText primary="Dashboard" />
+          <Button variant="contained" color="primary" size="small">Pro</Button>
+        </ListItem>
         <Divider />
         <List>
           <ListSubheader>History</ListSubheader>

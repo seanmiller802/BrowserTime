@@ -1,0 +1,7 @@
+{
+  "presets": [
+      ["@babel/env"],
+      ["@babel/react", { "useBuiltIns": "usage" }]
+  ],
+  "plugins": ["react-hot-loader/babel"]
+}
