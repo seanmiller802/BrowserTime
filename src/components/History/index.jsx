@@ -62,7 +62,7 @@ const History = ({
             setMaxResults={setMaxResults}
           />
         )}
-        {history.map((day, index) => (
+        {history.map((day) => (
           <HistoryList
             data={day}
             getSelectedForDeleteIndex={getSelectedForDeleteIndex}
@@ -71,7 +71,11 @@ const History = ({
         ))}
       </div>
     </Layout>
-  ) : <div>empty</div>;
+  ) : (
+    <Layout>
+      <div>no history to display - add a cool image here</div>
+    </Layout>
+  );
 };
 
 History.propTypes = {
@@ -96,6 +100,8 @@ History.propTypes = {
   handleUpdateRange: PropTypes.func.isRequired,
   maxResults: PropTypes.number.isRequired,
   setMaxResults: PropTypes.func.isRequired,
+  getSelectedForDeleteIndex: PropTypes.func.isRequired,
+  handleUpdateSelectedForDelete: PropTypes.func.isRequired,
 };
 
 History.defaultProps = {

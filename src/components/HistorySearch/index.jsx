@@ -7,10 +7,12 @@ import {
   InputBase,
   IconButton,
   Divider,
+  Tooltip,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import WhatsHotIcon from '@material-ui/icons/Whatshot';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,11 +73,19 @@ const HistorySearch = ({
         showControls ? (
           <Button onClick={handleShowControls}>hide filters</Button>
         ) : (
-          <IconButton color="primary" className={classes.iconButton} onClick={handleShowControls} aria-label="directions">
-            <FilterListIcon />
-          </IconButton>
+          <Tooltip title="show filters" placement="bottom" arrow aria-label="filter">
+            <IconButton color="primary" className={classes.iconButton} onClick={handleShowControls} aria-label="directions">
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
         )
       }
+      <Divider className={classes.divider} orientation="vertical" />
+      <Tooltip title="delete all history" placement="bottom" arrow aria-label="delete">
+        <IconButton color="primary" className={classes.iconButton} onClick={() => {}} aria-label="directions">
+          <WhatsHotIcon />
+        </IconButton>
+      </Tooltip>
     </Paper>
   );
 };

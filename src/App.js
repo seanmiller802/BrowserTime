@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { CssBaseline } from '@material-ui/core';
 import { ThemeProvider } from './context/ThemeContext';
 import { SettingsProvider } from './context/SettingsContext';
 import Header from './components/Header';
@@ -9,7 +9,11 @@ import CustomDrawer from './components/CustomDrawer';
 import History from './components/History';
 import Dashboard from './components/Dashboard';
 import DeleteToolbar from './components/DeleteToolbar';
-import { searchHistory, prepareSearchObject } from './lib/chrome-helpers';
+import {
+  searchHistory,
+  prepareSearchObject,
+  deleteHistoryItems,
+} from './lib/chrome-helpers';
 import { groupHistoryByDate } from './lib/history-helpers';
 
 const useStyles = makeStyles(() => ({
@@ -32,11 +36,8 @@ const App = () => {
   const [maxResults, setMaxResults] = useState(1000);
   const [history, setHistory] = useState([]);
 
-  console.log('APP selectedForDelete', selectedForDelete);
-
   // update history results if any of the controls change
   useEffect(() => {
-    console.log('useEffect baby');
     const queryObj = prepareSearchObject(searchText, range, customRange, maxResults);
     searchHistory(queryObj)
       .then((results) => {
@@ -44,32 +45,31 @@ const App = () => {
         setHistory(sortedHistory);
       })
       .catch((error) => console.error('Error getting history', error));
-  }, [searchText, range, customRange, maxResults]);
+  }, [selectedForDelete, range, customRange, maxResults]);
 
   const handleUpdateRange = (val) => {
-    // console.log('APP handleUpdateRange', val);
     setShowDashboard(false);
     setRange(val);
   };
 
   const handleShowDashboard = () => {
-    // console.log('APP handleShowDashboard');
     setShowDashboard(true);
   };
 
   // use lastVisitTime to check if item already exists
   // since no two items should have the same value
-  const getSelectedForDeleteIndex = ({ lastVisitTime }) => {
-    return selectedForDelete.map((e) => e.lastVisitTime).indexOf(lastVisitTime);
-  };
+  const getSelectedForDeleteIndex = ({ lastVisitTime }) => selectedForDelete
+    .map((e) => e.lastVisitTime)
+    .indexOf(lastVisitTime);
 
   // remove item if already selected. add otherwise.
   const handleUpdateSelectedForDelete = (item) => {
     const index = getSelectedForDeleteIndex(item);
     let updated;
     if (index > -1) {
-      const remaining = Array.apply([], selectedForDelete).splice(index, 1);
-      setSelectedForDelete(remaining);
+      updated = Array.apply([], selectedForDelete);
+      updated.splice(index, 1);
+      setSelectedForDelete(updated);
     } else {
       updated = selectedForDelete.concat([item]);
       setSelectedForDelete(updated);
@@ -78,9 +78,16 @@ const App = () => {
 
   const handleDeleteItems = () => {
     console.log('handleDeleteItems');
-    // TODO - delete each item here
-    setSelectedForDelete([]);
+    deleteHistoryItems(selectedForDelete)
+      .then(() => setSelectedForDelete([]))
+      .catch((error) => console.error('Error deleting history items', error));
   };
+
+  // const handleDeleteAll = () => {
+  //   deleteAllHistory()
+  //     .then(() => console.log('deleted all history'))
+  //     .catch((error) => console.error('Error deleting history items', error));
+  // };
 
   const showDeleteToolbar = selectedForDelete.length > 0;
 
@@ -93,7 +100,7 @@ const App = () => {
             <DeleteToolbar
               count={selectedForDelete.length}
               cancel={() => setSelectedForDelete([])}
-              deleteItems={handleDeleteItems}
+              deleteItems={() => handleDeleteItems()}
             />
           )}
           {!showDeleteToolbar && <Header /> }

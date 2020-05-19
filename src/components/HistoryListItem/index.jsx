@@ -41,9 +41,7 @@ const HistoryListItem = ({ item, isChecked, handleUpdateSelectedForDelete }) => 
     id,
     title,
     lastVisitTime,
-    typedCount,
     url,
-    visitCount,
   } = item;
 
   const handleMenuClick = (e) => {
@@ -99,14 +97,21 @@ const HistoryListItem = ({ item, isChecked, handleUpdateSelectedForDelete }) => 
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleMenuClose}>More from this site</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Remove item</MenuItem>
+        <MenuItem onClick={handleMenuClose}>Remove From History</MenuItem>
       </Menu>
     </ListItem>
   );
 };
 
-// HistoryListItem.propTypes = {
-//   item: PropTypes.shape({}).isRequired,
-// };
+HistoryListItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    lastVisitTime: PropTypes.number.isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+  isChecked: PropTypes.bool.isRequired,
+  handleUpdateSelectedForDelete: PropTypes.func.isRequired,
+};
 
 export default HistoryListItem;

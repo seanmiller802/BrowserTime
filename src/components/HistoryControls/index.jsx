@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
 import MomentUtils from '@date-io/moment';
@@ -35,26 +36,17 @@ const HistoryControls = ({
   setMaxResults,
 }) => {
   const classes = useStyles();
-
-  // eslint-disable-next-line react/prop-types
   const { start, end } = customRange;
-
-  console.log('HISTORYSCONTROLS START is', start);
-  console.log('HISTORYSCONTROLS END is', end);
-
   const isCustomRange = range === 'Custom';
-
   const maxResultOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   // receives a moment date from the picker
   const handleStartChange = (date) => {
-    console.log('handleStartChange', date._d);
     handleUpdateCustomRange({ ...customRange, start: date._d });
   };
 
   // receives a moment date from the picker
   const handleEndChange = (date) => {
-    console.log('handleEndChange', date._d);
     handleUpdateCustomRange({ ...customRange, end: date._d });
   };
 

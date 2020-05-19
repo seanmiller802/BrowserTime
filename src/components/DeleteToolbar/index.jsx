@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -44,6 +44,12 @@ const DeleteToolbar = ({ count, cancel, deleteItems }) => {
       </Toolbar>
     </AppBar>
   );
+};
+
+DeleteToolbar.propTypes = {
+  count: PropTypes.number.isRequired,
+  cancel: PropTypes.func.isRequired,
+  deleteItems: PropTypes.func.isRequired,
 };
 
 export default DeleteToolbar;

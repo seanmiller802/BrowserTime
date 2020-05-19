@@ -39,7 +39,6 @@ const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
   const classes = useStyles();
 
   const handleHistoryItemSelect = (item, index) => {
-    console.log('CUSTOMDRAWER', item);
     setSelectedItem(index);
     handleUpdateRange(item.value);
   };

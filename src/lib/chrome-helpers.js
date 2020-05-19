@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import {
   getLastHour,
   getToday,
@@ -68,4 +69,29 @@ export const searchHistory = (queryObject) => new Promise((resolve, reject) => {
     if (error) reject(error);
     resolve(items);
   });
+});
+
+// uses the lastVisitTime of each item as the start and end time in order to delete 1 item at a time
+export const deleteHistoryItems = (itemsToDelete) => new Promise((resolve, reject) => {
+  try {
+    let startTime;
+    let endTime;
+    for (let i = 0; i < itemsToDelete.lenght; i++) {
+      startTime = itemsToDelete[i].lastVisitTime;
+      endTime = itemsToDelete[i].lastVisitTime;
+      chrome.history.deleteRange({ startTime, endTime }, () => console.log('deleted item'));
+    }
+    resolve();
+  } catch (error) {
+    reject(error);
+  }
+});
+
+// delete entire user history
+export const deleteAllHistory = () => new Promise((resolve, reject) => {
+  try {
+    chrome.history.deleteAll(() => resolve());
+  } catch (error) {
+    reject(error);
+  }
 });

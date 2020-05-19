@@ -27,7 +27,6 @@ const HistoryList = ({ data, getSelectedForDeleteIndex, handleUpdateSelectedForD
 
   const Row = ({ index, style }) => {
     const itemIsChecked = isChecked({ lastVisitTime: items[index].lastVisitTime });
-    console.log('Row item is checked', itemIsChecked);
     return (
       <HistoryListItem
         item={items[index]}
@@ -36,6 +35,11 @@ const HistoryList = ({ data, getSelectedForDeleteIndex, handleUpdateSelectedForD
         handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
       />
     );
+  };
+
+  Row.propTypes = {
+    index: PropTypes.number.isRequired,
+    style: PropTypes.shape({}).isRequired,
   };
 
   const title = moment(date).format('dddd, MMMM Do, Y');
@@ -72,12 +76,13 @@ const HistoryList = ({ data, getSelectedForDeleteIndex, handleUpdateSelectedForD
   );
 };
 
-// HistoryList.propTypes = {
-//   historyItems: PropTypes.oneOfType([
-//     PropTypes.arrayOf(PropTypes.object),
-//     PropTypes.array,
-//   ]).isRequired,
-//   title: PropTypes.string.isRequired,
-// };
+HistoryList.propTypes = {
+  data: PropTypes.shape({
+    date: PropTypes.instanceOf(Date),
+    items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  }).isRequired,
+  getSelectedForDeleteIndex: PropTypes.func.isRequired,
+  handleUpdateSelectedForDelete: PropTypes.func.isRequired,
+};
 
 export default HistoryList;
