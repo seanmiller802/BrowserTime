@@ -9,10 +9,12 @@ import CustomDrawer from './components/CustomDrawer';
 import History from './components/History';
 import Dashboard from './components/Dashboard';
 import DeleteToolbar from './components/DeleteToolbar';
+import ConfirmDeleteModal from './components/ConfirmDeleteModal';
 import {
   searchHistory,
   prepareSearchObject,
   deleteHistoryItems,
+  deleteAllHistory,
 } from './lib/chrome-helpers';
 import { groupHistoryByDate } from './lib/history-helpers';
 
@@ -25,6 +27,7 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
   const [selectedForDelete, setSelectedForDelete] = useState([]);
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [showControls, setShowControls] = useState(false);
@@ -83,11 +86,11 @@ const App = () => {
       .catch((error) => console.error('Error deleting history items', error));
   };
 
-  // const handleDeleteAll = () => {
-  //   deleteAllHistory()
-  //     .then(() => console.log('deleted all history'))
-  //     .catch((error) => console.error('Error deleting history items', error));
-  // };
+  const handleDeleteAll = () => {
+    deleteAllHistory()
+      .then(() => console.log('deleted all history'))
+      .catch((error) => console.error('Error deleting history items', error));
+  };
 
   const showDeleteToolbar = selectedForDelete.length > 0;
 
@@ -96,6 +99,11 @@ const App = () => {
       <SettingsProvider>
         <ThemeProvider>
           <CssBaseline />
+          <ConfirmDeleteModal
+            open={showConfirmDelete}
+            deleteAll={handleDeleteAll}
+            cancel={() => setShowConfirmDelete(false)}
+          />
           {showDeleteToolbar && (
             <DeleteToolbar
               count={selectedForDelete.length}
@@ -115,6 +123,7 @@ const App = () => {
               setSearchText={setSearchText}
               showControls={showControls}
               setShowControls={setShowControls}
+              handleDeleteAll={() => setShowConfirmDelete(true)}
               range={range}
               handleUpdateRange={handleUpdateRange}
               customRange={customRange}

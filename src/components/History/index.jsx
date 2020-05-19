@@ -22,6 +22,7 @@ const History = ({
   setSearchText,
   showControls,
   setShowControls,
+  handleDeleteAll,
   range,
   handleUpdateRange,
   customRange,
@@ -50,6 +51,7 @@ const History = ({
             onChange={setSearchText}
             showControls={showControls}
             handleShowControls={() => setShowControls(!showControls)}
+            handleDeleteAll={handleDeleteAll}
           />
         </Grid>
         {showControls && (
@@ -87,6 +89,7 @@ History.propTypes = {
   setSearchText: PropTypes.func.isRequired,
   showControls: PropTypes.bool.isRequired,
   setShowControls: PropTypes.func.isRequired,
+  handleDeleteAll: PropTypes.func.isRequired,
   range: PropTypes.oneOf([
     'Today',
     'Yesterday',

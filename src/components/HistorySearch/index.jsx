@@ -47,6 +47,7 @@ const HistorySearch = ({
   onChange,
   showControls,
   handleShowControls,
+  handleDeleteAll,
 }) => {
   const classes = useStyles();
   return (
@@ -82,7 +83,7 @@ const HistorySearch = ({
       }
       <Divider className={classes.divider} orientation="vertical" />
       <Tooltip title="delete all history" placement="bottom" arrow aria-label="delete">
-        <IconButton color="primary" className={classes.iconButton} onClick={() => {}} aria-label="directions">
+        <IconButton color="primary" className={classes.iconButton} onClick={handleDeleteAll} aria-label="directions">
           <WhatsHotIcon />
         </IconButton>
       </Tooltip>
@@ -97,6 +98,7 @@ HistorySearch.propTypes = {
   onChange: PropTypes.func.isRequired,
   showControls: PropTypes.bool.isRequired,
   handleShowControls: PropTypes.func.isRequired,
+  handleDeleteAll: PropTypes.func.isRequired,
 };
 
 HistorySearch.defaultProps = {
