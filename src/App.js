@@ -52,6 +52,9 @@ const App = () => {
 
   const handleUpdateRange = (val) => {
     setShowDashboard(false);
+    if (val === 'Custom') {
+      setShowControls(true);
+    }
     setRange(val);
   };
 
@@ -80,7 +83,6 @@ const App = () => {
   };
 
   const handleDeleteItems = () => {
-    console.log('handleDeleteItems');
     deleteHistoryItems(selectedForDelete)
       .then(() => setSelectedForDelete([]))
       .catch((error) => console.error('Error deleting history items', error));
