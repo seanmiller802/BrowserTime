@@ -20,10 +20,10 @@ const ConfirmDeleteModal = ({ open, cancel, deleteAll }) => (
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">Hey</DialogTitle>
+      <DialogTitle id="alert-dialog-slide-title">Hold up</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-          Do you really want to delete all your history?
+          Do you really want to delete all of your history?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
