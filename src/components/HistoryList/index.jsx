@@ -28,12 +28,13 @@ const HistoryList = ({ data, getSelectedForDeleteIndex, handleUpdateSelectedForD
   const Row = ({ index, style }) => {
     const itemIsChecked = isChecked({ lastVisitTime: items[index].lastVisitTime });
     return (
-      <HistoryListItem
-        item={items[index]}
-        style={style}
-        isChecked={itemIsChecked}
-        handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
-      />
+      <div style={style}>
+        <HistoryListItem
+          item={items[index]}
+          isChecked={itemIsChecked}
+          handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
+        />
+      </div>
     );
   };
 

@@ -36,7 +36,7 @@ const App = () => {
     start: new Date(),
     end: new Date(),
   });
-  const [maxResults, setMaxResults] = useState(1000);
+  const [maxResults, setMaxResults] = useState(100000);
   const [history, setHistory] = useState([]);
 
   // update history results if any of the controls change
