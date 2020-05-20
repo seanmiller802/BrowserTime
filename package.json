@@ -15,6 +15,7 @@
     "@date-io/moment": "1.x",
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.53",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.13",
     "dotenv": "^8.2.0",

@@ -41,10 +41,12 @@ const App = () => {
 
   // update history results if any of the controls change
   useEffect(() => {
-    const queryObj = prepareSearchObject(searchText, range, customRange, maxResults);
-    searchHistory(queryObj)
+    const searchParams = prepareSearchObject(searchText, range, customRange, maxResults);
+    searchHistory(searchParams)
       .then((results) => {
+        console.log('yolooo results', results);
         const sortedHistory = groupHistoryByDate(results);
+        console.log('yoloooooo', sortedHistory);
         setHistory(sortedHistory);
       })
       .catch((error) => console.error('Error getting history', error));
@@ -103,7 +105,7 @@ const App = () => {
           <CssBaseline />
           <ConfirmDeleteModal
             open={showConfirmDelete}
-            deleteAll={handleDeleteAll}
+            deleteAll={() => handleDeleteAll()}
             cancel={() => setShowConfirmDelete(false)}
           />
           {showDeleteToolbar && (

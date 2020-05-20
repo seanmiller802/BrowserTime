@@ -95,3 +95,15 @@ export const deleteAllHistory = () => new Promise((resolve, reject) => {
     reject(error);
   }
 });
+
+// // return info about the day's top site
+// export const getTodaysTopSite = () => new Promise((resolve, reject) => {
+//   try {
+//     searchHistory({ text: '', maxResults: 5000, range: 'Today' })
+//     .then((data) => {
+
+//     });
+//   } catch (error) {
+//     reject(error);
+//   }
+// });
