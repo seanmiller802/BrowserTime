@@ -54,7 +54,7 @@ const App = () => {
         setHistory(sortedHistory);
       })
       .catch((error) => console.error('App useEffect error getting history', error));
-  }, [selectedForDelete, range, customRange, maxResults]);
+  }, [selectedForDelete, searchText, range, customRange, maxResults]);
 
 
   const handleUpdateRange = (val) => {

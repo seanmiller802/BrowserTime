@@ -70,17 +70,17 @@ const HistoryListItem = ({ item, isSelectedForDelete, handleSelectedForDelete })
   const displayUrl = getDisplayUrl();
 
   return (
-    <ListItem key={id} className={classes.item} onClick={handleCheckbox} role={undefined}>
+    <ListItem key={id} className={classes.item} role="row">
       <ListItemIcon>
         <Checkbox
           edge="start"
           checked={isSelectedForDelete}
           onChange={handleCheckbox}
-          tabIndex={-1}
-          inputProps={{ 'aria-labelledby': labelId }}
+          tabIndex="0"
+          inputProps={{ 'aria-labelledby': labelId, role: 'checkbox' }}
         />
       </ListItemIcon>
-      <div className={classes.listItemText}>
+      <div className={classes.listItemText} onClick={handleCheckbox} onKeyDown={handleCheckbox} role="link" tabIndex="-1">
         <Tooltip title={time} placement="bottom" arrow aria-label="time">
           <Typography className={classes.itemTime} variant="body2" noWrap>{displayTime}</Typography>
         </Tooltip>

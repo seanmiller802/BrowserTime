@@ -13,6 +13,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import WhatsHotIcon from '@material-ui/icons/Whatshot';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,21 @@ const HistorySearch = ({
   handleDeleteAll,
 }) => {
   const classes = useStyles();
+  const [current, setCurrent] = useState(value);
+
+  let timeout = null;
+
+  // update the search text once user stops typing
+  const handleSearchChange = (val) => {
+    clearTimeout(timeout);
+    setCurrent(val);
+
+    // Make a new timeout set to go off in 1000ms (1 second)
+    timeout = setTimeout(() => {
+      onChange(val);
+    }, 1000);
+  };
+
   return (
     <Paper component="form" className={classes.root}>
       <IconButton className={classes.iconButton} disableRipple aria-label="search">
@@ -58,14 +74,14 @@ const HistorySearch = ({
       <InputBase
         autoFocus={autoFocus}
         placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={current}
+        onChange={(e) => handleSearchChange(e.target.value)}
         fullWidth
         className={classes.inputBase}
         inputProps={{ 'aria-label': 'search' }}
       />
       {value.length > 0 && (
-        <IconButton className={classes.iconButton} onClick={() => onChange('')} aria-label="clear">
+        <IconButton className={classes.iconButton} onClick={() => handleSearchChange('')} aria-label="clear">
           <CancelIcon />
         </IconButton>
       )}

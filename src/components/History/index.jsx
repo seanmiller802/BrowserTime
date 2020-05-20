@@ -33,8 +33,9 @@ const History = ({
   handleSelectedForDelete,
 }) => {
   const classes = useStyles();
+  const hasHistory = history.length > 0;
 
-  return history.length > 0 ? (
+  return hasHistory ? (
     <Layout>
       <div className={classes.history}>
         <Grid

@@ -64,7 +64,7 @@ const HistoryControls = ({
         onChange={handleStartChange}
         className={classes.datePicker}
         disableFuture
-        inputVariant="outlined"
+        inputVariant="filled"
         KeyboardButtonProps={{
           'aria-label': 'change date',
         }}
@@ -81,7 +81,7 @@ const HistoryControls = ({
         onChange={handleEndChange}
         className={classes.datePicker}
         disableFuture
-        inputVariant="outlined"
+        inputVariant="filled"
         KeyboardButtonProps={{
           'aria-label': 'change date',
         }}
@@ -97,7 +97,7 @@ const HistoryControls = ({
         alignItems="center"
         direction="row"
       >
-        <FormControl variant="outlined" size="small" className={classes.formControl}>
+        <FormControl variant="filled" size="small" className={classes.formControl}>
           <InputLabel id="time-range-select-outlined-label">Time Range</InputLabel>
           <Select
             labelId="time-range-select-label"
@@ -114,7 +114,7 @@ const HistoryControls = ({
           </Select>
         </FormControl>
         {datePickers}
-        <FormControl variant="outlined" size="small" className={classes.formControl}>
+        <FormControl variant="filled" size="small" className={classes.formControl}>
           <InputLabel id="max-results-select-outlined-label">Max results</InputLabel>
           <Select
             labelId="max-results-select-label"
