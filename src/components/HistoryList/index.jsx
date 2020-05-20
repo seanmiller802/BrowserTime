@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryList = ({ data, getSelectedForDeleteIndex, handleSelectedForDelete }) => {
+const HistoryList = ({ data, getSelectedForDeleteIndex, handleSelectedForDelete, searchText }) => {
   const classes = useStyles();
   const { date, items } = data;
 
@@ -43,7 +43,8 @@ const HistoryList = ({ data, getSelectedForDeleteIndex, handleSelectedForDelete 
   };
 
   const title = moment(date).format('dddd, MMMM Do, Y');
-  const subheader = `${items.length.toLocaleString()} results`;
+  const defaultSubheader = `${items.length.toLocaleString()} results`;
+  const subheader = searchText.length > 0 ? `${defaultSubheader} for '${searchText}'` : defaultSubheader;
 
   return (
     <Grid
@@ -83,6 +84,7 @@ HistoryList.propTypes = {
   }).isRequired,
   getSelectedForDeleteIndex: PropTypes.func.isRequired,
   handleSelectedForDelete: PropTypes.func.isRequired,
+  searchText: PropTypes.string.isRequired,
 };
 
 export default HistoryList;

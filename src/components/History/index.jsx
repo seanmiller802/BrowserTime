@@ -68,6 +68,7 @@ const History = ({
             data={day}
             getSelectedForDeleteIndex={getSelectedForDeleteIndex}
             handleSelectedForDelete={handleSelectedForDelete}
+            searchText={searchText}
           />
         ))}
       </div>
