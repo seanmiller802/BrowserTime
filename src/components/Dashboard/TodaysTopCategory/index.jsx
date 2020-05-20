@@ -11,7 +11,7 @@ const TodaysTopCategory = () => (
       <Typography color="textSecondary" gutterBottom>
         Today's top category
       </Typography>
-      <Typography variant="h5" component="h2">
+      <Typography variant="h4" component="h2">
         Social
       </Typography>
     </CardContent>

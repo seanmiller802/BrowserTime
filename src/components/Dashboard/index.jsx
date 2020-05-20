@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const searchParams = prepareSearchObject('', 'Seven', {}, 10000);
+    const searchParams = prepareSearchObject('', 'Today', {}, 1000);
     searchHistory(searchParams)
       .then((results) => {
         const sortedHistory = groupHistoryByDate(results);
@@ -64,7 +64,6 @@ const Dashboard = () => {
           </Grid>
         </Grid>
       )}
-      {!hasHistory && <div>fucking loading</div>}
     </Layout>
   );
 };

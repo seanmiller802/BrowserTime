@@ -16,7 +16,7 @@ const TodaysTopSite = ({ isLoading }) => {
         <Typography color="textSecondary" gutterBottom>
           Today's top site
         </Typography>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h4" component="h2">
           Youtube
         </Typography>
       </CardContent>

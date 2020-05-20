@@ -20,7 +20,7 @@ const TodaysTotalVisits = ({ getTotalPageVisits }) => {
         <Typography color="textSecondary" gutterBottom>
           Total page visits today
         </Typography>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h3" component="h2">
           {totals.today}
         </Typography>
       </CardContent>
