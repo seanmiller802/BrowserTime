@@ -6,14 +6,14 @@ import TodaysTotalVisits from './TodaysTotalVisits';
 import TodaysTopCategory from './TodaysTopCategory';
 import EstimatedTimeBrowsing from './EstimatedTimeBrowsing';
 import TopSitesCard from './TopSitesCard';
-import { prepareSearchObject, searchHistory } from '../../lib/chrome-helpers';
+import { getSearchParams, searchHistory } from '../../lib/chrome-helpers';
 import { groupHistoryByDate } from '../../lib/history-helpers';
 
 const Dashboard = () => {
   const [history, setHistory] = useState([]);
 
   useEffect(() => {
-    const searchParams = prepareSearchObject('', 'Today', {}, 1000);
+    const searchParams = getSearchParams('', 'Today', {}, 1000);
     searchHistory(searchParams)
       .then((results) => {
         const sortedHistory = groupHistoryByDate(results);

@@ -18,6 +18,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme) => ({
   item: {
     height: 50,
+    cursor: 'pointer',
   },
   listItemText: {
     display: 'flex',
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryListItem = ({ item, isChecked, handleUpdateSelectedForDelete }) => {
+const HistoryListItem = ({ item, isSelectedForDelete, handleSelectedForDelete }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -52,8 +53,9 @@ const HistoryListItem = ({ item, isChecked, handleUpdateSelectedForDelete }) => 
     setAnchorEl(null);
   };
 
+  // add to items selected for deletion
   const handleCheckbox = () => {
-    handleUpdateSelectedForDelete({ lastVisitTime, url });
+    handleSelectedForDelete({ lastVisitTime, url });
   };
 
   const getDisplayUrl = () => {
@@ -68,11 +70,11 @@ const HistoryListItem = ({ item, isChecked, handleUpdateSelectedForDelete }) => 
   const displayUrl = getDisplayUrl();
 
   return (
-    <ListItem key={id} className={classes.item} role={undefined}>
+    <ListItem key={id} className={classes.item} onClick={handleCheckbox} role={undefined}>
       <ListItemIcon>
         <Checkbox
           edge="start"
-          checked={isChecked}
+          checked={isSelectedForDelete}
           onChange={handleCheckbox}
           tabIndex={-1}
           inputProps={{ 'aria-labelledby': labelId }}
@@ -110,8 +112,8 @@ HistoryListItem.propTypes = {
     lastVisitTime: PropTypes.number.isRequired,
     url: PropTypes.string.isRequired,
   }).isRequired,
-  isChecked: PropTypes.bool.isRequired,
-  handleUpdateSelectedForDelete: PropTypes.func.isRequired,
+  isSelectedForDelete: PropTypes.bool.isRequired,
+  handleSelectedForDelete: PropTypes.func.isRequired,
 };
 
 export default HistoryListItem;

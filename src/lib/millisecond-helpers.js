@@ -20,18 +20,17 @@ export const getYesterday = () => {
   };
 };
 
-// return millisecond range of previous 7 days
+// return millisecond range of previous 7 days (including current day)
 export const getLastSeven = () => moment().startOf('day').valueOf() - (millisecondsPerDay * 6);
 
-// return millisecond range of previous 14 days
+// return millisecond range of previous 14 days (including current day)
 export const getLastFourteen = () => moment().startOf('day').valueOf() - (millisecondsPerDay * 13);
 
-// return millisecond range of previous 30 days
+// return millisecond range of previous 30 days (including current day)
 export const getLastThirty = () => moment().startOf('day').valueOf() - (millisecondsPerDay * 29);
 
 // return millisecond range for custom start and end
 export const getCustom = (startDate, endDate) => {
-  console.log('miilihelper getCustom', startDate, endDate);
   const start = moment(startDate).startOf('day').valueOf();
   const end = moment(endDate).endOf('day').valueOf();
   return { start, end };

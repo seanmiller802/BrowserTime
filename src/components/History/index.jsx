@@ -30,11 +30,9 @@ const History = ({
   maxResults,
   setMaxResults,
   getSelectedForDeleteIndex,
-  handleUpdateSelectedForDelete,
+  handleSelectedForDelete,
 }) => {
   const classes = useStyles();
-
-  // DO SOMETHING TO CHECK THAT WE HAVE ITEMS
 
   return history.length > 0 ? (
     <Layout>
@@ -68,7 +66,7 @@ const History = ({
           <HistoryList
             data={day}
             getSelectedForDeleteIndex={getSelectedForDeleteIndex}
-            handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
+            handleSelectedForDelete={handleSelectedForDelete}
           />
         ))}
       </div>
@@ -104,7 +102,7 @@ History.propTypes = {
   maxResults: PropTypes.number.isRequired,
   setMaxResults: PropTypes.func.isRequired,
   getSelectedForDeleteIndex: PropTypes.func.isRequired,
-  handleUpdateSelectedForDelete: PropTypes.func.isRequired,
+  handleSelectedForDelete: PropTypes.func.isRequired,
 };
 
 History.defaultProps = {

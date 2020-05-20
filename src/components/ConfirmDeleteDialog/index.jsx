@@ -1,16 +1,18 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
+import {
+  Slide,
+  Button,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+} from '@material-ui/core';
 
 const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const ConfirmDeleteModal = ({ open, cancel, deleteAll }) => (
+const ConfirmDeleteDialog = ({ open, cancel, deleteAll }) => (
   <div>
     <Dialog
       open={open}
@@ -22,9 +24,7 @@ const ConfirmDeleteModal = ({ open, cancel, deleteAll }) => (
     >
       <DialogTitle id="alert-dialog-slide-title">Hold up</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">
-          Do you really want to delete all of your history?
-        </DialogContentText>
+        <Typography variant="h4">Do you really want to delete all of your history?</Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={cancel} color="primary">
@@ -38,10 +38,10 @@ const ConfirmDeleteModal = ({ open, cancel, deleteAll }) => (
   </div>
 );
 
-ConfirmDeleteModal.propTypes = {
+ConfirmDeleteDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
   deleteAll: PropTypes.func.isRequired,
 };
 
-export default ConfirmDeleteModal;
+export default ConfirmDeleteDialog;

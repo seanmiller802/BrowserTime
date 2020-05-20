@@ -18,21 +18,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryList = ({ data, getSelectedForDeleteIndex, handleUpdateSelectedForDelete }) => {
+const HistoryList = ({ data, getSelectedForDeleteIndex, handleSelectedForDelete }) => {
   const classes = useStyles();
   const { date, items } = data;
-  console.log('HistoryList', data);
 
-  const isChecked = (val) => getSelectedForDeleteIndex(val) > -1;
+  const isSelectedForDelete = (val) => getSelectedForDeleteIndex(val) > -1;
 
   const Row = ({ index, style }) => {
-    const itemIsChecked = isChecked({ lastVisitTime: items[index].lastVisitTime });
+    const isSelected = isSelectedForDelete({ lastVisitTime: items[index].lastVisitTime });
     return (
       <div style={style}>
         <HistoryListItem
           item={items[index]}
-          isChecked={itemIsChecked}
-          handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
+          isSelectedForDelete={isSelected}
+          handleSelectedForDelete={handleSelectedForDelete}
         />
       </div>
     );
@@ -83,7 +82,7 @@ HistoryList.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   getSelectedForDeleteIndex: PropTypes.func.isRequired,
-  handleUpdateSelectedForDelete: PropTypes.func.isRequired,
+  handleSelectedForDelete: PropTypes.func.isRequired,
 };
 
 export default HistoryList;

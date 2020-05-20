@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dashboard, History, Delete } from '@material-ui/icons';
+import { Dashboard, History, Launch } from '@material-ui/icons';
 import {
   Toolbar,
   Divider,
@@ -34,14 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
-  const [selectedItem, setSelectedItem] = useState(1);
+const CustomDrawer = ({ range, handleUpdateRange, handleShowDashboard }) => {
   const classes = useStyles();
-
-  const handleHistoryItemSelect = (item, index) => {
-    setSelectedItem(index);
-    handleUpdateRange(item.value);
-  };
 
   return (
     <Drawer
@@ -63,21 +57,21 @@ const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
         <Divider />
         <List>
           <ListSubheader>History</ListSubheader>
-          {rangeMappings.map((item, index) => (
+          {rangeMappings.map((item) => (
             <ListItem
               button
-              onClick={() => handleHistoryItemSelect(item, index)}
+              onClick={() => handleUpdateRange(item.value)}
               key={item.value}
-              selected={selectedItem === index}
+              selected={item.value === range}
             >
-              {selectedItem === index && <ListItemIcon><History /></ListItemIcon>}
+              {item.value === range && <ListItemIcon><History /></ListItemIcon>}
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
         </List>
         <Divider />
         <ListItem key="clear">
-          <Button endIcon={<Delete />}>
+          <Button endIcon={<Launch />}>
             Clear browsing data
           </Button>
         </ListItem>
@@ -87,6 +81,7 @@ const CustomDrawer = ({ handleUpdateRange, handleShowDashboard }) => {
 };
 
 CustomDrawer.propTypes = {
+  range: PropTypes.string.isRequired,
   handleUpdateRange: PropTypes.func.isRequired,
   handleShowDashboard: PropTypes.func.isRequired,
 };

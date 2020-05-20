@@ -12,7 +12,7 @@ import { SettingsContext } from '../../context/SettingsContext';
 
 const useStyles = makeStyles(() => ({
   content: {
-    width: 300,
+    width: 350,
     margin: '8px 16px',
   },
 }));

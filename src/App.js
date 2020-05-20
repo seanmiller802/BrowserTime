@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,10 +10,10 @@ import CustomDrawer from './components/CustomDrawer';
 import History from './components/History';
 import Dashboard from './components/Dashboard';
 import DeleteToolbar from './components/DeleteToolbar';
-import ConfirmDeleteModal from './components/ConfirmDeleteModal';
+import ConfirmDeleteDialog from './components/ConfirmDeleteDialog';
 import {
   searchHistory,
-  prepareSearchObject,
+  getSearchParams,
   deleteHistoryItems,
   deleteAllHistory,
 } from './lib/chrome-helpers';
@@ -26,34 +27,39 @@ const useStyles = makeStyles(() => ({
 
 const App = () => {
   const classes = useStyles();
-  const [selectedForDelete, setSelectedForDelete] = useState([]);
-  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const [selectedForDelete, setSelectedForDelete] = useState([]); // history items currently selected for deletion
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false); // comfirmation dialog when deleting all history
   const [showDashboard, setShowDashboard] = useState(false);
+  const [showControls, setShowControls] = useState(false); // show filter controls
+
+  // history search values
   const [searchText, setSearchText] = useState('');
-  const [showControls, setShowControls] = useState(false);
   const [range, setRange] = useState('Today');
   const [customRange, setCustomRange] = useState({
     start: new Date(),
     end: new Date(),
   });
   const [maxResults, setMaxResults] = useState(100000);
+
+
   const [history, setHistory] = useState([]);
 
   // update history results if any of the controls change
   useEffect(() => {
-    const searchParams = prepareSearchObject(searchText, range, customRange, maxResults);
+    const searchParams = getSearchParams(searchText, range, customRange, maxResults);
     searchHistory(searchParams)
       .then((results) => {
-        console.log('yolooo results', results);
         const sortedHistory = groupHistoryByDate(results);
-        console.log('yoloooooo', sortedHistory);
+        console.log('App useEffect sorted history', sortedHistory);
         setHistory(sortedHistory);
       })
-      .catch((error) => console.error('Error getting history', error));
+      .catch((error) => console.error('App useEffect error getting history', error));
   }, [selectedForDelete, range, customRange, maxResults]);
+
 
   const handleUpdateRange = (val) => {
     setShowDashboard(false);
+    // always show filter controls when custom range is selected
     if (val === 'Custom') {
       setShowControls(true);
     }
@@ -64,14 +70,14 @@ const App = () => {
     setShowDashboard(true);
   };
 
-  // use lastVisitTime to check if item already exists
-  // since no two items should have the same value
+  // use lastVisitTime to check if an item is selected for deletion
+  // PRETTY sure no two items should ever have the same value
   const getSelectedForDeleteIndex = ({ lastVisitTime }) => selectedForDelete
     .map((e) => e.lastVisitTime)
     .indexOf(lastVisitTime);
 
   // remove item if already selected. add otherwise.
-  const handleUpdateSelectedForDelete = (item) => {
+  const handleSelectedForDelete = (item) => {
     const index = getSelectedForDeleteIndex(item);
     let updated;
     if (index > -1) {
@@ -84,12 +90,14 @@ const App = () => {
     }
   };
 
+  // delete selected items
   const handleDeleteItems = () => {
     deleteHistoryItems(selectedForDelete)
       .then(() => setSelectedForDelete([]))
       .catch((error) => console.error('Error deleting history items', error));
   };
 
+  // delete entire history
   const handleDeleteAll = () => {
     deleteAllHistory()
       .then(() => console.log('deleted all history'))
@@ -103,7 +111,7 @@ const App = () => {
       <SettingsProvider>
         <ThemeProvider>
           <CssBaseline />
-          <ConfirmDeleteModal
+          <ConfirmDeleteDialog
             open={showConfirmDelete}
             deleteAll={() => handleDeleteAll()}
             cancel={() => setShowConfirmDelete(false)}
@@ -117,6 +125,7 @@ const App = () => {
           )}
           {!showDeleteToolbar && <Header /> }
           <CustomDrawer
+            range={range}
             handleUpdateRange={handleUpdateRange}
             handleShowDashboard={handleShowDashboard}
           />
@@ -135,7 +144,7 @@ const App = () => {
               maxResults={maxResults}
               setMaxResults={setMaxResults}
               getSelectedForDeleteIndex={getSelectedForDeleteIndex}
-              handleUpdateSelectedForDelete={handleUpdateSelectedForDelete}
+              handleSelectedForDelete={handleSelectedForDelete}
             />
           )}
           {showDashboard && <Dashboard />}

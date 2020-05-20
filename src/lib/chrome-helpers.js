@@ -1,4 +1,5 @@
 /* eslint-disable no-plusplus */
+// See https://developer.chrome.com/extensions/history
 import {
   getLastHour,
   getToday,
@@ -9,7 +10,8 @@ import {
   getCustom,
 } from './millisecond-helpers';
 
-export const prepareSearchObject = (
+// return the history search parmaters
+export const getSearchParams = (
   searchText,
   range,
   customRange,
@@ -20,8 +22,7 @@ export const prepareSearchObject = (
   let yesterday;
   let custom;
 
-  // use millisecond helper fns to get our start and end milliseconds.
-  // use default for custom range
+  // use millisecond helper fns to get start and end milliseconds
   switch (range) {
     case 'Hour':
       start = getLastHour();
@@ -49,17 +50,17 @@ export const prepareSearchObject = (
       end = custom.end;
   }
 
-  const searchObject = {
+  const searchParams = {
     text: searchText,
     maxResults,
     startTime: start,
   };
 
   if (end) {
-    searchObject.endTime = end;
+    searchParams.endTime = end;
   }
 
-  return searchObject;
+  return searchParams;
 };
 
 export const searchHistory = (queryObject) => new Promise((resolve, reject) => {
@@ -95,15 +96,3 @@ export const deleteAllHistory = () => new Promise((resolve, reject) => {
     reject(error);
   }
 });
-
-// // return info about the day's top site
-// export const getTodaysTopSite = () => new Promise((resolve, reject) => {
-//   try {
-//     searchHistory({ text: '', maxResults: 5000, range: 'Today' })
-//     .then((data) => {
-
-//     });
-//   } catch (error) {
-//     reject(error);
-//   }
-// });
