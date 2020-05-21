@@ -34,8 +34,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomDrawer = ({ range, handleUpdateRange, handleShowDashboard }) => {
+const CustomDrawer = ({
+  range,
+  handleUpdateRange,
+  handleShowDashboard,
+}) => {
   const classes = useStyles();
+
+  const openBrowserSettings = () => {
+    // chrome.tabs.create({ url: 'http://brave://settings/clearBrowserData' });
+    window.open('http://brave://settings/clearBrowserData');
+  };
 
   return (
     <Drawer
@@ -70,7 +79,7 @@ const CustomDrawer = ({ range, handleUpdateRange, handleShowDashboard }) => {
           ))}
         </List>
         <Divider />
-        <ListItem key="clear">
+        <ListItem key="clear" onClick={openBrowserSettings}>
           <Button endIcon={<Launch />}>
             Clear browsing data
           </Button>
