@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -50,7 +50,7 @@ const HistorySearch = ({
   handleDeleteAll,
 }) => {
   const classes = useStyles();
-  const [current, setCurrent] = useState(value);
+  const [current, setCurrent] = useState('');
 
   let timeout = null;
 

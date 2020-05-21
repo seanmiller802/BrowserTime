@@ -35,7 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryListItem = ({ item, isSelectedForDelete, handleSelectedForDelete }) => {
+const HistoryListItem = ({
+  item,
+  isSelectedForDelete,
+  handleSelectedForDelete,
+  handleMoreFromThisSite,
+}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const {
@@ -69,6 +74,11 @@ const HistoryListItem = ({ item, isSelectedForDelete, handleSelectedForDelete })
   const displayTime = moment(lastVisitTime).format('h:mm A');
   const displayUrl = getDisplayUrl();
 
+  const handleMore = () => {
+    handleMoreFromThisSite(displayUrl);
+    handleMenuClose(null);
+  };
+
   return (
     <ListItem key={id} className={classes.item} role="row">
       <ListItemIcon>
@@ -98,7 +108,7 @@ const HistoryListItem = ({ item, isSelectedForDelete, handleSelectedForDelete })
         onClose={handleMenuClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleMenuClose}>More from this site</MenuItem>
+        <MenuItem onClick={handleMore}>More from this site</MenuItem>
         <MenuItem onClick={handleMenuClose}>Remove From History</MenuItem>
       </Menu>
     </ListItem>
@@ -114,6 +124,7 @@ HistoryListItem.propTypes = {
   }).isRequired,
   isSelectedForDelete: PropTypes.bool.isRequired,
   handleSelectedForDelete: PropTypes.func.isRequired,
+  handleMoreFromThisSite: PropTypes.func.isRequired,
 };
 
 export default HistoryListItem;

@@ -31,6 +31,7 @@ const History = ({
   setMaxResults,
   getSelectedForDeleteIndex,
   handleSelectedForDelete,
+  handleMoreFromThisSite,
 }) => {
   const classes = useStyles();
   const hasHistory = history.length > 0;
@@ -69,6 +70,7 @@ const History = ({
             getSelectedForDeleteIndex={getSelectedForDeleteIndex}
             handleSelectedForDelete={handleSelectedForDelete}
             searchText={searchText}
+            handleMoreFromThisSite={handleMoreFromThisSite}
           />
         ))}
       </div>
@@ -105,6 +107,7 @@ History.propTypes = {
   setMaxResults: PropTypes.func.isRequired,
   getSelectedForDeleteIndex: PropTypes.func.isRequired,
   handleSelectedForDelete: PropTypes.func.isRequired,
+  handleMoreFromThisSite: PropTypes.func.isRequired,
 };
 
 History.defaultProps = {

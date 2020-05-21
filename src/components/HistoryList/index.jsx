@@ -23,6 +23,7 @@ const HistoryList = ({
   getSelectedForDeleteIndex,
   handleSelectedForDelete,
   searchText,
+  handleMoreFromThisSite,
 }) => {
   const classes = useStyles();
   const { date, items } = data;
@@ -37,6 +38,7 @@ const HistoryList = ({
           item={items[index]}
           isSelectedForDelete={isSelected}
           handleSelectedForDelete={handleSelectedForDelete}
+          handleMoreFromThisSite={handleMoreFromThisSite}
         />
       </div>
     );
@@ -90,6 +92,7 @@ HistoryList.propTypes = {
   getSelectedForDeleteIndex: PropTypes.func.isRequired,
   handleSelectedForDelete: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
+  handleMoreFromThisSite: PropTypes.func.isRequired,
 };
 
 export default HistoryList;

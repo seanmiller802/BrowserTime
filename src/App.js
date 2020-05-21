@@ -104,6 +104,11 @@ const App = () => {
       .catch((error) => console.error('Error deleting history items', error));
   };
 
+  const handleMoreFromThisSite = (text) => {
+    setSearchText(text);
+    setShowControls(true);
+  };
+
   const showDeleteToolbar = selectedForDelete.length > 0;
 
   return (
@@ -145,6 +150,7 @@ const App = () => {
               setMaxResults={setMaxResults}
               getSelectedForDeleteIndex={getSelectedForDeleteIndex}
               handleSelectedForDelete={handleSelectedForDelete}
+              handleMoreFromThisSite={handleMoreFromThisSite}
             />
           )}
           {showDashboard && <Dashboard />}

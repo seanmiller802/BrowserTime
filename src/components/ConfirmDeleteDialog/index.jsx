@@ -27,10 +27,10 @@ const ConfirmDeleteDialog = ({ open, cancel, deleteAll }) => (
         <Typography variant="h4">Do you really want to delete all of your history?</Typography>
       </DialogContent>
       <DialogActions>
-        <Button onClick={cancel} color="primary">
+        <Button onClick={cancel}>
           Cancel
         </Button>
-        <Button onClick={deleteAll} color="primary">
+        <Button onClick={deleteAll}>
           Confirm
         </Button>
       </DialogActions>
