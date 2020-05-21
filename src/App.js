@@ -39,7 +39,7 @@ const App = () => {
     start: new Date(),
     end: new Date(),
   });
-  const [maxResults, setMaxResults] = useState(100000);
+  const [maxResults, setMaxResults] = useState(10000);
 
 
   const [history, setHistory] = useState([]);

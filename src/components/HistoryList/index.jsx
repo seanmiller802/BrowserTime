@@ -18,7 +18,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HistoryList = ({ data, getSelectedForDeleteIndex, handleSelectedForDelete, searchText }) => {
+const HistoryList = ({
+  data,
+  getSelectedForDeleteIndex,
+  handleSelectedForDelete,
+  searchText,
+}) => {
   const classes = useStyles();
   const { date, items } = data;
 

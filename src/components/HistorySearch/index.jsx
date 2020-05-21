@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,7 +13,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import WhatsHotIcon from '@material-ui/icons/Whatshot';
-import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {

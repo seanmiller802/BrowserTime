@@ -13,6 +13,7 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import rangeMappings from '../../lib/rangeMappings';
+import maxResultsMapping from '../../lib/maxResultsMapping';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -38,7 +39,6 @@ const HistoryControls = ({
   const classes = useStyles();
   const { start, end } = customRange;
   const isCustomRange = range === 'Custom';
-  const maxResultOptions = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
   // receives a moment date from the picker
   const handleStartChange = (date) => {
@@ -123,9 +123,9 @@ const HistoryControls = ({
             onChange={(e) => setMaxResults(e.target.value)}
             label="Max results"
           >
-            {maxResultOptions.map((value) => (
+            {maxResultsMapping.map(({ value, text }) => (
               <MenuItem value={value}>
-                {value}
+                {text}
               </MenuItem>
             ))}
           </Select>
@@ -151,7 +151,14 @@ HistoryControls.propTypes = {
   }).isRequired,
   handleUpdateCustomRange: PropTypes.func.isRequired,
   handleUpdateRange: PropTypes.func.isRequired,
-  maxResults: PropTypes.number.isRequired,
+  maxResults: PropTypes.oneOf([
+    10,
+    100,
+    1000,
+    10000,
+    50000,
+    100000,
+  ]).isRequired,
   setMaxResults: PropTypes.func.isRequired,
 };
 
