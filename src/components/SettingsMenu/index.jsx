@@ -10,6 +10,8 @@ import {
 import { THEMES } from '../../lib/constants';
 import { SettingsContext } from '../../context/SettingsContext';
 
+console.log("THEMES bruh", THEMES);
+
 const useStyles = makeStyles(() => ({
   content: {
     width: 350,
@@ -56,9 +58,14 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           fullWidth
           onChange={handleThemeChange}
         >
-          {Object.keys(THEMES).map((theme) => (
+          {Object.keys(THEMES.free).map((theme) => (
             <MenuItem key={theme} value={theme}>
               {theme}
+            </MenuItem>
+          ))}
+          {Object.keys(THEMES.premium).map((theme) => (
+            <MenuItem key={theme} value={theme}>
+              {`${theme} (premium)`}
             </MenuItem>
           ))}
         </TextField>

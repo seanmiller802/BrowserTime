@@ -1,6 +1,12 @@
 /* eslint-disable import/prefer-default-export */
 export const THEMES = {
-  LIGHT: 'LIGHT',
-  DARK: 'DARK',
-  NIGHT: 'NIGHT',
+  free: {
+    LIGHT: 'LIGHT',
+    DARK: 'DARK',
+    BLACK: 'BLACK',
+  },
+  premium: {
+    SNOW: 'SNOW',
+    NIGHT: 'NIGHT',
+  },
 };

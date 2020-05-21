@@ -26,9 +26,77 @@ const baseConfig = {
   },
 };
 
-const themeConfigs = [
+const premiumThemeConfigs = [
   {
-    name: THEMES.LIGHT,
+    name: THEMES.premium.SNOW,
+    overrides: {
+      MuiInputBase: {
+        input: {
+          '&::placeholder': {
+            opacity: 1,
+            color: colors.blueGrey[600],
+          },
+        },
+      },
+    },
+    palette: {
+      type: 'light',
+      action: {
+        active: colors.blueGrey[600],
+      },
+      background: {
+        default: '#F5F5F5',
+        dark: '#EEEEEE',
+        paper: '#F5F5F5',
+      },
+      primary: {
+        main: colors.indigo[400],
+      },
+      secondary: {
+        main: '#5850EC',
+      },
+      text: {
+        primary: colors.blueGrey[900],
+        secondary: colors.blueGrey[600],
+      },
+    },
+    shadows: softShadows,
+  },
+  {
+    name: THEMES.premium.NIGHT,
+    palette: {
+      type: 'dark',
+      action: {
+        active: 'rgba(255, 255, 255, 0.54)',
+        hover: 'rgba(255, 255, 255, 0.04)',
+        selected: 'rgba(255, 255, 255, 0.08)',
+        disabled: 'rgba(255, 255, 255, 0.26)',
+        disabledBackground: 'rgba(255, 255, 255, 0.12)',
+        focus: 'rgba(255, 255, 255, 0.12)',
+      },
+      background: {
+        default: '#2a2d3d',
+        dark: '#222431',
+        paper: '#2a2d3d',
+      },
+      primary: {
+        main: '#a67dff',
+      },
+      secondary: {
+        main: '#a67dff',
+      },
+      text: {
+        primary: '#f6f5f8',
+        secondary: '#9699a4',
+      },
+    },
+    shadows: strongShadows,
+  },
+];
+
+const freeThemeConfigs = [
+  {
+    name: THEMES.free.LIGHT,
     overrides: {
       MuiInputBase: {
         input: {
@@ -53,8 +121,7 @@ const themeConfigs = [
         main: colors.indigo[600],
       },
       secondary: {
-        // main: '#5850EC',
-        main: '#ffffff',
+        main: '#5850EC',
       },
       text: {
         primary: colors.blueGrey[900],
@@ -64,7 +131,7 @@ const themeConfigs = [
     shadows: softShadows,
   },
   {
-    name: THEMES.DARK,
+    name: THEMES.free.DARK,
     palette: {
       type: 'dark',
       action: {
@@ -84,8 +151,7 @@ const themeConfigs = [
         main: '#8a85ff',
       },
       secondary: {
-        // main: '#8a85ff',
-        main: '#ffffff',
+        main: '#8a85ff',
       },
       text: {
         primary: '#e6e5e8',
@@ -95,37 +161,31 @@ const themeConfigs = [
     shadows: strongShadows,
   },
   {
-    name: THEMES.NIGHT,
+    name: THEMES.free.BLACK,
     palette: {
       type: 'dark',
-      action: {
-        active: 'rgba(255, 255, 255, 0.54)',
-        hover: 'rgba(255, 255, 255, 0.04)',
-        selected: 'rgba(255, 255, 255, 0.08)',
-        disabled: 'rgba(255, 255, 255, 0.26)',
-        disabledBackground: 'rgba(255, 255, 255, 0.12)',
-        focus: 'rgba(255, 255, 255, 0.12)',
-      },
       background: {
-        default: '#2a2d3d',
-        dark: '#222431',
-        paper: '#2a2d3d',
+        default: '#000000',
+        dark: '#000000',
+        paper: '#000000',
       },
       primary: {
-        main: '#a67dff',
+        main: '#FFFFFF',
       },
       secondary: {
-        // main: '#a67dff',
-        main: '#ffffff',
+        main: '#000000',
       },
       text: {
-        primary: '#f6f5f8',
-        secondary: '#9699a4',
+        primary: '#e6e5e8',
+        secondary: '#adb0bb',
       },
     },
     shadows: strongShadows,
   },
 ];
+
+const themeConfigs = [...freeThemeConfigs, ...premiumThemeConfigs];
+console.log("GAHHHHHh", themeConfigs);
 
 // eslint-disable-next-line import/prefer-default-export
 export function createTheme(mode) {

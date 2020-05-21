@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
@@ -9,11 +9,13 @@ import {
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import SettingsMenu from '../SettingsMenu/index';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
+  appBar: (props) => ({
     zIndex: theme.zIndex.drawer + 1,
-  },
+    backgroundColor: props.backgroundColor,
+  }),
   grow: {
     flexGrow: 1,
   },
@@ -24,7 +26,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
-  const classes = useStyles();
+  const currentTheme = useContext(ThemeContext);
+  console.log('current theme', currentTheme);
+  let props;
+  if (currentTheme.palette.type === 'dark') {
+    props = { backgroundColor: currentTheme.palette.background.default, color: 'white' };
+  } else {
+    props = { backgroundColor: currentTheme.palette.primary, color: 'white' };
+  }
+  const classes = useStyles(props);
 
   const handleSettingsClick = (e) => {
     setPopoverAnchorEl(e.currentTarget);
