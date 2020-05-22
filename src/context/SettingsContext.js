@@ -9,6 +9,7 @@ import { settingsReducer } from '../reducers/settingsReducer';
 
 const initialSettingsState = {
   theme: THEMES.free.DARK,
+  showResultsCount: true,
 };
 
 export const SettingsContext = createContext(initialSettingsState);

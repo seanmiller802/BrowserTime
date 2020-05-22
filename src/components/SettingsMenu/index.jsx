@@ -12,6 +12,11 @@ import {
   MenuItem,
   ListSubheader,
   ListItemText,
+  Switch,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  FormGroup,
 } from '@material-ui/core';
 import { THEMES } from '../../lib/constants';
 import { SettingsContext } from '../../context/SettingsContext';
@@ -35,7 +40,14 @@ const useStyles = makeStyles((theme) => ({
   settings: {
     marginTop: theme.spacing(2),
   },
+  formControl: {
+    marginTop: theme.spacing(2),
+  },
+  formLabel: {
+    marginBottom: theme.spacing(2),
+  },
   root: {
+    maringBottom: 10,
     padding: '2px 8px',
     display: 'flex',
     alignItems: 'center',
@@ -71,6 +83,10 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
     updateSettings(e.target.name, e.target.value);
   };
 
+  const handleShowResultsCountChange = (e) => {
+    updateSettings(e.target.name, !settingsState.showResultsCount);
+  };
+
   const id = open ? 'settings-popover' : undefined;
 
   return (
@@ -91,7 +107,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
       <div className={classes.content}>
         <Typography variant="h4" align="left">Settings</Typography>
         <div className={classes.settings}>
-          <Typography variant="caption" className={classes.label}>Theme</Typography>
+          <FormLabel component="legend" className={classes.formLabel}>Theme</FormLabel>
           <Paper component="form" className={classes.root}>
             <IconButton className={classes.iconButton} disableRipple disableFocusRipple size="small" aria-label="search">
               <span className={classes.themeSamplePrimary} />
@@ -120,6 +136,15 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
               ))}
             </Select>
           </Paper>
+          <FormControl component="fieldset" className={classes.formControl}>
+            <FormLabel component="legend" className={classes.formLabel}>History</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                control={<Switch checked={settingsState.showResultsCount} onChange={handleShowResultsCountChange} name="showResultsCount" />}
+                label="Show results count"
+              />
+            </FormGroup>
+          </FormControl>
         </div>
       </div>
     </Popover>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { FixedSizeList as List } from 'react-window';
@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import HistoryListItem from '../HistoryListItem';
+import { SettingsContext } from '../../context/SettingsContext';
 
 const useStyles = makeStyles((theme) => ({
   historyListGrid: {
@@ -26,6 +27,7 @@ const HistoryList = ({
   handleMoreFromThisSite,
 }) => {
   const classes = useStyles();
+  const { settingsState } = useContext(SettingsContext);
   const { date, items } = data;
 
   const isSelectedForDelete = (val) => getSelectedForDeleteIndex(val) > -1;
@@ -50,6 +52,7 @@ const HistoryList = ({
   };
 
   const title = moment(date).format('dddd, MMMM Do, Y');
+  const showSubheader = settingsState.showResultsCount;
   const defaultSubheader = `${items.length.toLocaleString()} results`;
   const subheader = searchText.length > 0 ? `${defaultSubheader} for '${searchText}'` : defaultSubheader;
 
@@ -63,7 +66,7 @@ const HistoryList = ({
       <Card>
         <CardHeader
           title={title}
-          subheader={subheader}
+          subheader={showSubheader ? subheader : null}
           titleTypographyProps={{
             variant: 'h5',
           }}
