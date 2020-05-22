@@ -63,6 +63,41 @@ const premiumThemeConfigs = [
     shadows: softShadows,
   },
   {
+    name: THEMES.premium.NOON,
+    overrides: {
+      MuiInputBase: {
+        input: {
+          '&::placeholder': {
+            opacity: 1,
+            color: colors.blueGrey[600],
+          },
+        },
+      },
+    },
+    palette: {
+      type: 'light',
+      action: {
+        active: colors.blueGrey[600],
+      },
+      background: {
+        default: '#F5F5F5',
+        dark: '#EEEEEE',
+        paper: '#F5F5F5',
+      },
+      primary: {
+        main: '#ff9e43',
+      },
+      secondary: {
+        main: '#5850EC',
+      },
+      text: {
+        primary: colors.blueGrey[900],
+        secondary: colors.blueGrey[600],
+      },
+    },
+    shadows: softShadows,
+  },
+  {
     name: THEMES.premium.BLACK,
     palette: {
       type: 'dark',

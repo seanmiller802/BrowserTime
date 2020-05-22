@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const currentTheme = useContext(ThemeContext);
-  console.log('current theme', currentTheme);
 
   let themeProps;
   if (currentTheme.palette.type === 'dark') {

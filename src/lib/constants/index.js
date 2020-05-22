@@ -8,5 +8,6 @@ export const THEMES = {
     SNOW: 'SNOW',
     BLACK: 'BLACK',
     NIGHT: 'NIGHT',
+    NOON: 'NOON',
   },
 };
