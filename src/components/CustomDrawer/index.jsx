@@ -57,15 +57,17 @@ const CustomDrawer = ({
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
-        <ListItem button alignItems="center" key="Dashboard" onClick={handleShowDashboard} className={classes.dashboard}>
-          <ListItemIcon>
-            <Dashboard />
-          </ListItemIcon>
-          <ListItemText primary="Dashboard" />
-          <Button variant="contained" color="primary" size="small">Pro</Button>
-        </ListItem>
-        <Divider />
         <List>
+          <ListSubheader>
+            Insights
+            <Button variant="contained" color="primary" size="small">Pro</Button>
+          </ListSubheader>
+          <ListItem button alignItems="center" key="Dashboard" onClick={handleShowDashboard} className={classes.dashboard}>
+            <ListItemIcon>
+              <Dashboard />
+            </ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
           <ListSubheader>History</ListSubheader>
           {rangeMappings.map((item) => (
             <ListItem

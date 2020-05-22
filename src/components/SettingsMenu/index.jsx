@@ -5,6 +5,7 @@ import {
   Popover,
   Typography,
   IconButton,
+  Button,
   Divider,
   Paper,
   InputBase,
@@ -51,6 +52,13 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px 8px',
     display: 'flex',
     alignItems: 'center',
+  },
+  accountType: {
+    padding: '10px 8px',
+    marginBottom: theme.spacing(2),
+  },
+  upgradeBtn: {
+    marginLeft: theme.spacing(2),
   },
   iconButton: {
     '&:hover': {
@@ -107,6 +115,11 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
       <div className={classes.content}>
         <Typography variant="h4" align="left">Settings</Typography>
         <div className={classes.settings}>
+          <FormLabel component="legend" className={classes.formLabel}>Account Type</FormLabel>
+          <Paper component="form" className={`${classes.root} ${classes.accountType}`}>
+            <Typography variant="h5">{settingsState.accountType}</Typography>
+            <Button variant="outlined" size="small" className={classes.upgradeBtn}>Upgrade to Pro</Button>
+          </Paper>
           <FormLabel component="legend" className={classes.formLabel}>Theme</FormLabel>
           <Paper component="form" className={classes.root}>
             <IconButton className={classes.iconButton} disableRipple disableFocusRipple size="small" aria-label="search">

@@ -52,8 +52,8 @@ const Header = () => {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <Typography variant="h6" noWrap>
-          Browser Time
+        <Typography variant="h5" noWrap>
+          History
         </Typography>
         <div className={classes.grow} />
         <div>

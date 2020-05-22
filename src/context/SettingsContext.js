@@ -8,6 +8,7 @@ import { THEMES } from '../lib/constants';
 import { settingsReducer } from '../reducers/settingsReducer';
 
 const initialSettingsState = {
+  accountType: 'Basic',
   theme: THEMES.free.DARK,
   showResultsCount: true,
 };
