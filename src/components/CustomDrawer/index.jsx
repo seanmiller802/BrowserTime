@@ -43,7 +43,8 @@ const CustomDrawer = ({
 
   const openBrowserSettings = () => {
     // chrome.tabs.create({ url: 'http://brave://settings/clearBrowserData' });
-    window.open('http://brave://settings/clearBrowserData');
+    // console.log(window);
+    // window.location.assign('brave://settings/clearBrowserData');
   };
 
   return (

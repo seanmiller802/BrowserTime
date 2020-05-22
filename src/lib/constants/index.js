@@ -5,9 +5,11 @@ export const THEMES = {
     DARK: 'DARK',
   },
   premium: {
-    SNOW: 'SNOW',
-    BLACK: 'BLACK',
+    POLAR: 'POLAR',
+    NINJA: 'NINJA',
     NIGHT: 'NIGHT',
-    NOON: 'NOON',
+    FIZZ: 'FIZZ',
+    HONEYCOMB: 'HONEYCOMB',
+    GUNMETAL: 'GUNMETAL',
   },
 };

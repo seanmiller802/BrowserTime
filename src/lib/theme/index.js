@@ -28,7 +28,7 @@ const baseConfig = {
 
 const premiumThemeConfigs = [
   {
-    name: THEMES.premium.SNOW,
+    name: THEMES.premium.POLAR,
     overrides: {
       MuiInputBase: {
         input: {
@@ -50,10 +50,10 @@ const premiumThemeConfigs = [
         paper: '#F5F5F5',
       },
       primary: {
-        main: colors.indigo[400],
+        main: '#5c6bc0',
       },
       secondary: {
-        main: '#5850EC',
+        main: '#5c6bc0',
       },
       text: {
         primary: colors.blueGrey[900],
@@ -63,7 +63,7 @@ const premiumThemeConfigs = [
     shadows: softShadows,
   },
   {
-    name: THEMES.premium.NOON,
+    name: THEMES.premium.FIZZ,
     overrides: {
       MuiInputBase: {
         input: {
@@ -88,7 +88,7 @@ const premiumThemeConfigs = [
         main: '#ff9e43',
       },
       secondary: {
-        main: '#5850EC',
+        main: '#ff9e43',
       },
       text: {
         primary: colors.blueGrey[900],
@@ -98,7 +98,72 @@ const premiumThemeConfigs = [
     shadows: softShadows,
   },
   {
-    name: THEMES.premium.BLACK,
+    name: THEMES.premium.HONEYCOMB,
+    overrides: {
+      MuiInputBase: {
+        input: {
+          '&::placeholder': {
+            opacity: 1,
+            color: colors.blueGrey[600],
+          },
+        },
+      },
+    },
+    palette: {
+      type: 'light',
+      action: {
+        active: colors.blueGrey[600],
+      },
+      background: {
+        default: '#F5F5F5',
+        dark: '#EEEEEE',
+        paper: '#F5F5F5',
+      },
+      primary: {
+        main: '#FDD835',
+      },
+      secondary: {
+        main: '#FDD835',
+      },
+      text: {
+        primary: colors.blueGrey[900],
+        secondary: colors.blueGrey[600],
+      },
+    },
+    shadows: softShadows,
+  },
+  {
+    name: THEMES.premium.GUNMETAL,
+    palette: {
+      type: 'dark',
+      action: {
+        active: 'rgba(255, 255, 255, 0.54)',
+        hover: 'rgba(255, 255, 255, 0.04)',
+        selected: 'rgba(255, 255, 255, 0.08)',
+        disabled: 'rgba(255, 255, 255, 0.26)',
+        disabledBackground: 'rgba(255, 255, 255, 0.12)',
+        focus: 'rgba(255, 255, 255, 0.12)',
+      },
+      background: {
+        default: '#263238',
+        dark: '#37474f',
+        paper: '#263238',
+      },
+      primary: {
+        main: '#FFFFFF',
+      },
+      secondary: {
+        main: '#FFFFFF',
+      },
+      text: {
+        primary: '#e6e5e8',
+        secondary: '#adb0bb',
+      },
+    },
+    shadows: strongShadows,
+  },
+  {
+    name: THEMES.premium.NINJA,
     palette: {
       type: 'dark',
       action: {
@@ -173,10 +238,10 @@ const freeThemeConfigs = [
         paper: colors.common.white,
       },
       primary: {
-        main: colors.indigo[600],
+        main: '#3949ab',
       },
       secondary: {
-        main: '#5850EC',
+        main: '#3949ab',
       },
       text: {
         primary: colors.blueGrey[900],
