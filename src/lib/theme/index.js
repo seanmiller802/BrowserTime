@@ -63,6 +63,36 @@ const premiumThemeConfigs = [
     shadows: softShadows,
   },
   {
+    name: THEMES.premium.BLACK,
+    palette: {
+      type: 'dark',
+      action: {
+        active: 'rgba(255, 255, 255, 0.54)',
+        hover: 'rgba(255, 255, 255, 0.04)',
+        selected: 'rgba(255, 255, 255, 0.08)',
+        disabled: 'rgba(255, 255, 255, 0.26)',
+        disabledBackground: 'rgba(255, 255, 255, 0.12)',
+        focus: 'rgba(255, 255, 255, 0.12)',
+      },
+      background: {
+        default: '#000000',
+        dark: '#000000',
+        paper: '#000000',
+      },
+      primary: {
+        main: '#FFFFFF',
+      },
+      secondary: {
+        main: '#FFFFFF',
+      },
+      text: {
+        primary: '#e6e5e8',
+        secondary: '#adb0bb',
+      },
+    },
+    shadows: strongShadows,
+  },
+  {
     name: THEMES.premium.NIGHT,
     palette: {
       type: 'dark',
@@ -97,16 +127,6 @@ const premiumThemeConfigs = [
 const freeThemeConfigs = [
   {
     name: THEMES.free.LIGHT,
-    overrides: {
-      MuiInputBase: {
-        input: {
-          '&::placeholder': {
-            opacity: 1,
-            color: colors.blueGrey[600],
-          },
-        },
-      },
-    },
     palette: {
       type: 'light',
       action: {
@@ -160,32 +180,9 @@ const freeThemeConfigs = [
     },
     shadows: strongShadows,
   },
-  {
-    name: THEMES.free.BLACK,
-    palette: {
-      type: 'dark',
-      background: {
-        default: '#000000',
-        dark: '#000000',
-        paper: '#000000',
-      },
-      primary: {
-        main: '#FFFFFF',
-      },
-      secondary: {
-        main: '#000000',
-      },
-      text: {
-        primary: '#e6e5e8',
-        secondary: '#adb0bb',
-      },
-    },
-    shadows: strongShadows,
-  },
 ];
 
 const themeConfigs = [...freeThemeConfigs, ...premiumThemeConfigs];
-console.log("GAHHHHHh", themeConfigs);
 
 // eslint-disable-next-line import/prefer-default-export
 export function createTheme(mode) {

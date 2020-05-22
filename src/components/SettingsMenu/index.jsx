@@ -1,21 +1,31 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import {
   Popover,
   Typography,
   TextField,
   MenuItem,
-  makeStyles,
+  InputAdornment,
 } from '@material-ui/core';
 import { THEMES } from '../../lib/constants';
 import { SettingsContext } from '../../context/SettingsContext';
 
-console.log("THEMES bruh", THEMES);
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     width: 350,
     margin: '8px 16px',
+  },
+  themeSampleMain: {
+    height: 20,
+    width: 20,
+    backgroundColor: theme.palette.background.dark,
+  },
+  themeSamplePrimary: {
+    height: 20,
+    width: 20,
+    backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
   },
 }));
 
@@ -24,10 +34,18 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
   const classes = useStyles();
 
   const handleThemeChange = (e) => {
+    console.log('rgjhdglj', e.target);
     updateSettings(e.target.name, e.target.value);
   };
 
   const id = open ? 'settings-popover' : undefined;
+
+  const endAdornment = (
+    <InputAdornment position="end" style={{ marginRight: 20 }}>
+      <span className={classes.themeSamplePrimary} />
+      <span className={classes.themeSampleMain} />
+    </InputAdornment>
+  );
 
   return (
     <Popover
@@ -57,6 +75,9 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           margin="normal"
           fullWidth
           onChange={handleThemeChange}
+          InputProps={{
+            endAdornment,
+          }}
         >
           {Object.keys(THEMES.free).map((theme) => (
             <MenuItem key={theme} value={theme}>
@@ -65,7 +86,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           ))}
           {Object.keys(THEMES.premium).map((theme) => (
             <MenuItem key={theme} value={theme}>
-              {`${theme} (premium)`}
+              {`${theme} (Premium)`}
             </MenuItem>
           ))}
         </TextField>

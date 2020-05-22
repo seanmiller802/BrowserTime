@@ -3,10 +3,10 @@ export const THEMES = {
   free: {
     LIGHT: 'LIGHT',
     DARK: 'DARK',
-    BLACK: 'BLACK',
   },
   premium: {
     SNOW: 'SNOW',
+    BLACK: 'BLACK',
     NIGHT: 'NIGHT',
   },
 };

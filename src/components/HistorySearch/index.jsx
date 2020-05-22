@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,14 +13,16 @@ import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import WhatsHotIcon from '@material-ui/icons/Whatshot';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  root: (props) => ({
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
     width: 600,
-  },
+    border: `1px solid ${props.borderColor}`,
+  }),
   iconButton: {
     padding: 10,
   },
@@ -49,7 +51,14 @@ const HistorySearch = ({
   handleShowControls,
   handleDeleteAll,
 }) => {
-  const classes = useStyles();
+  const currentTheme = useContext(ThemeContext);
+  let themeProps;
+  if (currentTheme.name === 'BLACK') {
+    themeProps = {
+      border: currentTheme.palette.secondary,
+    };
+  }
+  const classes = useStyles(themeProps);
   const [current, setCurrent] = useState('');
 
   let timeout = null;

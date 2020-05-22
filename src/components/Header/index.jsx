@@ -15,26 +15,32 @@ const useStyles = makeStyles((theme) => ({
   appBar: (props) => ({
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: props.backgroundColor,
+    color: props.color,
   }),
   grow: {
     flexGrow: 1,
   },
-  menuButton: {
+  menuButton: (props) => ({
     marginRight: theme.spacing(2),
-  },
+    color: props.color,
+  }),
 }));
 
 const Header = () => {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const currentTheme = useContext(ThemeContext);
   console.log('current theme', currentTheme);
-  let props;
+
+  let themeProps;
   if (currentTheme.palette.type === 'dark') {
-    props = { backgroundColor: currentTheme.palette.background.default, color: 'white' };
+    themeProps = {
+      backgroundColor: currentTheme.palette.background.default,
+      color: currentTheme.palette.primary,
+    };
   } else {
-    props = { backgroundColor: currentTheme.palette.primary, color: 'white' };
+    themeProps = { backgroundColor: currentTheme.palette.primary, color: 'white' };
   }
-  const classes = useStyles(props);
+  const classes = useStyles(themeProps);
 
   const handleSettingsClick = (e) => {
     setPopoverAnchorEl(e.currentTarget);
@@ -53,7 +59,7 @@ const Header = () => {
         <div className={classes.grow} />
         <div>
           <Tooltip title="Settings" placement="bottom" arrow aria-label="settings">
-            <IconButton onClick={handleSettingsClick} color="secondary">
+            <IconButton onClick={handleSettingsClick} className={classes.menuButton}>
               <SettingsIcon />
             </IconButton>
           </Tooltip>
