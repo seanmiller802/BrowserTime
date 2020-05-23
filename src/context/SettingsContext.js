@@ -11,6 +11,8 @@ const initialSettingsState = {
   accountType: 'Basic',
   theme: THEMES.free.DARK,
   showResultsCount: true,
+  enableAutoRemoveSites: false,
+  autoRemoveSitesList: ['wedding', 'rings', 'proposing'],
 };
 
 export const SettingsContext = createContext(initialSettingsState);

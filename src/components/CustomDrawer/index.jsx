@@ -5,6 +5,7 @@ import { Dashboard, History, Launch } from '@material-ui/icons';
 import {
   Toolbar,
   Divider,
+  Chip,
   Drawer,
   List,
   ListItem,
@@ -60,7 +61,6 @@ const CustomDrawer = ({
         <List>
           <ListSubheader>
             Insights
-            <Button variant="contained" color="primary" size="small">Pro</Button>
           </ListSubheader>
           <ListItem button alignItems="center" key="Dashboard" onClick={handleShowDashboard} className={classes.dashboard}>
             <ListItemIcon>
