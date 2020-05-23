@@ -11,6 +11,7 @@ const initialSettingsState = {
   accountType: 'Basic',
   theme: THEMES.free.DARK,
   showResultsCount: true,
+  turnOffHistory: false,
   enableAutoRemoveSites: false,
   autoRemoveSitesList: ['wedding', 'rings', 'proposing'],
 };

@@ -5,11 +5,11 @@ export const THEMES = {
     DARK: 'DARK',
   },
   premium: {
+    NIGHT: 'NIGHT',
     POLAR: 'POLAR',
     NINJA: 'NINJA',
-    NIGHT: 'NIGHT',
     FIZZ: 'FIZZ',
-    HONEYCOMB: 'HONEYCOMB',
+    BUMBLEBEE: 'BUMBLEBEE',
     GUNMETAL: 'GUNMETAL',
   },
 };

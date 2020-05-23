@@ -29,16 +29,6 @@ const baseConfig = {
 const premiumThemeConfigs = [
   {
     name: THEMES.premium.POLAR,
-    overrides: {
-      MuiInputBase: {
-        input: {
-          '&::placeholder': {
-            opacity: 1,
-            color: colors.blueGrey[600],
-          },
-        },
-      },
-    },
     palette: {
       type: 'light',
       action: {
@@ -64,16 +54,6 @@ const premiumThemeConfigs = [
   },
   {
     name: THEMES.premium.FIZZ,
-    overrides: {
-      MuiInputBase: {
-        input: {
-          '&::placeholder': {
-            opacity: 1,
-            color: colors.blueGrey[600],
-          },
-        },
-      },
-    },
     palette: {
       type: 'light',
       action: {
@@ -98,17 +78,7 @@ const premiumThemeConfigs = [
     shadows: softShadows,
   },
   {
-    name: THEMES.premium.HONEYCOMB,
-    overrides: {
-      MuiInputBase: {
-        input: {
-          '&::placeholder': {
-            opacity: 1,
-            color: colors.blueGrey[600],
-          },
-        },
-      },
-    },
+    name: THEMES.premium.BUMBLEBEE,
     palette: {
       type: 'light',
       action: {

@@ -10,13 +10,18 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
   "permissions": [
     "history",
     "storage",
-    "browsingData",
     "topSites",
     "background",
-    "debugger"
+    "debugger",
+    "webRequests",
+    "webRequestBlocking"
   ],
   "chrome_url_overrides": {
     "history": "history.html"

@@ -90,34 +90,38 @@ const useStyles = makeStyles((theme) => ({
 const SettingsMenu = ({ open, handleClose, anchorEl }) => {
   const [showManageItems, setShowManageItems] = useState(false);
   const { settingsState, updateSettings } = useContext(SettingsContext);
-  const [showAutoRemoveSites, setShowAutoRemoveSites] = useState(settingsState.enableAutoRemoveSites); // should be based on a value from settings
+  const {
+    accountType,
+    theme,
+    showResultsCount,
+    turnOffHistory,
+    enableAutoRemoveSites,
+    autoRemoveSitesList,
+  } = settingsState;
   const classes = useStyles();
 
   const handleThemeChange = (e) => {
     updateSettings(e.target.name, e.target.value);
   };
 
-  const handleShowResultsCountChange = (e) => {
-    updateSettings(e.target.name, !settingsState.showResultsCount);
+  const handleShowResultsCount = (e) => {
+    updateSettings(e.target.name, !showResultsCount);
+  };
+
+  const handleTurnOffHistory = (e) => {
+    updateSettings(e.target.name, !turnOffHistory);
   };
 
   const handleEnableAutoRemoveSites = (e) => {
-    // if (settingsState.accountType === 'Pro') {
-    //   updateSettings(e.target.name, !settingsState.enableAutoRemoveSites);
-    //   setShowAutoRemoveSitesList(!showAutoRemoveSitesList);
-    // }
-    updateSettings(e.target.name, !settingsState.enableAutoRemoveSites);
-    setShowAutoRemoveSites(!showAutoRemoveSites);
+    updateSettings(e.target.name, !enableAutoRemoveSites);
   };
 
   const handleAddItem = (item) => {
-    console.log('add item', item);
-    updateSettings('autoRemoveSitesList', [...settingsState.autoRemoveSitesList, item]);
+    updateSettings('autoRemoveSitesList', [...autoRemoveSitesList, item]);
   };
 
   const handleRemoveItem = (item, index) => {
-    console.log('remove item', item);
-    const updated = Array.apply([], settingsState.autoRemoveSitesList);
+    const updated = Array.apply([], autoRemoveSitesList);
     updated.splice(index, 1);
     updateSettings('autoRemoveSitesList', updated);
   };
@@ -145,7 +149,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           <div className={classes.settings}>
             <FormLabel component="legend" className={classes.formLabel}>Account Type</FormLabel>
             <Paper component="form" className={`${classes.root} ${classes.accountType}`}>
-              <Typography variant="h5">{settingsState.accountType}</Typography>
+              <Typography variant="h5">{accountType}</Typography>
               <Button variant="outlined" size="small" className={classes.upgradeBtn}>Upgrade to Pro</Button>
             </Paper>
             <FormLabel component="legend" className={classes.formLabel}>Theme</FormLabel>
@@ -159,20 +163,20 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                 name="theme"
                 labelId="settings-select-label"
                 id="settings-select"
-                value={settingsState.theme}
+                value={theme}
                 onChange={handleThemeChange}
                 input={<CustomInput />}
               >
                 <ListSubheader>Basic</ListSubheader>
-                {Object.keys(THEMES.free).map((theme) => (
-                  <MenuItem key={theme} value={theme}>
-                    <ListItemText primary={theme} />
+                {Object.keys(THEMES.free).map((t) => (
+                  <MenuItem key={t} value={t}>
+                    <ListItemText primary={t} />
                   </MenuItem>
                 ))}
                 <ListSubheader color="primary">Premium themes</ListSubheader>
-                {Object.keys(THEMES.premium).map((theme) => (
-                  <MenuItem key={theme} value={theme}>
-                    <ListItemText primary={theme} />
+                {Object.keys(THEMES.premium).map((t) => (
+                  <MenuItem key={t} value={t}>
+                    <ListItemText primary={t} />
                   </MenuItem>
                 ))}
               </Select>
@@ -181,17 +185,27 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
               <FormLabel component="legend" className={classes.formLabel}>History</FormLabel>
               <FormGroup>
                 <FormControlLabel
-                  control={<Switch checked={settingsState.showResultsCount} onChange={handleShowResultsCountChange} name="showResultsCount" />}
+                  control={<Switch checked={showResultsCount} onChange={handleShowResultsCount} name="showResultsCount" />}
                   label="Show results count"
                 />
                 <FormControlLabel
-                  control={<Switch checked={settingsState.enableAutoRemoveSites} onChange={handleEnableAutoRemoveSites} name="enableAutoRemoveSites" />}
-                  label="Enable auto remove sites"
+                  control={<Switch disabled={enableAutoRemoveSites} checked={turnOffHistory} onChange={handleTurnOffHistory} name="turnOffHistory" />}
+                  label="Turn off all history"
                 />
-                {showAutoRemoveSites && (
-                  <div className={classes.sites}>
+                {turnOffHistory && (
+                  <Typography variant="caption">
+                    Stops all history from being recorded
+                  </Typography>
+                )}
+                <FormControlLabel
+                  control={<Switch disabled={turnOffHistory} checked={enableAutoRemoveSites} onChange={handleEnableAutoRemoveSites} name="enableAutoRemoveSites" />}
+                  label="Enable auto-remove keywords"
+                />
+                {enableAutoRemoveSites && (
+                  <>
                     <Typography variant="caption">
-                      Enabling this features allows you to automatically remove history items you visit that contain specific keywords
+                      Enabling this features allows you to automagically stop recording history
+                      items that match your specified keywords
                     </Typography>
                     <div style={{ marginTop: 10 }}>
                       <Button
@@ -200,10 +214,10 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                         color="primary"
                         onClick={() => setShowManageItems(true)}
                       >
-                        Manage Items
+                        Manage Keywords
                       </Button>
                     </div>
-                  </div>
+                  </>
                 )}
               </FormGroup>
             </FormControl>

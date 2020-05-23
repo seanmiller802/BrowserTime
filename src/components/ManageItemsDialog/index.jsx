@@ -71,7 +71,7 @@ const AddAutoRemoveItenDialog = ({
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">Manage auto-remove items</DialogTitle>
+      <DialogTitle id="alert-dialog-slide-title">Manage auto-remove keywords</DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <Paper component="form" className={classes.root}>
           <InputBase
@@ -91,7 +91,7 @@ const AddAutoRemoveItenDialog = ({
         </Paper>
         <List dense>
           <ListSubheader>
-            History items matching these keywords will automatically be removed
+            {items.length > 0 ? 'Never store history matching these keywords' : 'No keywords added yet'}
           </ListSubheader>
           {items.map((item, index) => (
             <ListItem>
