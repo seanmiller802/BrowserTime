@@ -21,7 +21,8 @@ import {
 } from '@material-ui/core';
 import { THEMES } from '../../lib/constants';
 import { SettingsContext } from '../../context/SettingsContext';
-import ManageItemsDialog from '../ManageItemsDialog';
+import ManageKeywordsDialog from '../ManageKeywordsDialog';
+import ManageSitesDialog from '../ManageSitesDialog';
 
 const CustomInput = withStyles((theme) => ({
   input: {
@@ -88,15 +89,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SettingsMenu = ({ open, handleClose, anchorEl }) => {
-  const [showManageItems, setShowManageItems] = useState(false);
+  const [showManageKeywords, setShowManageKeywords] = useState(false);
+  const [showManageSites, setShowManageSites] = useState(false);
   const { settingsState, updateSettings } = useContext(SettingsContext);
   const {
     accountType,
     theme,
     showResultsCount,
     turnOffHistory,
-    enableAutoRemoveSites,
-    autoRemoveSitesList,
+    enableAutoRemoveKeywords,
+    autoRemoveKeywordsList,
+    enableBlockedSites,
+    blockedSitesList,
   } = settingsState;
   const classes = useStyles();
 
@@ -112,18 +116,32 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
     updateSettings(e.target.name, !turnOffHistory);
   };
 
-  const handleEnableAutoRemoveSites = (e) => {
-    updateSettings(e.target.name, !enableAutoRemoveSites);
+  const handleEnableAutoRemoveKeywords = (e) => {
+    updateSettings(e.target.name, !enableAutoRemoveKeywords);
   };
 
-  const handleAddItem = (item) => {
-    updateSettings('autoRemoveSitesList', [...autoRemoveSitesList, item]);
+  const handleEnableBlockedSites = (e) => {
+    updateSettings(e.target.name, !enableBlockedSites);
   };
 
-  const handleRemoveItem = (item, index) => {
-    const updated = Array.apply([], autoRemoveSitesList);
+  const handleAddKeyword = (keyword) => {
+    updateSettings('autoRemoveSitesList', [...autoRemoveKeywordsList, keyword]);
+  };
+
+  const handleRemoveKeyword = (keyword, index) => {
+    const updated = Array.apply([], autoRemoveKeywordsList);
     updated.splice(index, 1);
     updateSettings('autoRemoveSitesList', updated);
+  };
+
+  const handleAddBlockedSite = (site) => {
+    updateSettings('blockedSitesList', [...blockedSitesList, site]);
+  };
+
+  const handleRemoveBlockedSite = (site, index) => {
+    const updated = Array.apply([], blockedSitesList);
+    updated.splice(index, 1);
+    updateSettings('blockedSitesList', updated);
   };
 
   const id = open ? 'settings-popover' : undefined;
@@ -189,7 +207,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                   label="Show results count"
                 />
                 <FormControlLabel
-                  control={<Switch disabled={enableAutoRemoveSites} checked={turnOffHistory} onChange={handleTurnOffHistory} name="turnOffHistory" />}
+                  control={<Switch disabled={enableAutoRemoveKeywords || enableBlockedSites} checked={turnOffHistory} onChange={handleTurnOffHistory} name="turnOffHistory" />}
                   label="Turn off all history"
                 />
                 {turnOffHistory && (
@@ -198,10 +216,10 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                   </Typography>
                 )}
                 <FormControlLabel
-                  control={<Switch disabled={turnOffHistory} checked={enableAutoRemoveSites} onChange={handleEnableAutoRemoveSites} name="enableAutoRemoveSites" />}
+                  control={<Switch disabled={turnOffHistory} checked={enableAutoRemoveKeywords} onChange={handleEnableAutoRemoveKeywords} name="enableAutoRemoveKeywords" />}
                   label="Enable auto-remove keywords"
                 />
-                {enableAutoRemoveSites && (
+                {enableAutoRemoveKeywords && (
                   <>
                     <Typography variant="caption">
                       Enabling this features allows you to automagically stop recording history
@@ -212,9 +230,31 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                         size="small"
                         variant="contained"
                         color="primary"
-                        onClick={() => setShowManageItems(true)}
+                        onClick={() => setShowManageKeywords(true)}
                       >
                         Manage Keywords
+                      </Button>
+                    </div>
+                  </>
+                )}
+                <FormControlLabel
+                  control={<Switch disabled={turnOffHistory} checked={enableBlockedSites} onChange={handleEnableBlockedSites} name="enableBlockedSites" />}
+                  label="Enable blocked sites"
+                />
+                {enableBlockedSites && (
+                  <>
+                    <Typography variant="caption">
+                      Enabling this features allows you to automagically
+                      block your browser for opening certain websites
+                    </Typography>
+                    <div style={{ marginTop: 10 }}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setShowManageSites(true)}
+                      >
+                        Manage Blocked Sites
                       </Button>
                     </div>
                   </>
@@ -224,12 +264,19 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           </div>
         </div>
       </Popover>
-      <ManageItemsDialog
-        open={showManageItems}
-        items={settingsState.autoRemoveSitesList}
-        cancel={() => setShowManageItems(false)}
-        addItem={handleAddItem}
-        removeItem={handleRemoveItem}
+      <ManageKeywordsDialog
+        open={showManageKeywords}
+        items={autoRemoveKeywordsList}
+        cancel={() => setShowManageKeywords(false)}
+        addItem={handleAddKeyword}
+        removeItem={handleRemoveKeyword}
+      />
+      <ManageSitesDialog
+        open={showManageSites}
+        items={blockedSitesList}
+        cancel={() => setShowManageSites(false)}
+        addItem={handleAddBlockedSite}
+        removeItem={handleRemoveBlockedSite}
       />
     </>
   );

@@ -12,8 +12,10 @@ const initialSettingsState = {
   theme: THEMES.free.DARK,
   showResultsCount: true,
   turnOffHistory: false,
-  enableAutoRemoveSites: false,
-  autoRemoveSitesList: ['wedding', 'rings', 'proposing'],
+  enableAutoRemoveKeywords: false,
+  autoRemoveKeywordsList: ['wedding', 'rings', 'proposing'],
+  enableBlockedSites: false,
+  blockedSitesList: [],
 };
 
 export const SettingsContext = createContext(initialSettingsState);

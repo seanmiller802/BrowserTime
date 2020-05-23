@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const AddAutoRemoveItenDialog = ({
+const ManageKeywordsDialog = ({
   open,
   items,
   cancel,
@@ -118,7 +118,7 @@ const AddAutoRemoveItenDialog = ({
   );
 };
 
-AddAutoRemoveItenDialog.propTypes = {
+ManageKeywordsDialog.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   open: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
@@ -126,4 +126,4 @@ AddAutoRemoveItenDialog.propTypes = {
   removeItem: PropTypes.func.isRequired,
 };
 
-export default AddAutoRemoveItenDialog;
+export default ManageKeywordsDialog;
