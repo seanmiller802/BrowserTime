@@ -19,10 +19,9 @@ import {
   FormLabel,
   FormGroup,
 } from '@material-ui/core';
+import ManageItemsDialog from '../ManageItemsDialog';
 import { THEMES } from '../../lib/constants';
 import { SettingsContext } from '../../context/SettingsContext';
-import ManageKeywordsDialog from '../ManageKeywordsDialog';
-import ManageSitesDialog from '../ManageSitesDialog';
 
 const CustomInput = withStyles((theme) => ({
   input: {
@@ -223,7 +222,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                   <>
                     <Typography variant="caption">
                       Enabling this features allows you to automagically stop recording history
-                      items that match your specified keywords
+                      items that contain certain keywords
                     </Typography>
                     <div style={{ marginTop: 10 }}>
                       <Button
@@ -245,7 +244,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                   <>
                     <Typography variant="caption">
                       Enabling this features allows you to automagically
-                      block your browser for opening certain websites
+                      block your browser from opening certain websites
                     </Typography>
                     <div style={{ marginTop: 10 }}>
                       <Button
@@ -264,19 +263,27 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
           </div>
         </div>
       </Popover>
-      <ManageKeywordsDialog
+      <ManageItemsDialog
         open={showManageKeywords}
         items={autoRemoveKeywordsList}
         cancel={() => setShowManageKeywords(false)}
         addItem={handleAddKeyword}
         removeItem={handleRemoveKeyword}
+        title="Manage auto-remove keywords"
+        inputPlaceholder="Add a new keyword"
+        tooltipTitle="Remove keyword"
+        subheader={autoRemoveKeywordsList.length < 1 ? 'No keywords added yet' : 'idk yet'}
       />
-      <ManageSitesDialog
+      <ManageItemsDialog
         open={showManageSites}
         items={blockedSitesList}
         cancel={() => setShowManageSites(false)}
         addItem={handleAddBlockedSite}
         removeItem={handleRemoveBlockedSite}
+        title="Manage blocked sites"
+        inputPlaceholder="Add a new site"
+        tooltipTitle="Remove blocked site"
+        subheader={blockedSitesList.length < 1 ? 'No blocked sites added yet' : 'idk yet'}
       />
     </>
   );

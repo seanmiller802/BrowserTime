@@ -46,20 +46,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-const ManageKeywordsDialog = ({
+const ManageItemsDialog = ({
   open,
   items,
   cancel,
   addItem,
   removeItem,
+  title,
+  inputPlaceholder,
+  tooltipTitle,
+  subheader,
 }) => {
   const classes = useStyles();
-  const [keyword, setKeyword] = useState('');
-  const disabled = keyword.length < 1;
+  const [currentValue, setCurrentValue] = useState('');
+  const addItemDisabled = currentValue.length < 1;
 
   const handleAddItem = () => {
-    addItem(keyword);
-    setKeyword('');
+    addItem(currentValue);
+    setCurrentValue('');
   };
 
   return (
@@ -71,31 +75,31 @@ const ManageKeywordsDialog = ({
       aria-labelledby="alert-dialog-slide-title"
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle id="alert-dialog-slide-title">Manage auto-remove keywords</DialogTitle>
+      <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <Paper component="form" className={classes.root}>
           <InputBase
             name="keyword"
             autoFocus
-            placeholder="Add a new keyword"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
+            placeholder={inputPlaceholder}
+            value={currentValue}
+            onChange={(e) => setCurrentValue(e.target.value)}
             className={classes.inputBase}
             inputProps={{ 'aria-label': 'search' }}
           />
-          {keyword.length > 0 && (
-            <IconButton className={classes.iconButton} onClick={() => setKeyword('')} aria-label="clear">
+          {currentValue.length > 0 && (
+            <IconButton className={classes.iconButton} onClick={() => setCurrentValue('')} aria-label="clear">
               <CancelIcon />
             </IconButton>
           )}
         </Paper>
         <List dense>
           <ListSubheader>
-            {items.length > 0 ? 'Never store history matching these keywords' : 'No keywords added yet'}
+            {subheader}
           </ListSubheader>
           {items.map((item, index) => (
             <ListItem>
-              <Tooltip title="remove keyword" placement="left" arrow>
+              <Tooltip title={tooltipTitle} placement="left" arrow>
                 <RemoveCircleIcon
                   fontSize="small"
                   onClick={() => removeItem(item, index)}
@@ -110,7 +114,7 @@ const ManageKeywordsDialog = ({
         <Button onClick={cancel}>
           Cancel
         </Button>
-        <Button onClick={handleAddItem} disabled={disabled} variant="contained" color="primary">
+        <Button onClick={handleAddItem} disabled={addItemDisabled} variant="contained" color="primary">
           Add item
         </Button>
       </DialogActions>
@@ -118,12 +122,16 @@ const ManageKeywordsDialog = ({
   );
 };
 
-ManageKeywordsDialog.propTypes = {
+ManageItemsDialog.propTypes = {
   items: PropTypes.arrayOf(PropTypes.string).isRequired,
   open: PropTypes.bool.isRequired,
   cancel: PropTypes.func.isRequired,
   addItem: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  inputPlaceholder: PropTypes.string.isRequired,
+  tooltipTitle: PropTypes.string.isRequired,
+  subheader: PropTypes.string.isRequired,
 };
 
-export default ManageKeywordsDialog;
+export default ManageItemsDialog;
