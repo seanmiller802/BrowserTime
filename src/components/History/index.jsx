@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Layout from '../Layout';
 import HistorySearch from '../HistorySearch';
 import HistoryControls from '../HistoryControls';
@@ -77,7 +77,11 @@ const History = ({
     </Layout>
   ) : (
     <Layout>
-      <div>no history to display - add a cool image here</div>
+      <div>
+        <Typography variant="h3">
+          It&#39;s pretty empty here...
+        </Typography>
+      </div>
     </Layout>
   );
 };

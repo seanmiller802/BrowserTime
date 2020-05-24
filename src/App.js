@@ -100,10 +100,14 @@ const App = () => {
   // delete entire history
   const handleDeleteAll = () => {
     deleteAllHistory()
-      .then(() => console.log('deleted all history'))
+      .then(() => {
+        console.log('deleted all history');
+        setShowConfirmDelete(false);
+      })
       .catch((error) => console.error('Error deleting history items', error));
   };
 
+  // get history results using the url as searchText
   const handleMoreFromThisSite = (text) => {
     setSearchText(text);
     setShowControls(true);
@@ -118,7 +122,7 @@ const App = () => {
           <CssBaseline />
           <ConfirmDeleteDialog
             open={showConfirmDelete}
-            deleteAll={() => handleDeleteAll()}
+            deleteAll={handleDeleteAll}
             cancel={() => setShowConfirmDelete(false)}
           />
           {showDeleteToolbar && (

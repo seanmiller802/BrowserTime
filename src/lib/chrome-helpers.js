@@ -72,15 +72,14 @@ export const searchHistory = (queryObject) => new Promise((resolve, reject) => {
   });
 });
 
-// uses the lastVisitTime of each item as the start and end time in order to delete 1 item at a time
+// delete selected items based on url
 export const deleteHistoryItems = (itemsToDelete) => new Promise((resolve, reject) => {
+  console.log('chrome helpers deleteHistoryItems', itemsToDelete);
   try {
-    let startTime;
-    let endTime;
-    for (let i = 0; i < itemsToDelete.lenght; i++) {
-      startTime = itemsToDelete[i].lastVisitTime;
-      endTime = itemsToDelete[i].lastVisitTime;
-      chrome.history.deleteRange({ startTime, endTime }, () => console.log('deleted item'));
+    let url;
+    for (let i = 0; i < itemsToDelete.length; i++) {
+      url = itemsToDelete[i].url;
+      chrome.history.deleteUrl({ url }, () => console.log('deleted item'));
     }
     resolve();
   } catch (error) {

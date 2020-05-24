@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     padding: theme.spacing(2),
     marginTop: '64px',
+    minHeight: 800,
     backgroundColor: theme.palette.background.dark,
   },
 }));
