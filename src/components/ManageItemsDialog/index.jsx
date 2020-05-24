@@ -72,10 +72,10 @@ const ManageItemsDialog = ({
       onBackdropClick={cancel}
       onEscapeKeyDown={cancel}
       TransitionComponent={Transition}
-      aria-labelledby="alert-dialog-slide-title"
-      aria-describedby="alert-dialog-slide-description"
+      aria-labelledby="manage-items-dialog-title"
+      aria-describedby="manage-items-dialog-subheader"
     >
-      <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
+      <DialogTitle id="manage-items-dialog-title">{title}</DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <Paper component="form" className={classes.root}>
           <InputBase
@@ -85,7 +85,7 @@ const ManageItemsDialog = ({
             value={currentValue}
             onChange={(e) => setCurrentValue(e.target.value)}
             className={classes.inputBase}
-            inputProps={{ 'aria-label': 'search' }}
+            inputProps={{ 'aria-label': 'add' }}
           />
           {currentValue.length > 0 && (
             <IconButton className={classes.iconButton} onClick={() => setCurrentValue('')} aria-label="clear">
@@ -94,7 +94,7 @@ const ManageItemsDialog = ({
           )}
         </Paper>
         <List dense>
-          <ListSubheader>
+          <ListSubheader id="manage-items-dialog-subheader">
             {subheader}
           </ListSubheader>
           {items.map((item, index) => (
