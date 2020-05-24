@@ -15,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
   appBar: (props) => ({
     zIndex: theme.zIndex.drawer + 1,
     backgroundColor: props.backgroundColor,
+  }),
+  title: (props) => ({
     color: props.color,
   }),
   grow: {
@@ -30,14 +32,20 @@ const Header = () => {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
   const currentTheme = useContext(ThemeContext);
 
+  const isNinjaTheme = currentTheme.name === 'NINJA';
+
   let themeProps;
   if (currentTheme.palette.type === 'dark') {
+    const color = isNinjaTheme ? '#ffffff' : currentTheme.palette.primary;
     themeProps = {
       backgroundColor: currentTheme.palette.background.default,
-      color: currentTheme.palette.primary,
+      color,
     };
   } else {
-    themeProps = { backgroundColor: currentTheme.palette.primary, color: 'white' };
+    themeProps = {
+      backgroundColor: currentTheme.palette.primary,
+      color: '#ffffff',
+    };
   }
   const classes = useStyles(themeProps);
 
@@ -52,7 +60,7 @@ const Header = () => {
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <Typography variant="h5" noWrap>
+        <Typography variant="h5" noWrap className={classes.title}>
           History
         </Typography>
         <div className={classes.grow} />
