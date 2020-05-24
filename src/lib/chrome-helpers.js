@@ -74,12 +74,11 @@ export const searchHistory = (queryObject) => new Promise((resolve, reject) => {
 
 // delete selected items based on url
 export const deleteHistoryItems = (itemsToDelete) => new Promise((resolve, reject) => {
-  console.log('chrome helpers deleteHistoryItems', itemsToDelete);
   try {
     let url;
     for (let i = 0; i < itemsToDelete.length; i++) {
       url = itemsToDelete[i].url;
-      chrome.history.deleteUrl({ url }, () => console.log('deleted item'));
+      chrome.history.deleteUrl({ url }, () => {});
     }
     resolve();
   } catch (error) {

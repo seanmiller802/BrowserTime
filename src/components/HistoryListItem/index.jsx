@@ -40,6 +40,7 @@ const HistoryListItem = ({
   isSelectedForDelete,
   handleSelectedForDelete,
   handleMoreFromThisSite,
+  handleDeleteSingleItem,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -109,7 +110,7 @@ const HistoryListItem = ({
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleMore}>More from this site</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Remove From History</MenuItem>
+        <MenuItem onClick={() => handleDeleteSingleItem({ url })}>Remove From History</MenuItem>
       </Menu>
     </ListItem>
   );
@@ -125,6 +126,7 @@ HistoryListItem.propTypes = {
   isSelectedForDelete: PropTypes.bool.isRequired,
   handleSelectedForDelete: PropTypes.func.isRequired,
   handleMoreFromThisSite: PropTypes.func.isRequired,
+  handleDeleteSingleItem: PropTypes.func.isRequired,
 };
 
 export default HistoryListItem;

@@ -94,14 +94,20 @@ const App = () => {
   const handleDeleteItems = () => {
     deleteHistoryItems(selectedForDelete)
       .then(() => setSelectedForDelete([]))
-      .catch((error) => console.error('Error deleting history items', error));
+      .catch((error) => console.error('Error deleting selected history items', error));
+  };
+
+  // delete single history item
+  const handleDeleteSingleItem = (item) => {
+    deleteHistoryItems([item])
+      .then(() => setSelectedForDelete([]))
+      .catch((error) => console.error('Error deleting single history item', error));
   };
 
   // delete entire history
   const handleDeleteAll = () => {
     deleteAllHistory()
       .then(() => {
-        console.log('deleted all history');
         setShowConfirmDelete(false);
       })
       .catch((error) => console.error('Error deleting history items', error));
@@ -155,6 +161,7 @@ const App = () => {
               getSelectedForDeleteIndex={getSelectedForDeleteIndex}
               handleSelectedForDelete={handleSelectedForDelete}
               handleMoreFromThisSite={handleMoreFromThisSite}
+              handleDeleteSingleItem={handleDeleteSingleItem}
             />
           )}
           {showDashboard && <Dashboard />}

@@ -25,6 +25,7 @@ const HistoryList = ({
   handleSelectedForDelete,
   searchText,
   handleMoreFromThisSite,
+  handleDeleteSingleItem,
 }) => {
   const classes = useStyles();
   const { settingsState } = useContext(SettingsContext);
@@ -41,6 +42,7 @@ const HistoryList = ({
           isSelectedForDelete={isSelected}
           handleSelectedForDelete={handleSelectedForDelete}
           handleMoreFromThisSite={handleMoreFromThisSite}
+          handleDeleteSingleItem={handleDeleteSingleItem}
         />
       </div>
     );
@@ -96,6 +98,7 @@ HistoryList.propTypes = {
   handleSelectedForDelete: PropTypes.func.isRequired,
   searchText: PropTypes.string.isRequired,
   handleMoreFromThisSite: PropTypes.func.isRequired,
+  handleDeleteSingleItem: PropTypes.func.isRequired,
 };
 
 export default HistoryList;
