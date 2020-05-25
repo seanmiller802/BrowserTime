@@ -96,6 +96,7 @@ const HistoryControls = ({
         justify={isCustomRange ? 'space-around' : 'flex-start'}
         alignItems="center"
         direction="row"
+        style={{ margin: 'auto', maxWidth: 950 }}
       >
         <FormControl variant="filled" size="small" className={classes.formControl}>
           <InputLabel id="time-range-select-outlined-label">Time Range</InputLabel>
