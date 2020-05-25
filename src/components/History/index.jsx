@@ -36,6 +36,7 @@ const History = ({
   handleSelectedForDelete,
   handleMoreFromThisSite,
   handleDeleteSingleItem,
+  forceUpdate,
 }) => {
   const classes = useStyles();
   const hasHistory = history.length > 0;
@@ -66,6 +67,7 @@ const History = ({
       searchText={searchText}
       handleMoreFromThisSite={handleMoreFromThisSite}
       handleDeleteSingleItem={handleDeleteSingleItem}
+      forceUpdate={forceUpdate}
     />
   ));
 
@@ -131,6 +133,7 @@ History.propTypes = {
   handleSelectedForDelete: PropTypes.func.isRequired,
   handleMoreFromThisSite: PropTypes.func.isRequired,
   handleDeleteSingleItem: PropTypes.func.isRequired,
+  forceUpdate: PropTypes.func.isRequired,
 };
 
 History.defaultProps = {

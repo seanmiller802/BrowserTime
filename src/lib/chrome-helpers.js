@@ -94,3 +94,14 @@ export const deleteAllHistory = () => new Promise((resolve, reject) => {
     reject(error);
   }
 });
+
+export const deleteHistoryRange = (range) => new Promise((resolve, reject) => {
+  try {
+    chrome.history.deleteRange({
+      startTime: range.start,
+      endTime: range.end,
+    }, () => resolve());
+  } catch (error) {
+    reject(error);
+  }
+});

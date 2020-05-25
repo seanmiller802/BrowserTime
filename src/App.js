@@ -57,6 +57,9 @@ const App = () => {
       .catch((error) => console.error('App useEffect error getting history', error));
   }, [clearSelected, searchText, range, customRange, maxResults]);
 
+  const forceUpdate = () => {
+    setClearSelected(!clearSelected);
+  };
 
   const handleUpdateRange = (val) => {
     setShowDashboard(false);
@@ -96,7 +99,7 @@ const App = () => {
     deleteHistoryItems(selectedForDelete)
       .then(() => {
         setSelectedForDelete([]);
-        setClearSelected(!clearSelected);
+        forceUpdate();
       })
       .catch((error) => console.error('Error deleting selected history items', error));
   };
@@ -106,7 +109,7 @@ const App = () => {
     deleteHistoryItems([item])
       .then(() => {
         setSelectedForDelete([]);
-        setClearSelected(!clearSelected);
+        forceUpdate();
       })
       .catch((error) => console.error('Error deleting single history item', error));
   };
@@ -173,6 +176,7 @@ const App = () => {
               handleSelectedForDelete={handleSelectedForDelete}
               handleMoreFromThisSite={handleMoreFromThisSite}
               handleDeleteSingleItem={handleDeleteSingleItem}
+              forceUpdate={forceUpdate}
             />
           )}
           {showDashboard && <Dashboard />}
