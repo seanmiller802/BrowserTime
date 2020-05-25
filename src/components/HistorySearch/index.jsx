@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -13,16 +13,14 @@ import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import WhatsHotIcon from '@material-ui/icons/Whatshot';
-import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
-  root: (props) => ({
+  root: {
     padding: '2px 4px',
     display: 'flex',
     alignItems: 'center',
     width: 600,
-    border: `1px solid ${props.borderColor}`,
-  }),
+  },
   iconButton: {
     padding: 10,
   },
@@ -42,6 +40,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function useDebounce(value, delay) {
+  // State and setters for debounced value
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(
+    () => {
+      // Update debounced value after delay
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      // Cancel the timeout if value changes (also on delay change or unmount)
+      // This is how we prevent debounced value from updating if value is changed ...
+      // .. within the delay period. Timeout gets cleared and restarted.
+      return () => {
+        clearTimeout(handler);
+      };
+    },
+    [value, delay], // Only re-call effect if value or delay changes
+  );
+
+  return debouncedValue;
+}
+
 const HistorySearch = ({
   autoFocus,
   placeholder,
@@ -51,27 +73,19 @@ const HistorySearch = ({
   handleShowControls,
   handleDeleteAll,
 }) => {
-  const currentTheme = useContext(ThemeContext);
-  let themeProps;
-  if (currentTheme.name === 'BLACK') {
-    themeProps = {
-      border: currentTheme.palette.secondary,
-    };
-  }
-  const classes = useStyles(themeProps);
-  const [current, setCurrent] = useState('');
+  const classes = useStyles();
+  const [current, setCurrent] = useState(value);
 
-  let timeout = null;
+  const debouncedSearchTerm = useDebounce(current, 1500);
 
-  // update the search text once user stops typing
-  const handleSearchChange = (val) => {
-    clearTimeout(timeout);
-    setCurrent(val);
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      onChange(debouncedSearchTerm);
+    }
+  }, [debouncedSearchTerm]);
 
-    // Make a new timeout set to go off in 1000ms (1 second)
-    timeout = setTimeout(() => {
-      onChange(val);
-    }, 1000);
+  const handleSearchChange = (text) => {
+    setCurrent(text);
   };
 
   return (
@@ -83,6 +97,7 @@ const HistorySearch = ({
         autoFocus={autoFocus}
         placeholder={placeholder}
         value={current}
+        defaultValue={current}
         onChange={(e) => handleSearchChange(e.target.value)}
         fullWidth
         className={classes.inputBase}

@@ -6,9 +6,12 @@ import Layout from '../Layout';
 import HistorySearch from '../HistorySearch';
 import HistoryControls from '../HistoryControls';
 import HistoryList from '../HistoryList';
+import { MEMES } from '../../lib/constants';
 
 const useStyles = makeStyles((theme) => ({
   history: {
+    flexGrow: 1,
+    justifyContent: 'center',
     padding: theme.spacing(3),
   },
   search: {
@@ -37,7 +40,36 @@ const History = ({
   const classes = useStyles();
   const hasHistory = history.length > 0;
 
-  return hasHistory ? (
+  const getMeme = () => {
+    const randomMeme = MEMES[Math.floor(Math.random() * (MEMES.length))];
+    return `memes/${randomMeme}.jpg`;
+  };
+
+  const meme = getMeme();
+
+  const controls = showControls && (
+    <HistoryControls
+      range={range}
+      handleUpdateRange={handleUpdateRange}
+      customRange={customRange}
+      handleUpdateCustomRange={handleUpdateCustomRange}
+      maxResults={maxResults}
+      setMaxResults={setMaxResults}
+    />
+  );
+
+  const list = history.map((day) => (
+    <HistoryList
+      data={day}
+      getSelectedForDeleteIndex={getSelectedForDeleteIndex}
+      handleSelectedForDelete={handleSelectedForDelete}
+      searchText={searchText}
+      handleMoreFromThisSite={handleMoreFromThisSite}
+      handleDeleteSingleItem={handleDeleteSingleItem}
+    />
+  ));
+
+  return (
     <Layout>
       <div className={classes.history}>
         <Grid
@@ -55,34 +87,18 @@ const History = ({
             handleDeleteAll={handleDeleteAll}
           />
         </Grid>
-        {showControls && (
-          <HistoryControls
-            range={range}
-            handleUpdateRange={handleUpdateRange}
-            customRange={customRange}
-            handleUpdateCustomRange={handleUpdateCustomRange}
-            maxResults={maxResults}
-            setMaxResults={setMaxResults}
-          />
+        {hasHistory && (
+          <>
+            {controls}
+            {list}
+          </>
         )}
-        {history.map((day) => (
-          <HistoryList
-            data={day}
-            getSelectedForDeleteIndex={getSelectedForDeleteIndex}
-            handleSelectedForDelete={handleSelectedForDelete}
-            searchText={searchText}
-            handleMoreFromThisSite={handleMoreFromThisSite}
-            handleDeleteSingleItem={handleDeleteSingleItem}
-          />
-        ))}
-      </div>
-    </Layout>
-  ) : (
-    <Layout>
-      <div>
-        <Typography variant="h3">
-          It&#39;s pretty empty here...
-        </Typography>
+        {!hasHistory && (
+          <div style={{ marginTop: 60, textAlign: 'center' }}>
+            <img alt="meme" src={meme} />
+            <Typography variant="caption" display="block">*Try changing your search or visiting a webpage</Typography>
+          </div>
+        )}
       </div>
     </Layout>
   );

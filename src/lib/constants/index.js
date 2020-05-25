@@ -13,3 +13,5 @@ export const THEMES = {
     GUNMETAL: 'GUNMETAL',
   },
 };
+
+export const MEMES = ['aliens', 'if_had_any', 'would_be_great', 'this_is_fine'];

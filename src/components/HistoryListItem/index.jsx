@@ -64,6 +64,7 @@ const HistoryListItem = ({
     handleSelectedForDelete({ lastVisitTime, url });
   };
 
+  // NEEDS WORK!!!1
   const getDisplayUrl = () => {
     const { hostname } = new URL(url);
     return hostname.substring(0, 4) === 'www.' ? hostname.substring(4) : hostname;

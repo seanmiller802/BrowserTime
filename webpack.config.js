@@ -54,6 +54,10 @@ const config = {
         from: 'src/icons',
         to: 'icons',
       },
+      {
+        from: 'src/lib/memes',
+        to: 'memes',
+      },
     ]),
     new MomentLocalesPlugin({
       localesToKeep: ['es-us', 'ru'],

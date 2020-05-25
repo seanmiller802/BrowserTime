@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
 const App = () => {
   const classes = useStyles();
   const [selectedForDelete, setSelectedForDelete] = useState([]); // history items currently selected for deletion
+  const [clearSelected, setClearSelected] = useState(false); // use this instead of selectedForDelete to trigger useEffect
   const [showConfirmDelete, setShowConfirmDelete] = useState(false); // comfirmation dialog when deleting all history
   const [showDashboard, setShowDashboard] = useState(false);
   const [showControls, setShowControls] = useState(false); // show filter controls
@@ -54,7 +55,7 @@ const App = () => {
         setHistory(sortedHistory);
       })
       .catch((error) => console.error('App useEffect error getting history', error));
-  }, [selectedForDelete, searchText, range, customRange, maxResults]);
+  }, [clearSelected, searchText, range, customRange, maxResults]);
 
 
   const handleUpdateRange = (val) => {
@@ -93,14 +94,20 @@ const App = () => {
   // delete selected items
   const handleDeleteItems = () => {
     deleteHistoryItems(selectedForDelete)
-      .then(() => setSelectedForDelete([]))
+      .then(() => {
+        setSelectedForDelete([]);
+        setClearSelected(!clearSelected);
+      })
       .catch((error) => console.error('Error deleting selected history items', error));
   };
 
   // delete single history item
   const handleDeleteSingleItem = (item) => {
     deleteHistoryItems([item])
-      .then(() => setSelectedForDelete([]))
+      .then(() => {
+        setSelectedForDelete([]);
+        setClearSelected(!clearSelected);
+      })
       .catch((error) => console.error('Error deleting single history item', error));
   };
 
@@ -117,6 +124,10 @@ const App = () => {
   const handleMoreFromThisSite = (text) => {
     setSearchText(text);
     setShowControls(true);
+  };
+
+  const handleSearchTextChange = (val) => {
+    setSearchText(val);
   };
 
   const showDeleteToolbar = selectedForDelete.length > 0;
@@ -148,7 +159,7 @@ const App = () => {
             <History
               history={history}
               searchText={searchText}
-              setSearchText={setSearchText}
+              setSearchText={handleSearchTextChange}
               showControls={showControls}
               setShowControls={setShowControls}
               handleDeleteAll={() => setShowConfirmDelete(true)}
