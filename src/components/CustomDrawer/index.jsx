@@ -42,10 +42,9 @@ const CustomDrawer = ({
 }) => {
   const classes = useStyles();
 
+  // THIS IS BROKEN
   const openBrowserSettings = () => {
-    // chrome.tabs.create({ url: 'http://brave://settings/clearBrowserData' });
-    // console.log(window);
-    // window.location.assign('brave://settings/clearBrowserData');
+    chrome.tabs.create({ url: 'https://brave://settings/clearBrowserData' });
   };
 
   return (

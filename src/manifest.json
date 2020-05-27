@@ -1,6 +1,5 @@
 {
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "name": "BrowserTime",
   "short_name": "BrowserTime",
   "author": "Sean Miller",
@@ -14,10 +13,12 @@
     "history",
     "storage",
     "topSites",
+    "tabs",
     "background",
     "debugger",
     "webRequests",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "*://*/*"
   ],
   "chrome_url_overrides": {
     "history": "history.html"

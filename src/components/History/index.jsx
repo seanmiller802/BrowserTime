@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography } from '@material-ui/core';
@@ -6,7 +6,8 @@ import Layout from '../Layout';
 import HistorySearch from '../HistorySearch';
 import HistoryControls from '../HistoryControls';
 import HistoryList from '../HistoryList';
-import { MEMES } from '../../lib/constants';
+import EmptyStateIllustration from '../EmptyStateIllustration';
+import { ThemeContext } from '../../context/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
   history: {
@@ -39,14 +40,12 @@ const History = ({
   forceUpdate,
 }) => {
   const classes = useStyles();
+  const currentTheme = useContext(ThemeContext);
+  const background = currentTheme.palette.background.dark;
+  const primary = currentTheme.palette.primary.main;
+
+  console.log('currentgdfhaafgf', currentTheme);
   const hasHistory = history.length > 0;
-
-  const getMeme = () => {
-    const randomMeme = MEMES[Math.floor(Math.random() * (MEMES.length))];
-    return `memes/${randomMeme}.jpg`;
-  };
-
-  const meme = getMeme();
 
   const controls = showControls && (
     <HistoryControls
@@ -97,8 +96,9 @@ const History = ({
         )}
         {!hasHistory && (
           <div style={{ marginTop: 60, textAlign: 'center' }}>
-            <img alt="meme" src={meme} />
-            <Typography variant="caption" display="block">*Try changing your search or visiting a webpage</Typography>
+            <EmptyStateIllustration primary={primary} background={background} />
+            <Typography variant="h2" display="block" gutterBottom>No results to show</Typography>
+            <Typography variant="caption" display="block">Try changing your search or visiting a website</Typography>
           </div>
         )}
       </div>
