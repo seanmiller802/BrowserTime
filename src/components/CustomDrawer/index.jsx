@@ -5,7 +5,6 @@ import { Dashboard, History, Launch } from '@material-ui/icons';
 import {
   Toolbar,
   Divider,
-  Chip,
   Drawer,
   List,
   ListItem,
@@ -13,8 +12,10 @@ import {
   ListItemText,
   ListItemIcon,
   Button,
+  Typography,
 } from '@material-ui/core';
 import rangeMappings from '../../lib/rangeMappings';
+
 
 const drawerWidth = 240;
 
@@ -33,6 +34,13 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
   },
+  version: {
+    textAlign: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    padding: theme.spacing(2),
+  },
 }));
 
 const CustomDrawer = ({
@@ -44,7 +52,8 @@ const CustomDrawer = ({
 
   // THIS IS BROKEN
   const openBrowserSettings = () => {
-    chrome.tabs.create({ url: 'https://brave://settings/clearBrowserData' });
+    chrome.tabs.create({ url: 'http://chrome://settings/clearBrowserData' });
+    // window.open('https://chrome://settings/clearBrowserData', '_blank');
   };
 
   return (
@@ -86,6 +95,9 @@ const CustomDrawer = ({
             Clear browsing data
           </Button>
         </ListItem>
+      </div>
+      <div className={classes.version}>
+        <Typography variant="caption">{`v${process.env.npm_package_version}`}</Typography>
       </div>
     </Drawer>
   );

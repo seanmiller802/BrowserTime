@@ -1,26 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Card,
   CardContent,
   Typography,
 } from '@material-ui/core';
+import { Skeleton } from '@material-ui/lab';
 
-const TodaysTopSite = ({ topSite }) => (
+const SkeletonCardSmall = () => (
   <Card>
     <CardContent>
       <Typography color="textSecondary" gutterBottom>
-        Today&#39;s top site
+        <Skeleton animation="wave" height={30} style={{ marginBottom: 6 }} />
       </Typography>
       <Typography variant="h4" component="h2">
-        {topSite}
+        <Skeleton animation="wave" height={30} style={{ marginBottom: 6 }} />
       </Typography>
     </CardContent>
   </Card>
 );
 
-TodaysTopSite.propTypes = {
-  topSite: PropTypes.string.isRequired,
-};
-
-export default TodaysTopSite;
+export default SkeletonCardSmall;

@@ -1,55 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardHeader,
   CardContent,
   List,
   ListItem,
-  ListItemIcon,
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import FolderIcon from '@material-ui/icons/Folder';
+import Favicon from '../../Favicon';
 
-const TopSite = ({ title, url }) => (
-  <Tooltip title={title} placement="bottom" arrow aria-label="top sites">
-    <ListItem>
-      <ListItemIcon>
-        <FolderIcon />
-      </ListItemIcon>
-      <Typography noWrap>
-        {title}
-      </Typography>
-    </ListItem>
-  </Tooltip>
-);
+const useStyles = makeStyles((theme) => ({
+  title: {
+    marginLeft: theme.spacing(2),
+  },
+}));
+
+const TopSite = ({ title, url, handleClick }) => {
+  const classes = useStyles();
+  return (
+    <Tooltip title={title} placement="bottom" arrow aria-label="top sites">
+      <ListItem>
+        <Favicon url={url} />
+        <Typography noWrap onClick={() => handleClick(url)} className={classes.title}>
+          {title}
+        </Typography>
+      </ListItem>
+    </Tooltip>
+  );
+};
 
 TopSite.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 const TopSitesCard = () => {
   const [topSites, setTopSites] = useState([]);
+
+  const handleClick = (url) => {
+    window.open(url);
+  };
 
   useEffect(() => {
     chrome.topSites.get((items) => setTopSites(items));
   });
 
   return (
-    <div>
-      <Card raised="true">
-        <CardHeader
-          title="Top Sites (All Time)"
-        />
-        <CardContent>
-          <List>
-            {topSites.map((site) => <TopSite title={site.title} />)}
-          </List>
-        </CardContent>
-      </Card>
-    </div>
+    <Card raised="true">
+      <CardHeader
+        title="Top Sites (All time)"
+      />
+      <CardContent>
+        <List>
+          {topSites.map((site) => (
+            <TopSite title={site.title} url={site.url} handleClick={handleClick} />
+          ))}
+        </List>
+      </CardContent>
+    </Card>
   );
 };
 

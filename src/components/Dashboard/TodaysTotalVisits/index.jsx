@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -6,13 +6,8 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const TodaysTotalVisits = ({ getTotalPageVisits }) => {
-  const [totals, setTotals] = useState({});
-
-  useEffect(() => {
-    const totalVisits = getTotalPageVisits();
-    setTotals(totalVisits);
-  });
+const TodaysTotalVisits = ({ totalVisits }) => {
+  const { total, change } = totalVisits;
 
   return (
     <Card>
@@ -21,15 +16,26 @@ const TodaysTotalVisits = ({ getTotalPageVisits }) => {
           Total page visits today
         </Typography>
         <Typography variant="h3" component="h2">
-          {totals.today}
+          {total || 'Not enough history'}
         </Typography>
+        {change && <span>{change}</span>}
       </CardContent>
     </Card>
   );
 };
 
 TodaysTotalVisits.propTypes = {
-  getTotalPageVisits: PropTypes.func.isRequired,
+  totalVisits: PropTypes.shape({
+    total: PropTypes.number,
+    change: PropTypes.number,
+  }),
+};
+
+TodaysTotalVisits.defaultProps = {
+  totalVisits: {
+    total: null,
+    change: null,
+  },
 };
 
 export default TodaysTotalVisits;

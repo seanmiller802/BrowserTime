@@ -20,7 +20,7 @@ const EstimatedTimeBrowsing = () => {
         <Typography color="textPrimary" gutterBottom>
           Estimated time browsing
         </Typography>
-        <Typography variant="h4" color="secondary" component="h2">
+        <Typography variant="h4" component="h2">
           4.5 hours
         </Typography>
       </CardContent>

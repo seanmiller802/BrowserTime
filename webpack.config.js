@@ -56,7 +56,7 @@ const config = {
       },
     ]),
     new MomentLocalesPlugin({
-      localesToKeep: ['es-us', 'ru'],
+      localesToKeep: ['es-us', 'en'],
     }),
   ],
   module: {

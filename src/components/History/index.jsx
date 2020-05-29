@@ -44,31 +44,7 @@ const History = ({
   const background = currentTheme.palette.background.dark;
   const primary = currentTheme.palette.primary.main;
 
-  console.log('currentgdfhaafgf', currentTheme);
   const hasHistory = history.length > 0;
-
-  const controls = showControls && (
-    <HistoryControls
-      range={range}
-      handleUpdateRange={handleUpdateRange}
-      customRange={customRange}
-      handleUpdateCustomRange={handleUpdateCustomRange}
-      maxResults={maxResults}
-      setMaxResults={setMaxResults}
-    />
-  );
-
-  const list = history.map((day) => (
-    <HistoryList
-      data={day}
-      getSelectedForDeleteIndex={getSelectedForDeleteIndex}
-      handleSelectedForDelete={handleSelectedForDelete}
-      searchText={searchText}
-      handleMoreFromThisSite={handleMoreFromThisSite}
-      handleDeleteSingleItem={handleDeleteSingleItem}
-      forceUpdate={forceUpdate}
-    />
-  ));
 
   return (
     <Layout>
@@ -90,15 +66,34 @@ const History = ({
         </Grid>
         {hasHistory && (
           <>
-            {controls}
-            {list}
+            {showControls && (
+              <HistoryControls
+                range={range}
+                handleUpdateRange={handleUpdateRange}
+                customRange={customRange}
+                handleUpdateCustomRange={handleUpdateCustomRange}
+                maxResults={maxResults}
+                setMaxResults={setMaxResults}
+              />
+            )}
+            {history.map((day) => (
+              <HistoryList
+                data={day}
+                getSelectedForDeleteIndex={getSelectedForDeleteIndex}
+                handleSelectedForDelete={handleSelectedForDelete}
+                searchText={searchText}
+                handleMoreFromThisSite={handleMoreFromThisSite}
+                handleDeleteSingleItem={handleDeleteSingleItem}
+                forceUpdate={forceUpdate}
+              />
+            ))}
           </>
         )}
         {!hasHistory && (
           <div style={{ marginTop: 60, textAlign: 'center' }}>
-            <EmptyStateIllustration primary={primary} background={background} />
             <Typography variant="h2" display="block" gutterBottom>No results to show</Typography>
             <Typography variant="caption" display="block">Try changing your search or visiting a website</Typography>
+            <EmptyStateIllustration primary={primary} background={background} />
           </div>
         )}
       </div>

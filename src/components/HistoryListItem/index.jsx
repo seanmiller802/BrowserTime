@@ -14,6 +14,7 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Favicon from '../Favicon';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(4),
   },
   itemTitle: {
+    marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     maxWidth: 600,
   },
@@ -96,6 +98,7 @@ const HistoryListItem = ({
         <Tooltip title={time} placement="bottom" arrow aria-label="time">
           <Typography className={classes.itemTime} variant="body2" noWrap>{displayTime}</Typography>
         </Tooltip>
+        <Favicon url={url} className={classes.itemIcon} />
         <Typography className={classes.itemTitle} variant="h6" noWrap>{title}</Typography>
         <Typography className={classes.itemUrl} variant="body2" noWrap>{displayUrl}</Typography>
       </div>
