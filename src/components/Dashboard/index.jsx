@@ -10,11 +10,14 @@ import TodaysTopSite from './TodaysTopSite';
 import TodaysTotalVisits from './TodaysTotalVisits';
 import EstimatedTimeBrowsing from './EstimatedTimeBrowsing';
 import TopSitesCard from './TopSitesCard';
+import WeeklyUsageCard from './WeeklyUsageCard';
 import SkeletonCardSmall from './SkeletonCardSmall';
 import TopSitesSkeleton from './TopSitesSkeleton';
 import { getSearchParams, searchHistory } from '../../lib/chrome-helpers';
 import { groupHistoryByDate } from '../../lib/history-helpers';
-import { isToday, isYesterday } from '../../lib/millisecond-helpers';
+import { isToday, isYesterday, getLastSevenDays } from '../../lib/day-helpers';
+
+getLastSevenDays();
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +53,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    const searchParams = getSearchParams('', 'Seven', {}, 5000);
+    const searchParams = getSearchParams('', 'Seven', {}, 10000);
     searchHistory(searchParams)
       .then((results) => {
         const sortedHistory = groupHistoryByDate(results);
@@ -97,7 +100,7 @@ const Dashboard = () => {
           {isLoading ? <TopSitesSkeleton /> : <TopSitesCard />}
         </Grid>
         <Grid item xs={9}>
-          <TopSitesCard />
+          {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard history={history} />}
         </Grid>
       </Grid>
     </Layout>

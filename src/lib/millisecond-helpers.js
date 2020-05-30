@@ -35,17 +35,3 @@ export const getCustom = (startDate, endDate) => {
   const end = moment(endDate).endOf('day').valueOf();
   return { start, end };
 };
-
-// checks if a date is today
-export const isToday = (date) => {
-  const today = moment().startOf('day').valueOf();
-  const other = moment(date).startOf('day').valueOf();
-  return moment(today).isSame(other);
-};
-
-// checks if a date is yesterday
-export const isYesterday = (date) => {
-  const startOfYesterday = moment().add(-1, 'days').startOf('day').valueOf();
-  const startOfDate = moment(date).startOf('day').valueOf();
-  return moment(startOfYesterday).isSame(startOfDate);
-};
