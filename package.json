@@ -8,7 +8,11 @@
   "private": true,
   "scripts": {
     "start:dev": "node dev-server.js",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "test": "jest"
+  },
+  "jest": {
+    "verbose": true
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
@@ -21,6 +25,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
+    "jest": "^26.0.1",
     "lodash": "^4.17.15",
     "moment": "^2.25.3",
     "prop-types": "^15.7.2",
