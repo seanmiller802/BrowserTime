@@ -54,8 +54,8 @@ const Dashboard = () => {
     const searchParams = getSearchParams('', 'Seven', {}, 10000);
     searchHistory(searchParams)
       .then(async (results) => {
-        const sortedHistory = groupHistoryByDate(results);
-        const enhancedHistory = await categorizeHistory(sortedHistory);
+        const enhancedHistory = groupHistoryByDate(results);
+        // const enhancedHistory = await categorizeHistory(sortedHistory);
         console.log('DASHBOARD enhancedHistory', enhancedHistory);
         const top = enhancedHistory.length > 0 ? getTodaysTopSite(enhancedHistory[0]) : 'No history today';
         const totals = getTotalVisits(enhancedHistory[0], enhancedHistory[1] || []);
