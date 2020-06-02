@@ -26,6 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const App = () => {
+  console.log('App');
   const classes = useStyles();
   const [selectedForDelete, setSelectedForDelete] = useState([]); // history items currently selected for deletion
   const [clearSelected, setClearSelected] = useState(false); // use this instead of selectedForDelete to trigger useEffect

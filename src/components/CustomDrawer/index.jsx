@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Dashboard, History, Launch } from '@material-ui/icons';
+import { HourglassFull, History, Launch } from '@material-ui/icons';
 import {
   Toolbar,
   Divider,
@@ -72,9 +72,9 @@ const CustomDrawer = ({
           </ListSubheader>
           <ListItem button alignItems="center" key="Dashboard" onClick={handleShowDashboard} className={classes.dashboard}>
             <ListItemIcon>
-              <Dashboard />
+              <HourglassFull />
             </ListItemIcon>
-            <ListItemText primary="Dashboard" />
+            <ListItemText primary="Browser Time" />
           </ListItem>
           <ListSubheader>History</ListSubheader>
           {rangeMappings.map((item) => (

@@ -14,13 +14,11 @@ import WeeklyUsageCard from './WeeklyUsageCard';
 import SkeletonCardSmall from './SkeletonCardSmall';
 import TopSitesSkeleton from './TopSitesSkeleton';
 import { getSearchParams, searchHistory } from '../../lib/chrome-helpers';
-import { groupHistoryByDate } from '../../lib/history-helpers';
-import { isToday, isYesterday, getLastSevenDays } from '../../lib/day-helpers';
-
-getLastSevenDays();
+import { groupHistoryByDate, categorizeHistory } from '../../lib/history-helpers';
+import { isToday, isYesterday } from '../../lib/day-helpers';
 
 const Dashboard = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [history, setHistory] = useState([]);
   const [topSite, setTopSite] = useState('');
   const [totalVisits, setTotalVisits] = useState({});
@@ -55,11 +53,13 @@ const Dashboard = () => {
     setIsLoading(true);
     const searchParams = getSearchParams('', 'Seven', {}, 10000);
     searchHistory(searchParams)
-      .then((results) => {
+      .then(async (results) => {
         const sortedHistory = groupHistoryByDate(results);
-        const top = sortedHistory.length > 0 ? getTodaysTopSite(sortedHistory[0]) : 'No history today';
-        const totals = getTotalVisits(sortedHistory[0], sortedHistory[1] || []);
-        setHistory(sortedHistory);
+        const enhancedHistory = await categorizeHistory(sortedHistory);
+        console.log('DASHBOARD enhancedHistory', enhancedHistory);
+        const top = enhancedHistory.length > 0 ? getTodaysTopSite(enhancedHistory[0]) : 'No history today';
+        const totals = getTotalVisits(enhancedHistory[0], enhancedHistory[1] || []);
+        setHistory(enhancedHistory);
         setTopSite(top);
         setTotalVisits(totals);
         setIsLoading(false);

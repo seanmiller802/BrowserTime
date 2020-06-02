@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self'; object-src 'self'; img-src chrome://favicon/;",
+  "content_security_policy": "script-src 'self' https://awis.api.alexa.com/api; object-src 'self'; img-src chrome://favicon/;",
   "name": "BrowserTime",
   "short_name": "BrowserTime",
   "author": "Sean Miller",
@@ -11,8 +11,10 @@
   "permissions": [
     "history",
     "topSites",
-    "tabs",
-    "chrome://favicon/"
+    "storage",
+    "unlimitedStorage",
+    "chrome://favicon/",
+    "https://*.api.alexa.com/"
   ],
   "icons": {
     "16": "icons/icon-16.png",

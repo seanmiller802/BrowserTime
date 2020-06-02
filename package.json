@@ -18,6 +18,7 @@
     "@material-ui/lab": "^4.0.0-alpha.53",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.13",
+    "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",

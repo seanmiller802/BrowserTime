@@ -12,11 +12,8 @@ const WeeklyUsageChart = ({ data }) => (
           {
             ticks: {
               autoSkip: true,
-              maxTicksLimit: 100,
+              maxTicksLimit: 10,
               beginAtZero: true,
-            },
-            gridLines: {
-              display: false,
             },
           },
         ],
