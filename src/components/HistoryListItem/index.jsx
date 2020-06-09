@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Favicon from '../Favicon';
+import { getDisplayUrl } from '../../lib/url-helpers';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -66,17 +67,11 @@ const HistoryListItem = ({
     handleSelectedForDelete({ lastVisitTime, url });
   };
 
-  // NEEDS WORK!!!1
-  const getDisplayUrl = () => {
-    const { hostname } = new URL(url);
-    return hostname.substring(0, 4) === 'www.' ? hostname.substring(4) : hostname;
-  };
-
   const labelId = `checkbox-list-label-${id}`;
 
   const time = moment(lastVisitTime).toString();
   const displayTime = moment(lastVisitTime).format('h:mm A');
-  const displayUrl = getDisplayUrl();
+  const displayUrl = getDisplayUrl(url);
 
   const handleMore = () => {
     handleMoreFromThisSite(displayUrl);

@@ -6,9 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const TodaysTotalVisits = ({ totalVisits }) => {
-  const { total, change } = totalVisits;
-
+const TodaysTotalVisits = ({ value }) => {
   return (
     <Card>
       <CardContent>
@@ -16,26 +14,11 @@ const TodaysTotalVisits = ({ totalVisits }) => {
           Total page visits today
         </Typography>
         <Typography variant="h3" component="h2">
-          {total || 'Not enough history'}
+          {value}
         </Typography>
-        {change && <span>{change}</span>}
       </CardContent>
     </Card>
   );
-};
-
-TodaysTotalVisits.propTypes = {
-  totalVisits: PropTypes.shape({
-    total: PropTypes.number,
-    change: PropTypes.number,
-  }),
-};
-
-TodaysTotalVisits.defaultProps = {
-  totalVisits: {
-    total: null,
-    change: null,
-  },
 };
 
 export default TodaysTotalVisits;

@@ -6,21 +6,21 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const TodaysTopSite = ({ topSite }) => (
+const TodaysTopSite = ({ value }) => (
   <Card>
     <CardContent>
       <Typography color="textSecondary" gutterBottom>
         Today&#39;s top site
       </Typography>
       <Typography variant="h4" component="h2">
-        {topSite}
+        {value}
       </Typography>
     </CardContent>
   </Card>
 );
 
 TodaysTopSite.propTypes = {
-  topSite: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default TodaysTopSite;
