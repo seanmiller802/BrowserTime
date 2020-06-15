@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Card,
   CardContent,
@@ -9,7 +10,7 @@ const TodaysTopCategory = ({ value }) => (
   <Card>
     <CardContent>
       <Typography color="textSecondary" gutterBottom>
-        Today's top category
+        Today&#39;s top category
       </Typography>
       <Typography variant="h4" component="h2">
         {value}
@@ -17,5 +18,10 @@ const TodaysTopCategory = ({ value }) => (
     </CardContent>
   </Card>
 );
+
+TodaysTopCategory.propTypes = {
+  value: PropTypes.string.isRequired,
+};
+
 
 export default TodaysTopCategory;

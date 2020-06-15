@@ -12,8 +12,8 @@ import {
   FormControl,
   MenuItem,
 } from '@material-ui/core';
-import rangeMappings from '../../lib/rangeMappings';
-import maxResultsMapping from '../../lib/maxResultsMapping';
+import rangeMappings from '../../lib/mappings/rangeMappings';
+import maxResultsMapping from '../../lib/mappings/maxResultsMapping';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {

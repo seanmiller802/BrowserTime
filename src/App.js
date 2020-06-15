@@ -16,8 +16,8 @@ import {
   getSearchParams,
   deleteHistoryItems,
   deleteAllHistory,
-} from './lib/chrome-helpers';
-import { groupHistoryByDate } from './lib/history-helpers';
+} from './lib/helpers/chrome-helpers';
+import { groupHistoryByDate } from './lib/helpers/history-helpers';
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Favicon from '../Favicon';
-import { getDisplayUrl } from '../../lib/url-helpers';
+import { getDisplayUrl } from '../../lib/helpers/url-helpers';
 
 const useStyles = makeStyles((theme) => ({
   item: {

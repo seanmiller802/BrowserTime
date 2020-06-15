@@ -14,7 +14,7 @@ import {
   Button,
   Typography,
 } from '@material-ui/core';
-import rangeMappings from '../../lib/rangeMappings';
+import rangeMappings from '../../lib/mappings/rangeMappings';
 
 
 const drawerWidth = 240;

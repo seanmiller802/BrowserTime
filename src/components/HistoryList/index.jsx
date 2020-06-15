@@ -17,8 +17,8 @@ import { makeStyles } from '@material-ui/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import HistoryListItem from '../HistoryListItem';
 import { SettingsContext } from '../../context/SettingsContext';
-import { getCustom } from '../../lib/millisecond-helpers';
-import { deleteHistoryRange } from '../../lib/chrome-helpers';
+import { getCustom } from '../../lib/helpers/millisecond-helpers';
+import { deleteHistoryRange } from '../../lib/helpers/chrome-helpers';
 
 const useStyles = makeStyles((theme) => ({
   historyListGrid: {

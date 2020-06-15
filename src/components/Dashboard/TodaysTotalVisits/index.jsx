@@ -6,19 +6,21 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const TodaysTotalVisits = ({ value }) => {
-  return (
-    <Card>
-      <CardContent>
-        <Typography color="textSecondary" gutterBottom>
-          Total page visits today
-        </Typography>
-        <Typography variant="h3" component="h2">
-          {value}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
+const TodaysTotalVisits = ({ value }) => (
+  <Card>
+    <CardContent>
+      <Typography color="textSecondary" gutterBottom>
+        Total page visits today
+      </Typography>
+      <Typography variant="h3" component="h2">
+        {value}
+      </Typography>
+    </CardContent>
+  </Card>
+);
+
+TodaysTotalVisits.propTypes = {
+  value: PropTypes.number.isRequired,
 };
 
 export default TodaysTotalVisits;

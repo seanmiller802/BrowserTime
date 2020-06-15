@@ -14,9 +14,9 @@ import TopSitesCard from './TopSitesCard';
 import WeeklyUsageCard from './WeeklyUsageCard';
 import SkeletonCardSmall from './SkeletonCardSmall';
 import TopSitesSkeleton from './TopSitesSkeleton';
-import { getSearchParams, searchHistory } from '../../lib/chrome-helpers';
-import { groupHistoryByDate, enrichHistory } from '../../lib/history-helpers';
-import { isToday } from '../../lib/day-helpers';
+import { getSearchParams, searchHistory } from '../../lib/helpers/chrome-helpers';
+import { groupHistoryByDate, enrichHistory } from '../../lib/helpers/history-helpers';
+import { isToday } from '../../lib/helpers/day-helpers';
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -83,9 +83,9 @@ const Dashboard = () => {
         <Grid item xs={3}>
           {isLoading ? <TopSitesSkeleton /> : <TopSitesCard />}
         </Grid>
-        {/* <Grid item xs={9}>
+        <Grid item xs={9}>
           {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard history={history} />}
-        </Grid> */}
+        </Grid>
       </Grid>
     </Layout>
   );

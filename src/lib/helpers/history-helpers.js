@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 /* eslint-disable import/prefer-default-export */
 import _ from 'lodash';
 import moment from 'moment';
 import { getDisplayUrl } from './url-helpers';
-import sites from './data/top-sites.json';
+import sites from '../data/top-sites.json';
 
 const getCategory = (url) => {
   const categories = ['News', 'Adult', 'Sports', 'Shopping', 'Entertainment', 'Social_Networking', 'Financial_Services', 'Search_Engines'];
@@ -26,12 +27,15 @@ export const groupHistoryByDate = (data) => _(data)
 // categorize each day's history items, find top site and category of each day
 export const enrichHistory = (data) => {
   const enhancedData = data.map((day) => {
+    // get top site of each day
     const countedSites = _.countBy(day.items, (item) => getDisplayUrl(item.url));
     const topSite = Object.keys(countedSites).reduce((a, b) => (countedSites[a] > countedSites[b] ? a : b));
+    // group each day's history by category
     const categorizedHistory = _(day.items)
       .groupBy((item) => getCategory(item.url))
       .map((value, key) => ({ category: key, items: value }))
       .value();
+    // get top category of each day
     const { category } = categorizedHistory.reduce((prev, current) => ((prev.items.length > current.items.length) ? prev : current));
     return {
       date: day.date,

@@ -17,6 +17,9 @@
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
     "@date-io/moment": "1.x",
+    "@devexpress/dx-react-chart": "^2.6.3",
+    "@devexpress/dx-react-chart-material-ui": "^2.6.3",
+    "@devexpress/dx-react-core": "^2.6.3",
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.53",
@@ -24,6 +27,7 @@
     "@material-ui/styles": "^4.9.13",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
+    "d3-format": "^1.4.4",
     "dotenv": "^8.2.0",
     "jest": "^26.0.1",
     "lodash": "^4.17.15",
