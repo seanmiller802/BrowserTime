@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
 import {
   Chart,
   BarSeries,
-  ArgumentAxis,
   ValueAxis,
+  ArgumentAxis,
   Legend,
   Tooltip,
-  Title,
 } from '@devexpress/dx-react-chart-material-ui';
 import {
   ValueScale,
@@ -31,16 +29,6 @@ const Label = () => (props) => {
     />
   );
 };
-
-const makeLabel = (symbol) => ({ text, style, ...restProps }) => (
-  <ValueAxis.Label
-    text={`${text} ${symbol}`}
-    style={{
-      ...style,
-    }}
-    {...restProps}
-  />
-);
 
 const legendRootStyle = {
   display: 'flex',
@@ -76,21 +64,19 @@ const TooltipContent = ({
   };
   const items = data.history.map((item) => {
     const val = item.category;
+    const fillColor = categoryMappings.find((category) => category.key === val).color;
     let percentage = format('.0%')(item.items.length / data.count);
-    if (percentage === '0%') percentage = "< 1%"
+    if (percentage === '0%') percentage = '< 1%';
     return (
       <tr key={val}>
         <td>
           <svg width="10" height="10">
-            <circle cx="5" cy="5" r="5" />
+            <circle cx="5" cy="5" r="5" fill={fillColor} />
           </svg>
         </td>
         <td>
           <Tooltip.Content style={alignStyle} text={val} {...props} />
         </td>
-        {/* <td align="right">
-          <Tooltip.Content style={alignStyle} text={item.items.length} {...props} />
-        </td> */}
         <td align="right">
           <Tooltip.Content style={alignStyle} text={percentage} {...props} />
         </td>
@@ -109,14 +95,13 @@ const WeeklyUsageChart = ({ history }) => {
   const [foundCategories, setFoundCategories] = useState([]);
 
   const HistoryLabel = Label();
-  const PercentageLabel = makeLabel('%');
 
-  const CustomTooltip = connectProps(TooltipContent, () => {
-    return { data: currentTarget ? history[currentTarget.point] : null };
-  });
+  const maxCount = Math.max(...history.map((day) => day.count), null);
 
-  const modifyHistoryDomain = (domain) => [domain[0], 600];
-  const modifyPercentageDomain = () => [0, 100];
+  // eslint-disable-next-line max-len
+  const CustomTooltip = connectProps(TooltipContent, () => ({ data: currentTarget ? history[currentTarget.point] : null }));
+
+  const modifyHistoryDomain = (domain) => [domain[0], maxCount + 10];
 
   const getCategoryCounts = (items) => {
     const counts = {};
@@ -154,65 +139,56 @@ const WeeklyUsageChart = ({ history }) => {
       }
       i += 1;
     }
-    console.log('data issssss', data);
-    return data.reverse();
+    return data;
   };
 
   const handleChangeHover = (target) => {
     setCurrentTarget(target ? { series: target.series, point: target.point } : null);
   };
 
-  const stacks = [{
-    series: categoryMappings
-      .filter((obj) => foundCategories.includes(obj.key))
-      .map((obj) => obj.name),
-  }];
+  const getStacks = () => {
+    return [{
+      series: categoryMappings
+        .filter((obj) => foundCategories.includes(obj.key))
+        .map((obj) => obj.name),
+    }];
+  };
 
   return (
-    <Paper>
-      <Chart
-        data={getChartData()}
-      >
-        <ValueScale name="history" modifyDomain={modifyHistoryDomain} />
-        <ValueScale name="percentage" modifyDomain={modifyPercentageDomain} />
-        <ArgumentAxis />
-        <ValueAxis
-          scaleName="history"
-          labelComponent={HistoryLabel}
-        />
-        <ValueAxis
-          scaleName="percentage"
-          position="right"
-          labelComponent={PercentageLabel}
-        />
-        {categoryMappings.filter((obj) => foundCategories.includes(obj.key)).map((category) => (
+    <Chart
+      data={getChartData()}
+    >
+      <ValueScale name="history" modifyDomain={modifyHistoryDomain} />
+      <ArgumentAxis />
+      <ValueAxis scaleName="history" labelComponent={HistoryLabel} />
+      {categoryMappings.filter((obj) => foundCategories.includes(obj.key))
+        .map(({ name, key, color }) => (
           <BarSeries
-            name={category.name}
-            valueField={category.key}
+            name={name}
+            valueField={key}
             argumentField="day"
             scaleName="history"
+            color={color}
           />
         ))}
-        <Title text="8% increase over last week" />
-        <Animation />
-        <Legend
-          position="bottom"
-          rootComponent={LegendRoot}
-          itemComponent={LegendItem}
-          labelComponent={LegendLabel}
-        />
-        <Stack stacks={stacks} />
-        <EventTracker />
-        <HoverState
-          hover={currentTarget}
-          onHoverChange={handleChangeHover}
-        />
-        <Tooltip
-          targetItem={currentTarget}
-          contentComponent={CustomTooltip}
-        />
-      </Chart>
-    </Paper>
+      <Animation />
+      <Legend
+        position="bottom"
+        rootComponent={LegendRoot}
+        itemComponent={LegendItem}
+        labelComponent={LegendLabel}
+      />
+      <Stack stacks={getStacks()} />
+      <EventTracker />
+      <HoverState
+        hover={currentTarget}
+        onHoverChange={handleChangeHover}
+      />
+      <Tooltip
+        targetItem={currentTarget}
+        contentComponent={CustomTooltip}
+      />
+    </Chart>
   );
 };
 

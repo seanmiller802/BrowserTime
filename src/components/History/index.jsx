@@ -41,7 +41,6 @@ const History = ({
 }) => {
   const classes = useStyles();
   const currentTheme = useContext(ThemeContext);
-  const background = currentTheme.palette.background.dark;
   const primary = currentTheme.palette.primary.main;
 
   const hasHistory = history.length > 0;
@@ -90,10 +89,10 @@ const History = ({
           </>
         )}
         {!hasHistory && (
-          <div style={{ marginTop: 60, textAlign: 'center' }}>
-            <Typography variant="h2" display="block" gutterBottom>No results to show</Typography>
-            <Typography variant="caption" display="block">Try changing your search or visiting a website</Typography>
-            <EmptyStateIllustration primary={primary} background={background} />
+          <div style={{ marginTop: 40, textAlign: 'center' }}>
+            <EmptyStateIllustration primary={primary} />
+            <Typography variant="h3" display="block" gutterBottom>Oops.</Typography>
+            <Typography variant="h4" display="block">No results match your search. Try changing your search or visiting a website</Typography>
           </div>
         )}
       </div>

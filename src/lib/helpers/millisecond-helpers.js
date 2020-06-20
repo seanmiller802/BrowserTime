@@ -35,3 +35,6 @@ export const getCustom = (startDate, endDate) => {
   const end = moment(endDate).endOf('day').valueOf();
   return { start, end };
 };
+
+// return starting millisecond of any date
+export const getStartOfDay = (date) => moment(date).startOf('day').valueOf();

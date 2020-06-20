@@ -2,7 +2,9 @@
 /* eslint-disable import/prefer-default-export */
 import _ from 'lodash';
 import moment from 'moment';
+import { format } from 'd3-format';
 import { getDisplayUrl } from './url-helpers';
+import { getLastSeven, getStartOfDay } from './millisecond-helpers';
 import sites from '../data/top-sites.json';
 
 const getCategory = (url) => {
@@ -23,16 +25,49 @@ export const groupHistoryByDate = (data) => _(data)
   .map((value, key) => ({ date: key, items: value }))
   .value();
 
+const calculatePercentChange = (one, two) => {
+  const diff = one - two;
+  return Math.round((diff / one) * 100);
+};
 
-// categorize each day's history items, find top site and category of each day
 export const enrichHistory = (data) => {
-  const enhancedData = data.map((day) => {
+  const startOfLastSeven = getLastSeven();
+  let weekOneTotal = 0;
+  let weekTwoTotal = 0;
+  data.forEach((day) => {
+    if (getStartOfDay(day.date) < startOfLastSeven) {
+      weekOneTotal += day.items.length;
+    } else {
+      weekTwoTotal += day.items.length;
+    }
+  });
+  const percentChange = calculatePercentChange(weekOneTotal, weekTwoTotal);
+  let uniqueSites = {};
+  const categoryCounts = {};
+  const weekTwoData = data.filter((day) => getStartOfDay(day.date) >= startOfLastSeven);
+  const enhancedData = weekTwoData.map((day) => {
     // get top site of each day
-    const countedSites = _.countBy(day.items, (item) => getDisplayUrl(item.url));
+    const countedSites = _.countBy(day.items, (item) => {
+      const url = getDisplayUrl(item.url);
+      if (!uniqueSites[url]) {
+        uniqueSites[url] = 1;
+      } else {
+        uniqueSites[url] += 1;
+      }
+      return url;
+    });
     const topSite = Object.keys(countedSites).reduce((a, b) => (countedSites[a] > countedSites[b] ? a : b));
     // group each day's history by category
     const categorizedHistory = _(day.items)
-      .groupBy((item) => getCategory(item.url))
+      .groupBy((item) => {
+        const category = getCategory(item.url);
+        if (!categoryCounts[category]) {
+          categoryCounts[category] = 1;
+        } else {
+          categoryCounts[category] += 1;
+        }
+        return category;
+      })
       .map((value, key) => ({ category: key, items: value }))
       .value();
     // get top category of each day
@@ -45,5 +80,14 @@ export const enrichHistory = (data) => {
       count: day.items.length,
     };
   });
-  return enhancedData;
+  const topCategory = _.maxBy(_.keys(categoryCounts), (c) => categoryCounts[c]);
+  const mostVisited = _.maxBy(_.keys(uniqueSites), (s) => uniqueSites[s]);
+  uniqueSites = format(',')(Object.keys(uniqueSites).length);
+  return {
+    totalUniqueSites: uniqueSites,
+    topCategory,
+    mostVisited,
+    percentChange,
+    data: enhancedData,
+  };
 };

@@ -52,7 +52,6 @@ const App = () => {
     searchHistory(searchParams)
       .then((results) => {
         const sortedHistory = groupHistoryByDate(results);
-        console.log('App useEffect sorted history', sortedHistory);
         setHistory(sortedHistory);
       })
       .catch((error) => console.error('App useEffect error getting history', error));

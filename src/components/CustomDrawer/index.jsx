@@ -97,7 +97,7 @@ const CustomDrawer = ({
         </ListItem>
       </div>
       <div className={classes.version}>
-        <Typography variant="caption">{`v${process.env.npm_package_version}`}</Typography>
+        <Typography variant="caption">v1.0.0</Typography>
       </div>
     </Drawer>
   );

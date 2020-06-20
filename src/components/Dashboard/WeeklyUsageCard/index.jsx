@@ -10,7 +10,7 @@ import WeeklyUsageChart from '../WeeklyUsageChart';
 const WeeklyUsageCard = ({ history }) => (
   <Card raised="true">
     <CardHeader
-      title="Usage over last 7 days"
+      title="Last 7 days"
     />
     <CardContent>
       <WeeklyUsageChart history={history} />

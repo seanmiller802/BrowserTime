@@ -6,45 +6,28 @@ import {
   Typography,
 } from '@material-ui/core';
 import Layout from '../Layout';
-import TodaysTopSite from './TodaysTopSite';
-import TodaysTotalVisits from './TodaysTotalVisits';
-import TodaysTopCategory from './TodaysTopCategory';
-import EstimatedTimeBrowsing from './EstimatedTimeBrowsing';
+import TopSite from './TopSite';
+import TotalUniqueSites from './TotalUniqueSites';
+import TopCategory from './TopCategory';
+import EstimatedTimeBrowsing from './PercentChange';
 import TopSitesCard from './TopSitesCard';
 import WeeklyUsageCard from './WeeklyUsageCard';
 import SkeletonCardSmall from './SkeletonCardSmall';
 import TopSitesSkeleton from './TopSitesSkeleton';
 import { getSearchParams, searchHistory } from '../../lib/helpers/chrome-helpers';
 import { groupHistoryByDate, enrichHistory } from '../../lib/helpers/history-helpers';
-import { isToday } from '../../lib/helpers/day-helpers';
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [history, setHistory] = useState([]);
-
-  const getToday = () => {
-    if (history.length < 1 || !isToday(history[0].date)) {
-      return {
-        site: 'NA',
-        category: 'NA',
-        visits: 'NA',
-      };
-    }
-
-    return {
-      site: history[0].topSite,
-      category: history[0].topCategory,
-      visits: history[0].count,
-    };
-  };
+  const [history, setHistory] = useState({});
 
   useEffect(() => {
-    const searchParams = getSearchParams('', 'Seven', {}, 10000);
+    const searchParams = getSearchParams('', 'Fourteen', {}, 10000);
     searchHistory(searchParams)
       .then(async (results) => {
         const groupedHistory = groupHistoryByDate(results);
         const enrichedHistory = enrichHistory(groupedHistory);
-        console.log('DASHBOARD enhancedHistory', enrichedHistory);
+        console.log('enriched', enrichedHistory);
         setHistory(enrichedHistory);
         setIsLoading(false);
       })
@@ -60,31 +43,33 @@ const Dashboard = () => {
         justify="center"
       >
         <Grid item xs={12}>
-          <Breadcrumbs aria-label="breadcrumb">
+          <Breadcrumbs aria-label="breadcrumb" gutterBottom>
             <Link color="inherit" href="/" onClick={() => {}}>
               Insights
             </Link>
             <Typography color="textPrimary">Dashboard</Typography>
           </Breadcrumbs>
-          <Typography variant="h3" gutterBottom>Welcome back!</Typography>
+          <Typography variant="h3">This week&#39;s overview</Typography>
         </Grid>
         <Grid item xs={3}>
-          {isLoading ? <SkeletonCardSmall /> : <TodaysTopSite value={getToday().site} />}
+          {isLoading ? <SkeletonCardSmall /> : <TopSite value={history.mostVisited} />}
         </Grid>
         <Grid item xs={3}>
-          {isLoading ? <SkeletonCardSmall /> : <TodaysTotalVisits value={getToday().visits} />}
+          {isLoading ? <SkeletonCardSmall />
+            : <TotalUniqueSites value={history.totalUniqueSites} />}
         </Grid>
         <Grid item xs={3}>
-          {isLoading ? <SkeletonCardSmall /> : <TodaysTopCategory value={getToday().category} />}
+          {isLoading ? <SkeletonCardSmall /> : <TopCategory value={history.topCategory} />}
         </Grid>
         <Grid item xs={3}>
-          {isLoading ? <SkeletonCardSmall /> : <EstimatedTimeBrowsing />}
+          {isLoading ? <SkeletonCardSmall />
+            : <EstimatedTimeBrowsing value={history.percentChange} />}
         </Grid>
         <Grid item xs={3}>
           {isLoading ? <TopSitesSkeleton /> : <TopSitesCard />}
         </Grid>
         <Grid item xs={9}>
-          {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard history={history} />}
+          {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard history={history.data} />}
         </Grid>
       </Grid>
     </Layout>

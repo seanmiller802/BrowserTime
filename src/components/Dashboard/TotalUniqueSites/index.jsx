@@ -6,11 +6,11 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const TodaysTopSite = ({ value }) => (
+const TotalUniqueSites = ({ value }) => (
   <Card>
     <CardContent>
       <Typography color="textSecondary" gutterBottom>
-        Today&#39;s top site
+        Unique sites visited
       </Typography>
       <Typography variant="h4" component="h2">
         {value}
@@ -19,8 +19,8 @@ const TodaysTopSite = ({ value }) => (
   </Card>
 );
 
-TodaysTopSite.propTypes = {
+TotalUniqueSites.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default TodaysTopSite;
+export default TotalUniqueSites;
