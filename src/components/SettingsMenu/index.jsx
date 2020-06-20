@@ -1,17 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/styles';
 import {
   Popover,
   Typography,
   IconButton,
-  Button,
   Divider,
   Paper,
   InputBase,
   Select,
   MenuItem,
-  ListSubheader,
   ListItemText,
   Switch,
   FormControl,
@@ -19,7 +17,6 @@ import {
   FormLabel,
   FormGroup,
 } from '@material-ui/core';
-import ManageItemsDialog from '../ManageItemsDialog';
 import { THEMES } from '../../lib/constants';
 import { SettingsContext } from '../../context/SettingsContext';
 
@@ -88,18 +85,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SettingsMenu = ({ open, handleClose, anchorEl }) => {
-  const [showManageKeywords, setShowManageKeywords] = useState(false);
-  const [showManageSites, setShowManageSites] = useState(false);
   const { settingsState, updateSettings } = useContext(SettingsContext);
   const {
-    accountType,
     theme,
     showResultsCount,
-    turnOffHistory,
-    enableAutoRemoveKeywords,
-    autoRemoveKeywordsList,
-    enableBlockedSites,
-    blockedSitesList,
   } = settingsState;
   const classes = useStyles();
 
@@ -109,38 +98,6 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
 
   const handleShowResultsCount = (e) => {
     updateSettings(e.target.name, !showResultsCount);
-  };
-
-  const handleTurnOffHistory = (e) => {
-    updateSettings(e.target.name, !turnOffHistory);
-  };
-
-  const handleEnableAutoRemoveKeywords = (e) => {
-    updateSettings(e.target.name, !enableAutoRemoveKeywords);
-  };
-
-  const handleEnableBlockedSites = (e) => {
-    updateSettings(e.target.name, !enableBlockedSites);
-  };
-
-  const handleAddKeyword = (keyword) => {
-    updateSettings('autoRemoveSitesList', [...autoRemoveKeywordsList, keyword]);
-  };
-
-  const handleRemoveKeyword = (keyword, index) => {
-    const updated = Array.apply([], autoRemoveKeywordsList);
-    updated.splice(index, 1);
-    updateSettings('autoRemoveSitesList', updated);
-  };
-
-  const handleAddBlockedSite = (site) => {
-    updateSettings('blockedSitesList', [...blockedSitesList, site]);
-  };
-
-  const handleRemoveBlockedSite = (site, index) => {
-    const updated = Array.apply([], blockedSitesList);
-    updated.splice(index, 1);
-    updateSettings('blockedSitesList', updated);
   };
 
   const id = open ? 'settings-popover' : undefined;
@@ -164,11 +121,6 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
         <div className={classes.content}>
           <Typography variant="h4" align="left">Settings</Typography>
           <div className={classes.settings}>
-            <FormLabel component="legend" className={classes.formLabel}>Account Type</FormLabel>
-            <Paper component="form" className={`${classes.root} ${classes.accountType}`}>
-              <Typography variant="h5">{accountType}</Typography>
-              <Button variant="outlined" size="small" className={classes.upgradeBtn}>Upgrade to Pro</Button>
-            </Paper>
             <FormLabel component="legend" className={classes.formLabel}>Theme</FormLabel>
             <Paper component="form" className={classes.root}>
               <IconButton className={classes.iconButton} disableRipple disableFocusRipple size="small" aria-label="search">
@@ -184,14 +136,7 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                 onChange={handleThemeChange}
                 input={<CustomInput />}
               >
-                <ListSubheader>Basic</ListSubheader>
-                {Object.keys(THEMES.free).map((t) => (
-                  <MenuItem key={t} value={t}>
-                    <ListItemText primary={t} />
-                  </MenuItem>
-                ))}
-                <ListSubheader color="primary">Premium themes</ListSubheader>
-                {Object.keys(THEMES.premium).map((t) => (
+                {Object.keys(THEMES).map((t) => (
                   <MenuItem key={t} value={t}>
                     <ListItemText primary={t} />
                   </MenuItem>
@@ -205,86 +150,11 @@ const SettingsMenu = ({ open, handleClose, anchorEl }) => {
                   control={<Switch checked={showResultsCount} onChange={handleShowResultsCount} name="showResultsCount" />}
                   label="Show results count"
                 />
-                <FormControlLabel
-                  control={<Switch disabled={enableAutoRemoveKeywords || enableBlockedSites} checked={turnOffHistory} onChange={handleTurnOffHistory} name="turnOffHistory" />}
-                  label="Turn off all history"
-                />
-                {turnOffHistory && (
-                  <Typography variant="caption">
-                    Stops all history from being recorded
-                  </Typography>
-                )}
-                <FormControlLabel
-                  control={<Switch disabled={turnOffHistory} checked={enableAutoRemoveKeywords} onChange={handleEnableAutoRemoveKeywords} name="enableAutoRemoveKeywords" />}
-                  label="Enable auto-remove keywords"
-                />
-                {enableAutoRemoveKeywords && (
-                  <>
-                    <Typography variant="caption">
-                      Enabling this features allows you to automagically stop recording history
-                      items that contain certain keywords
-                    </Typography>
-                    <div style={{ marginTop: 10 }}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => setShowManageKeywords(true)}
-                      >
-                        Manage Keywords
-                      </Button>
-                    </div>
-                  </>
-                )}
-                <FormControlLabel
-                  control={<Switch disabled={turnOffHistory} checked={enableBlockedSites} onChange={handleEnableBlockedSites} name="enableBlockedSites" />}
-                  label="Enable blocked sites"
-                />
-                {enableBlockedSites && (
-                  <>
-                    <Typography variant="caption">
-                      Enabling this features allows you to automagically
-                      block your browser from opening certain websites
-                    </Typography>
-                    <div style={{ marginTop: 10 }}>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => setShowManageSites(true)}
-                      >
-                        Manage Blocked Sites
-                      </Button>
-                    </div>
-                  </>
-                )}
               </FormGroup>
             </FormControl>
           </div>
         </div>
       </Popover>
-      <ManageItemsDialog
-        open={showManageKeywords}
-        items={autoRemoveKeywordsList}
-        cancel={() => setShowManageKeywords(false)}
-        addItem={handleAddKeyword}
-        removeItem={handleRemoveKeyword}
-        title="Manage auto-remove keywords"
-        inputPlaceholder="Add a new keyword"
-        tooltipTitle="Remove keyword"
-        subheader={autoRemoveKeywordsList.length < 1 ? 'No keywords added yet' : 'idk yet'}
-      />
-      <ManageItemsDialog
-        open={showManageSites}
-        items={blockedSitesList}
-        cancel={() => setShowManageSites(false)}
-        addItem={handleAddBlockedSite}
-        removeItem={handleRemoveBlockedSite}
-        title="Manage blocked sites"
-        inputPlaceholder="Add a new site"
-        tooltipTitle="Remove blocked site"
-        subheader={blockedSitesList.length < 1 ? 'No blocked sites added yet' : 'idk yet'}
-      />
     </>
   );
 };

@@ -8,14 +8,8 @@ import { THEMES } from '../lib/constants';
 import { settingsReducer } from '../reducers/settingsReducer';
 
 const initialSettingsState = {
-  accountType: 'Basic',
-  theme: THEMES.free.DARK,
+  theme: THEMES.DARK,
   showResultsCount: true,
-  turnOffHistory: false,
-  enableAutoRemoveKeywords: false,
-  autoRemoveKeywordsList: ['wedding', 'rings', 'proposing'],
-  enableBlockedSites: false,
-  blockedSitesList: [],
 };
 
 export const SettingsContext = createContext(initialSettingsState);

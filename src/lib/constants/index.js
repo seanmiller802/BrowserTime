@@ -1,15 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 export const THEMES = {
-  free: {
-    LIGHT: 'LIGHT',
-    DARK: 'DARK',
-  },
-  premium: {
-    NIGHT: 'NIGHT',
-    POLAR: 'POLAR',
-    NINJA: 'NINJA',
-    FIZZ: 'FIZZ',
-    BUMBLEBEE: 'BUMBLEBEE',
-    GUNMETAL: 'GUNMETAL',
-  },
+  LIGHT: 'LIGHT',
+  DARK: 'DARK',
+  NIGHT: 'NIGHT',
+  POLAR: 'POLAR',
+  NINJA: 'NINJA',
+  FIZZ: 'FIZZ',
+  BUMBLEBEE: 'BUMBLEBEE',
 };
