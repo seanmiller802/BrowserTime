@@ -17,15 +17,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TopCategory = ({ value }) => {
-  const bgColor = categoryMappings.find((item) => item.name === value).color;
-  const classes = useStyles({ color: bgColor });
+  let classes;
+  if (!value === 'NA') {
+    const bgColor = categoryMappings.find((item) => item.name === value).color;
+    classes = useStyles({ color: bgColor });
+  }
   return (
     <Card>
       <CardContent>
         <Typography color="textSecondary" gutterBottom>
           Top category
         </Typography>
-        <Typography variant="h4" component="span" className={classes.category}>
+        <Typography variant="h4" component="span" className={classes && classes.category}>
           {value}
         </Typography>
       </CardContent>

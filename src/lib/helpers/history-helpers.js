@@ -25,9 +25,10 @@ export const groupHistoryByDate = (data) => _(data)
   .map((value, key) => ({ date: key, items: value }))
   .value();
 
-const calculatePercentChange = (one, two) => {
-  const diff = one - two;
-  return Math.round((diff / one) * 100);
+const calculatePercentChange = (weekOneTotal, weekTwoTotal) => {
+  if (weekOneTotal === 0) return 'NA';
+  const diff = weekOneTotal - weekTwoTotal;
+  return Math.round((diff / weekOneTotal) * 100);
 };
 
 export const enrichHistory = (data) => {

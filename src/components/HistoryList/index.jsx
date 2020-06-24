@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
   menuIcon: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(1) * 1.5,
   },
 }));
 
@@ -102,7 +102,7 @@ const HistoryList = ({
           }}
           action={(
             <>
-              <IconButton className={classes.menuIcon} aria-controls="history-list-menu" aria-label="options" aria-haspopup="true" onClick={handleMenuClick}>
+              <IconButton className={classes.menuIcon} size="large" aria-controls="history-list-menu" aria-label="options" aria-haspopup="true" onClick={handleMenuClick}>
                 <MoreVertIcon />
               </IconButton>
               <Menu
@@ -113,7 +113,7 @@ const HistoryList = ({
                 onClose={handleMenuClose}
                 TransitionComponent={Fade}
               >
-                <MenuItem onClick={deleteEntireDay}>Delete entire day</MenuItem>
+                <MenuItem onClick={deleteEntireDay}>{`Delete ${items.length} items`}</MenuItem>
               </Menu>
             </>
           )}

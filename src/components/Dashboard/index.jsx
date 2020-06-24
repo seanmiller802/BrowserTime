@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import Layout from '../Layout';
-import TopSite from './TopSite';
+import MostVisitedSite from './MostVisitedSite';
 import TotalUniqueSites from './TotalUniqueSites';
 import TopCategory from './TopCategory';
 import EstimatedTimeBrowsing from './PercentChange';
@@ -25,10 +25,20 @@ const Dashboard = () => {
     const searchParams = getSearchParams('', 'Fourteen', {}, 10000);
     searchHistory(searchParams)
       .then(async (results) => {
-        const groupedHistory = groupHistoryByDate(results);
-        const enrichedHistory = enrichHistory(groupedHistory);
-        console.log('enriched', enrichedHistory);
-        setHistory(enrichedHistory);
+        if (results.length < 1) {
+          setHistory({
+            data: [],
+            mostVisited: 'NA',
+            topCategory: 'NA',
+            totalUniqueSites: 'NA',
+            percentChange: 'NA',
+          });
+        } else {
+          const groupedHistory = groupHistoryByDate(results);
+          const enrichedHistory = enrichHistory(groupedHistory);
+          console.log('enriched', enrichedHistory);
+          setHistory(enrichedHistory);
+        }
         setIsLoading(false);
       })
       .catch((error) => console.error('Error getting history', error)); // HANDLE THIS
@@ -52,7 +62,7 @@ const Dashboard = () => {
           <Typography variant="h3">This week&#39;s overview</Typography>
         </Grid>
         <Grid item xs={3}>
-          {isLoading ? <SkeletonCardSmall /> : <TopSite value={history.mostVisited} />}
+          { isLoading ? <SkeletonCardSmall /> : <MostVisitedSite value={history.mostVisited} />}
         </Grid>
         <Grid item xs={3}>
           {isLoading ? <SkeletonCardSmall />

@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-const TopSite = ({ value }) => (
+const MostVisitedSite = ({ value }) => (
   <Card>
     <CardContent>
       <Typography color="textSecondary" gutterBottom>
@@ -19,8 +19,8 @@ const TopSite = ({ value }) => (
   </Card>
 );
 
-TopSite.propTypes = {
+MostVisitedSite.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-export default TopSite;
+export default MostVisitedSite;

@@ -55,11 +55,15 @@ const TopSitesCard = () => {
         title="Top Sites (All time)"
       />
       <CardContent>
-        <List>
-          {topSites.map((site) => (
-            <TopSite title={site.title} url={site.url} handleClick={handleClick} />
-          ))}
-        </List>
+        {topSites.length < 1 ? (
+          <Typography variant="h4" component="span">NA</Typography>
+        ) : (
+          <List>
+            {topSites.map((site) => (
+              <TopSite title={site.title} url={site.url} handleClick={handleClick} />
+            ))}
+          </List>
+        )}
       </CardContent>
     </Card>
   );

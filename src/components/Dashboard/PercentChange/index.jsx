@@ -22,24 +22,32 @@ const useStyles = makeStyles((theme) => ({
 const PercentChange = ({ value }) => {
   const classes = useStyles();
   const icon = value < 0 ? <ArrowUpward /> : <ArrowDownward />;
+  const hasChange = value !== 'NA';
   return (
     <Card className={classes.card}>
       <CardContent>
         <Typography color="textPrimary" gutterBottom>
           Usage
         </Typography>
-        <Typography variant="h4" component="h2" className={classes.copy}>
-          {icon}
-          {value}
-          % this week
-        </Typography>
+        {hasChange ? (
+          <Typography variant="h4" component="h2" className={classes.copy}>
+            {icon}
+            {value}
+            % this week
+          </Typography>
+        ) : (
+          <Typography variant="h4" component="h2" className={classes.copy}>NA</Typography>
+        )}
       </CardContent>
     </Card>
   );
 };
 
 PercentChange.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
 };
 
 export default PercentChange;

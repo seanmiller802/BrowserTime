@@ -63,18 +63,18 @@ const History = ({
             handleDeleteAll={handleDeleteAll}
           />
         </Grid>
+        {showControls && (
+          <HistoryControls
+            range={range}
+            handleUpdateRange={handleUpdateRange}
+            customRange={customRange}
+            handleUpdateCustomRange={handleUpdateCustomRange}
+            maxResults={maxResults}
+            setMaxResults={setMaxResults}
+          />
+        )}
         {hasHistory && (
           <>
-            {showControls && (
-              <HistoryControls
-                range={range}
-                handleUpdateRange={handleUpdateRange}
-                customRange={customRange}
-                handleUpdateCustomRange={handleUpdateCustomRange}
-                maxResults={maxResults}
-                setMaxResults={setMaxResults}
-              />
-            )}
             {history.map((day) => (
               <HistoryList
                 data={day}
