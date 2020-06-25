@@ -16,7 +16,6 @@ import {
 } from '@material-ui/core';
 import rangeMappings from '../../lib/mappings/rangeMappings';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +69,7 @@ const CustomDrawer = ({
           <ListSubheader>
             Insights
           </ListSubheader>
-          <ListItem button alignItems="center" key="Dashboard" onClick={handleShowDashboard} className={classes.dashboard}>
+          <ListItem button alignItems="center" key="Dashboard" selected={range === null} onClick={handleShowDashboard} className={classes.dashboard}>
             <ListItemIcon>
               <HourglassFull />
             </ListItemIcon>

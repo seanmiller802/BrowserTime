@@ -72,6 +72,7 @@ const App = () => {
 
   const handleShowDashboard = () => {
     setShowDashboard(true);
+    setRange(null);
   };
 
   // use lastVisitTime to check if an item is selected for deletion
