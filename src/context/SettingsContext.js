@@ -2,21 +2,24 @@
 import React, {
   createContext,
   useReducer,
+  useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
-import { THEMES } from '../lib/constants';
 import { settingsReducer } from '../reducers/settingsReducer';
+import { THEMES } from '../lib/constants/index';
 
-const initialSettingsState = {
-  theme: THEMES.DARK,
-  showResultsCount: true,
-};
-
-export const SettingsContext = createContext(initialSettingsState);
+export const SettingsContext = createContext();
 SettingsContext.displayName = 'SettingsContext';
 
 export const SettingsProvider = ({ children }) => {
-  const [settingsState, dispatch] = useReducer(settingsReducer, initialSettingsState);
+  const [settingsState, dispatch] = useReducer(settingsReducer, {}, () => {
+    const localData = localStorage.getItem('settings');
+    return localData ? JSON.parse(localData) : { theme: THEMES.DARK, showResultsCount: true };
+  });
+
+  useEffect(() => {
+    localStorage.setItem('settings', JSON.stringify(settingsState));
+  }, [settingsState]);
 
   const updateSettings = (settingName, settingValue) => {
     dispatch({
