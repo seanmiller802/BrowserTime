@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   itemTime: {
-    marginRight: theme.spacing(4),
+    width: 70,
+    marginRight: theme.spacing(2),
   },
   itemTitle: {
     marginLeft: theme.spacing(2),

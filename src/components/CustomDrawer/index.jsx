@@ -49,10 +49,8 @@ const CustomDrawer = ({
 }) => {
   const classes = useStyles();
 
-  // THIS IS BROKEN
   const openBrowserSettings = () => {
-    chrome.tabs.create({ url: 'http://chrome://settings/clearBrowserData' });
-    // window.open('https://chrome://settings/clearBrowserData', '_blank');
+    chrome.tabs.create({ url: 'chrome://settings/clearBrowserData' });
   };
 
   return (

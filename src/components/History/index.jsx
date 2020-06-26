@@ -92,7 +92,8 @@ const History = ({
           <div style={{ marginTop: 40, textAlign: 'center' }}>
             <EmptyStateIllustration primary={primary} />
             <Typography variant="h3" display="block" gutterBottom>Oops.</Typography>
-            <Typography variant="h4" display="block">No results match your search. Try changing your search or visiting a website</Typography>
+            <Typography variant="h4" display="block">No results match your search.</Typography>
+            <Typography variant="h4" display="block">Try changing your search or visiting a website.</Typography>
           </div>
         )}
       </div>
