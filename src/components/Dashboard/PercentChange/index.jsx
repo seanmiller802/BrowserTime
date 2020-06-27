@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -7,10 +7,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
+import { ThemeContext } from '../../../context/ThemeContext';
 
 const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: theme.palette.primary.main,
+    color: (props) => props.color,
   },
   copy: {
     display: 'flex',
@@ -20,13 +22,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PercentChange = ({ value }) => {
-  const classes = useStyles();
+  const currentTheme = useContext(ThemeContext);
+  const styleProps = ['DARK', 'NIGHT'].includes(currentTheme.name) ? { color: currentTheme.palette.text.primary } : { color: currentTheme.palette.background.default };
+  const classes = useStyles(styleProps);
   const icon = value < 0 ? <ArrowUpward /> : <ArrowDownward />;
   const hasChange = value !== 'NA';
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography color="textPrimary" gutterBottom>
+        <Typography gutterBottom>
           Usage
         </Typography>
         {hasChange ? (

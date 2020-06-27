@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
 // See https://developer.chrome.com/extensions/history
+
 import {
   getLastHour,
   getToday,
@@ -31,7 +32,7 @@ export const getSearchParams = (
       start = getToday();
       break;
     case 'Yesterday':
-      yesterday = getYesterday(customRange.start, customRange.end);
+      yesterday = getYesterday();
       start = yesterday.start;
       end = yesterday.end;
       break;
@@ -72,7 +73,7 @@ export const searchHistory = (queryObject) => new Promise((resolve, reject) => {
   });
 });
 
-// delete selected items based on url
+// delete selected items
 export const deleteHistoryItems = (itemsToDelete) => new Promise((resolve, reject) => {
   try {
     let url;
