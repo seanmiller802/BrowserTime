@@ -12,10 +12,11 @@ import TopCategory from './TopCategory';
 import EstimatedTimeBrowsing from './PercentChange';
 import TopSitesCard from './TopSitesCard';
 import WeeklyUsageCard from './WeeklyUsageCard';
+import CategoryPie from './CategoryPie';
 import SkeletonCardSmall from './SkeletonCardSmall';
 import TopSitesSkeleton from './TopSitesSkeleton';
 import { getSearchParams, searchHistory } from '../../lib/helpers/chrome-helpers';
-import { groupHistoryByDate, enrichHistory } from '../../lib/helpers/history-helpers';
+import { groupHistoryByDate, groupHistoryByHour, enrichHistory } from '../../lib/helpers/history-helpers';
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -28,16 +29,18 @@ const Dashboard = () => {
         if (results.length < 1) {
           setHistory({
             data: [],
+            timeData: [],
             mostVisited: 'NA',
             topCategory: 'NA',
             totalUniqueSites: 'NA',
             percentChange: 'NA',
+            categoryBreakdown: [],
           });
         } else {
-          const groupedHistory = groupHistoryByDate(results);
-          const enrichedHistory = enrichHistory(groupedHistory);
-          console.log('enriched', enrichedHistory);
-          setHistory(enrichedHistory);
+          const groupedByDate = groupHistoryByDate(results);
+          const groupedByHour = groupHistoryByHour(results);
+          const enrichedHistory = enrichHistory(groupedByDate);
+          setHistory({ ...enrichedHistory, timeData: groupedByHour });
         }
         setIsLoading(false);
       })
@@ -76,10 +79,16 @@ const Dashboard = () => {
             : <EstimatedTimeBrowsing value={history.percentChange} />}
         </Grid>
         <Grid item xs={3}>
+          {isLoading ? <TopSitesSkeleton /> : <CategoryPie data={history.categoryBreakdown} />}
+        </Grid>
+        <Grid item xs={9}>
+          {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard data={history.data} title="Last 7 days by category" chartType="category" />}
+        </Grid>
+        <Grid item xs={3}>
           {isLoading ? <TopSitesSkeleton /> : <TopSitesCard />}
         </Grid>
         <Grid item xs={9}>
-          {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard history={history.data} />}
+          {isLoading ? <TopSitesSkeleton /> : <WeeklyUsageCard data={history.timeData} title="Last 7 days by hour" chartType="time" />}
         </Grid>
       </Grid>
     </Layout>

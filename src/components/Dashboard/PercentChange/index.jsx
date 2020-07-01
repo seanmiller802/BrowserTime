@@ -26,6 +26,7 @@ const PercentChange = ({ value }) => {
   const styleProps = ['DARK', 'NIGHT'].includes(currentTheme.name) ? { color: currentTheme.palette.text.primary } : { color: currentTheme.palette.background.default };
   const classes = useStyles(styleProps);
   const icon = value < 0 ? <ArrowUpward /> : <ArrowDownward />;
+  const displayValue = value < 0 ? value * -1 : value;
   const hasChange = value !== 'NA';
   return (
     <Card className={classes.card}>
@@ -36,7 +37,7 @@ const PercentChange = ({ value }) => {
         {hasChange ? (
           <Typography variant="h4" component="h2" className={classes.copy}>
             {icon}
-            {value}
+            {displayValue}
             % this week
           </Typography>
         ) : (

@@ -5,21 +5,32 @@ import {
   CardHeader,
   CardContent,
 } from '@material-ui/core';
-import WeeklyUsageChart from '../WeeklyUsageChart';
+import CategoryChart from '../CategoryChart';
+import TimeChart from '../TimeChart';
 
-const WeeklyUsageCard = ({ history }) => (
-  <Card raised="true">
-    <CardHeader
-      title={history.length < 1 ? 'Last 7 days unavailable' : 'Last 7 days'}
-    />
-    <CardContent>
-      <WeeklyUsageChart history={history} />
-    </CardContent>
-  </Card>
-);
+const components = {
+  category: CategoryChart,
+  time: TimeChart,
+};
+
+const WeeklyUsageCard = ({ data, chartType, title }) => {
+  const SpecificChart = components[chartType];
+  return (
+    <Card raised="true">
+      <CardHeader
+        title={data.length < 1 ? 'Last 7 days unavailable' : title}
+      />
+      <CardContent>
+        <SpecificChart history={data} />
+      </CardContent>
+    </Card>
+  );
+};
 
 WeeklyUsageCard.propTypes = {
-  history: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  chartType: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default WeeklyUsageCard;

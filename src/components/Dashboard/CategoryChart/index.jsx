@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Typography } from '@material-ui/core';
 import {
   Chart,
   BarSeries,
@@ -17,6 +18,7 @@ import {
 } from '@devexpress/dx-react-chart';
 import { connectProps } from '@devexpress/dx-react-core';
 import { format } from 'd3-format';
+import moment from 'moment';
 import { getDayOfWeek, getLastSevenDays } from '../../../lib/helpers/day-helpers';
 import categoryMappings from '../../../lib/mappings/categoryMappings';
 
@@ -55,27 +57,25 @@ const LegendLabel = (props) => (
 );
 
 const TooltipContent = ({
-  data, text, style, ...props
+  data, text, ...props
 }) => {
-  console.log('tooltip data', data);
   const alignStyle = {
-    ...style,
     paddingLeft: '10px',
   };
   const items = data.history.map((item) => {
-    const val = item.category;
-    const fillColor = categoryMappings.find((category) => category.key === val).color;
+    const key = item.category;
+    const { name, color } = categoryMappings.find((category) => category.key === key);
     let percentage = format('.0%')(item.items.length / data.count);
     if (percentage === '0%') percentage = '< 1%';
     return (
-      <tr key={val}>
+      <tr key={key}>
         <td>
           <svg width="10" height="10">
-            <circle cx="5" cy="5" r="5" fill={fillColor} />
+            <circle cx="5" cy="5" r="5" fill={color} />
           </svg>
         </td>
         <td>
-          <Tooltip.Content style={alignStyle} text={val} {...props} />
+          <Tooltip.Content style={alignStyle} text={name} {...props} />
         </td>
         <td align="right">
           <Tooltip.Content style={alignStyle} text={percentage} {...props} />
@@ -84,13 +84,27 @@ const TooltipContent = ({
     );
   });
   return (
-    <table>
-      {items}
-    </table>
+    <div>
+      <Typography variant="h6" color="primary" align="center">{moment(new Date()).format('dddd, MMMM Do, Y')}</Typography>
+      <table>
+        {items}
+      </table>
+    </div>
   );
 };
 
-const WeeklyUsageChart = ({ history }) => {
+TooltipContent.propTypes = {
+  data: PropTypes.shape({
+    count: PropTypes.number,
+    history: PropTypes.arrayOf(PropTypes.shape({
+      category: PropTypes.string,
+      items: PropTypes.arrayOf(PropTypes.shape({})),
+    })),
+  }).isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+const CategoryChart = ({ history }) => {
   const [currentTarget, setCurrentTarget] = useState(null);
   const [foundCategories, setFoundCategories] = useState([]);
 
@@ -146,13 +160,11 @@ const WeeklyUsageChart = ({ history }) => {
     setCurrentTarget(target ? { series: target.series, point: target.point } : null);
   };
 
-  const getStacks = () => {
-    return [{
-      series: categoryMappings
-        .filter((obj) => foundCategories.includes(obj.key))
-        .map((obj) => obj.name),
-    }];
-  };
+  const getStacks = () => [{
+    series: categoryMappings
+      .filter((obj) => foundCategories.includes(obj.key))
+      .map((obj) => obj.name),
+  }];
 
   return (
     <Chart
@@ -192,8 +204,14 @@ const WeeklyUsageChart = ({ history }) => {
   );
 };
 
-WeeklyUsageChart.propTypes = {
-  history: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+CategoryChart.propTypes = {
+  history: PropTypes.arrayOf(PropTypes.shape({
+    count: PropTypes.number,
+    date: PropTypes.string,
+    topCategory: PropTypes.string,
+    topSite: PropTypes.string,
+    history: PropTypes.arrayOf(PropTypes.shape({})),
+  })).isRequired,
 };
 
-export default WeeklyUsageChart;
+export default CategoryChart;

@@ -6,6 +6,8 @@ import { format } from 'd3-format';
 import { getDisplayUrl } from './url-helpers';
 import { getLastSeven, getStartOfDay } from './millisecond-helpers';
 import sites from '../data/top-sites.json';
+import categoryMappings from '../mappings/categoryMappings';
+import hourMappings from '../mappings/hourMappings';
 
 const getCategory = (url) => {
   const categories = ['News', 'Adult', 'Sports', 'Shopping', 'Entertainment', 'Social_Networking', 'Financial_Services', 'Search_Engines'];
@@ -25,12 +27,19 @@ export const groupHistoryByDate = (data) => _(data)
   .map((value, key) => ({ date: key, items: value }))
   .value();
 
+// takes an array of history items and outputs the data grouped by hours of the day
+export const groupHistoryByHour = (data) => _(data)
+  .groupBy((item) => moment(item.lastVisitTime).hour())
+  .map((items, key) => ({ hour: hourMappings.find((a) => a.key === key).val, count: items.length }))
+  .value();
+
 const calculatePercentChange = (weekOneTotal, weekTwoTotal) => {
   if (weekOneTotal === 0) return 'NA';
   const diff = weekOneTotal - weekTwoTotal;
   return Math.round((diff / weekOneTotal) * 100);
 };
 
+// NEED TO CLEAN THIS UP
 export const enrichHistory = (data) => {
   const startOfLastSeven = getLastSeven();
   let weekOneTotal = 0;
@@ -81,11 +90,26 @@ export const enrichHistory = (data) => {
       count: day.items.length,
     };
   });
+  const categoryBreakdown = Object.keys(categoryCounts)
+    .map((category) => {
+      let percent = format('.0%')(categoryCounts[category] / weekTwoTotal);
+      if (percent === '0%') percent = '< 1%';
+      return (
+        {
+          category,
+          val: categoryCounts[category],
+          color: categoryMappings.find((item) => item.key === category).color,
+          name: categoryMappings.find((item) => item.key === category).name,
+          percent,
+        }
+      );
+    });
   const topCategory = _.maxBy(_.keys(categoryCounts), (c) => categoryCounts[c]);
   const mostVisited = _.maxBy(_.keys(uniqueSites), (s) => uniqueSites[s]);
   uniqueSites = format(',')(Object.keys(uniqueSites).length);
   return {
     totalUniqueSites: uniqueSites,
+    categoryBreakdown,
     topCategory,
     mostVisited,
     percentChange,
