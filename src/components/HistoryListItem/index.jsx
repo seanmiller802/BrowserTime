@@ -79,6 +79,10 @@ const HistoryListItem = ({
     handleMenuClose(null);
   };
 
+  const handleGoTo = () => {
+    chrome.tabs.create({ url });
+  };
+
   return (
     <ListItem key={id} className={classes.item} role="row">
       <ListItemIcon>
@@ -111,6 +115,7 @@ const HistoryListItem = ({
       >
         <MenuItem onClick={handleMore}>More from this site</MenuItem>
         <MenuItem onClick={() => handleDeleteSingleItem({ url })}>Remove From History</MenuItem>
+        <MenuItem onClick={handleGoTo}>Go to URL</MenuItem>
       </Menu>
     </ListItem>
   );
