@@ -74,9 +74,8 @@ const HistorySearch = ({
   handleDeleteAll,
 }) => {
   const classes = useStyles();
-  const [current, setCurrent] = useState(value);
 
-  const debouncedSearchTerm = useDebounce(current, 1500);
+  const debouncedSearchTerm = useDebounce(value, 3000);
 
   useEffect(() => {
     if (debouncedSearchTerm) {
@@ -85,7 +84,7 @@ const HistorySearch = ({
   }, [debouncedSearchTerm]);
 
   const handleSearchChange = (text) => {
-    setCurrent(text);
+    onChange(text);
   };
 
   return (
@@ -96,8 +95,7 @@ const HistorySearch = ({
       <InputBase
         autoFocus={autoFocus}
         placeholder={placeholder}
-        value={current}
-        defaultValue={current}
+        value={value}
         onChange={(e) => handleSearchChange(e.target.value)}
         fullWidth
         className={classes.inputBase}
