@@ -53,24 +53,42 @@ const CategoryPie = ({ data }) => {
         {data.length < 1 ? (
           <Typography variant="h4" component="h2">NA</Typography>
         ) : (
-          <Chart data={data}>
-            <PieSeries
-              valueField="val"
-              argumentField="category"
-              innerRadius={0.5}
-              pointComponent={Slice}
-            />
-            <Animation />
-            <EventTracker />
-            <HoverState
-              hover={currentTarget}
-              onHoverChange={handleChangeHover}
-            />
-            <Tooltip
-              targetItem={currentTarget}
-              contentComponent={CustomTooltip}
-            />
-          </Chart>
+          <>
+            <Chart data={data} height={350}>
+              <PieSeries
+                valueField="val"
+                argumentField="category"
+                innerRadius={0.3}
+                outerRadius={0.8}
+                pointComponent={Slice}
+              />
+              <Animation />
+              <EventTracker />
+              <HoverState
+                hover={currentTarget}
+                onHoverChange={handleChangeHover}
+              />
+              <Tooltip
+                targetItem={currentTarget}
+                contentComponent={CustomTooltip}
+              />
+            </Chart>
+            {data.map((i) => {
+              const { name, color } = categoryMappings.find((a) => a.key === i.category);
+              return (
+                <Typography align="left">
+                  <svg width="10" height="10" style={{ marginRight: 5 }}>
+                    <circle cx="5" cy="5" r="5" fill={color} />
+                  </svg>
+                  {name}
+                  {' '}
+                  -
+                  {' '}
+                  {i.percent}
+                </Typography>
+              );
+            })}
+          </>
         )}
       </CardContent>
     </Card>

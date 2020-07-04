@@ -169,6 +169,7 @@ const CategoryChart = ({ history }) => {
   return (
     <Chart
       data={getChartData()}
+      height={470}
     >
       <ValueScale name="history" modifyDomain={modifyHistoryDomain} />
       <ArgumentAxis />

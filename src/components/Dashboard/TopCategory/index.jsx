@@ -10,7 +10,7 @@ import categoryMappings from '../../../lib/mappings/categoryMappings';
 
 const useStyles = makeStyles(() => ({
   category: {
-    backgroundColor: ({ color }) => color,
+    backgroundColor: (props) => props.color,
     padding: '2px 5px',
     borderRadius: '2px',
   },
@@ -18,8 +18,10 @@ const useStyles = makeStyles(() => ({
 
 const TopCategory = ({ value }) => {
   let classes;
-  if (!value === 'NA') {
-    const bgColor = categoryMappings.find((item) => item.name === value).color;
+  let displayValue;
+  if (value !== 'NA') {
+    const bgColor = categoryMappings.find((item) => item.key === value).color;
+    displayValue = categoryMappings.find((item) => item.key === value).name;
     classes = useStyles({ color: bgColor });
   }
   return (
@@ -29,7 +31,7 @@ const TopCategory = ({ value }) => {
           Top category
         </Typography>
         <Typography variant="h4" component="span" className={classes && classes.category}>
-          {value}
+          {displayValue || value}
         </Typography>
       </CardContent>
     </Card>

@@ -58,7 +58,7 @@ const TopSitesCard = () => {
         {topSites.length < 1 ? (
           <Typography variant="h4" component="span">NA</Typography>
         ) : (
-          <List>
+          <List style={{ height: 500 }}>
             {topSites.map((site) => (
               <TopSite title={site.title} url={site.url} handleClick={handleClick} />
             ))}
