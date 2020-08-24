@@ -46,7 +46,9 @@ const TopSitesCard = () => {
   };
 
   useEffect(() => {
-    chrome.topSites.get((items) => setTopSites(items));
+    chrome.topSites.get((items) => {
+      setTopSites(items);
+    });
   });
 
   return (

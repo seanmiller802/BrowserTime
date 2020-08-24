@@ -81,10 +81,9 @@ const CategoryPie = ({ data }) => {
                     <circle cx="5" cy="5" r="5" fill={color} />
                   </svg>
                   {name}
-                  {' '}
-                  -
-                  {' '}
+                  {' ('}
                   {i.percent}
+                  {') '}
                 </Typography>
               );
             })}

@@ -136,7 +136,7 @@ const HistoryList = ({
 
 HistoryList.propTypes = {
   data: PropTypes.shape({
-    date: PropTypes.instanceOf(Date),
+    date: PropTypes.string.isRequired,
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
   getSelectedForDeleteIndex: PropTypes.func.isRequired,

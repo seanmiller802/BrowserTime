@@ -11,6 +11,7 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import {
   ValueScale,
+  ArgumentScale,
   Stack,
   Animation,
   HoverState,
@@ -85,7 +86,7 @@ const TooltipContent = ({
   });
   return (
     <div>
-      <Typography variant="h6" color="primary" align="center">{moment(new Date()).format('dddd, MMMM Do, Y')}</Typography>
+      <Typography variant="h6" color="primary" align="center">{moment(data.date).format('dddd, MMMM Do, Y')}</Typography>
       <table>
         {items}
       </table>
@@ -96,6 +97,7 @@ const TooltipContent = ({
 TooltipContent.propTypes = {
   data: PropTypes.shape({
     count: PropTypes.number,
+    date: PropTypes.string.isRequired,
     history: PropTypes.arrayOf(PropTypes.shape({
       category: PropTypes.string,
       items: PropTypes.arrayOf(PropTypes.shape({})),
@@ -113,7 +115,7 @@ const CategoryChart = ({ history }) => {
   const maxCount = Math.max(...history.map((day) => day.count), null);
 
   // eslint-disable-next-line max-len
-  const CustomTooltip = connectProps(TooltipContent, () => ({ data: currentTarget ? history[currentTarget.point] : null }));
+  const CustomTooltip = connectProps(TooltipContent, () => ({ data: currentTarget ? history[6 - currentTarget.point] : null }));
 
   const modifyHistoryDomain = (domain) => [domain[0], maxCount + 10];
 
@@ -134,6 +136,10 @@ const CategoryChart = ({ history }) => {
     history.forEach((day) => {
       historyDays.push(getDayOfWeek(day.date));
     });
+    const emptyDayData = {};
+    for (let x = 0; x < foundCategories.length; x += 1) {
+      emptyDayData[foundCategories[x]] = 0;
+    }
     const data = [];
     let i = 0;
     let y = 0;
@@ -148,42 +154,51 @@ const CategoryChart = ({ history }) => {
       } else {
         data.push({
           day: labels[i],
-          News: 0,
+          ...emptyDayData,
         });
       }
       i += 1;
     }
-    return data;
+    const reversedDays = data.reverse();
+    return { data: reversedDays, modifydDomain: () => reversedDays.map((x) => x.day) };
   };
+
+  const chartData = getChartData();
 
   const handleChangeHover = (target) => {
-    setCurrentTarget(target ? { series: target.series, point: target.point } : null);
+    setCurrentTarget(target ? { ...target } : null);
   };
 
-  const getStacks = () => [{
-    series: categoryMappings
-      .filter((obj) => foundCategories.includes(obj.key))
-      .map((obj) => obj.name),
-  }];
+  const getStacks = () => {
+    const d = categoryMappings
+      .filter((obj) => foundCategories.includes(obj.key)).map((obj) => obj.name);
+    return (
+      [{ series: d }]
+    );
+  };
+
+  const getBarSeries = () => {
+    const bars = categoryMappings.filter((obj) => foundCategories.includes(obj.key));
+    return bars.map(({ name, key, color }) => (
+      <BarSeries
+        name={name}
+        valueField={key}
+        argumentField="day"
+        color={color}
+      />
+    ));
+  };
 
   return (
     <Chart
-      data={getChartData()}
-      height={470}
+      data={chartData.data}
     >
       <ValueScale name="history" modifyDomain={modifyHistoryDomain} />
+      <ArgumentScale name="day" modifyDomain={chartData.modifydDomain} />
       <ArgumentAxis />
-      <ValueAxis scaleName="history" labelComponent={HistoryLabel} />
-      {categoryMappings.filter((obj) => foundCategories.includes(obj.key))
-        .map(({ name, key, color }) => (
-          <BarSeries
-            name={name}
-            valueField={key}
-            argumentField="day"
-            scaleName="history"
-            color={color}
-          />
-        ))}
+      <ValueAxis max={maxCount} labelComponent={HistoryLabel} />
+      {getBarSeries()}
+      <Stack stacks={getStacks()} />
       <Animation />
       <Legend
         position="bottom"
@@ -191,7 +206,6 @@ const CategoryChart = ({ history }) => {
         itemComponent={LegendItem}
         labelComponent={LegendLabel}
       />
-      <Stack stacks={getStacks()} />
       <EventTracker />
       <HoverState
         hover={currentTarget}
