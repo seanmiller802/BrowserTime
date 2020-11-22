@@ -9,7 +9,7 @@ BrowserTime is an open source chrome extension for your browser history.
  What you get
 
  - improved searching, filtering, and management of your history
- - a weekly report of how you spent your time on the web
+ - a sleak dashboard giving your a weekly breakdown of how you spent your time on the web
  - 7 awesome UI themes
 ## Getting started
 1. git clone https://github.com/seanmiller802/browsertime
@@ -21,9 +21,9 @@ should open a new tab at localhost:9090/history.html
 
 ## Production
 1. yarn build
-2. chrome://extensions/
+2. go to chrome://extensions/
 3. toggle Developer mode
-4. choose load unpacked
-5. select build folder
-6. visit chrome://bookmarks
+4. click load unpacked
+5. select src/build folder
+6. visit chrome://history
 
