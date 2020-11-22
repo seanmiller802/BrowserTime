@@ -1,5 +1,5 @@
 # BrowserTime
-:hourglass_flowing_sand: It's like screen time for your browser
+It's like screen time for your browser
 
 Available on the Chrome Web Store - https://chrome.google.com/webstore/detail/browsertime/gaafojlhhgdkcjiglocphepomogeagie/
 
@@ -10,9 +10,9 @@ BrowserTime is an open source chrome extension that aims to make it better.
 
  What you get
 
- - :mag_right: improved searching, filtering, and management of your history
- - :bar_chart: a sleak dashboard giving your a weekly breakdown of how you spent your time on the web
- - :art: 7 awesome UI themes
+ - :mag_right:  improved searching, filtering, and management of your history
+ - :bar_chart:  a sleak dashboard giving your a weekly breakdown of how you spent your time on the web
+ - :art:  7 awesome UI themes
 ## Getting started
 1. git clone https://github.com/seanmiller802/browsertime
 2. yarn install
