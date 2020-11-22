@@ -4,7 +4,7 @@ It's like screen time for your browser
 Available on the Chrome Web Store - https://chrome.google.com/webstore/detail/browsertime/gaafojlhhgdkcjiglocphepomogeagie/
 
 ## Description
-BrowserTime is an open source chrome extension for your browser history.
+The default history page in chrome is :shit: BrowserTime is an open source chrome extension that aims to make it better.
 
  What you get
 
