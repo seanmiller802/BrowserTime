@@ -3,6 +3,8 @@ It's like screen time for your browser
 
 Available on the Chrome Web Store - https://chrome.google.com/webstore/detail/browsertime/gaafojlhhgdkcjiglocphepomogeagie/
 
+landing page - https://www.browsertime.us/
+
 ## Description
 The default history page in chrome is :shit:
 
