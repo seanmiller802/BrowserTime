@@ -13,6 +13,9 @@ BrowserTime is an open source chrome extension that aims to make it better.
  - :mag_right: &nbsp; improved searching, filtering, and management of your history
  - :bar_chart: &nbsp; a sleak dashboard giving you a weekly breakdown of how you spent your time on the web
  - :art: &nbsp; 7 awesome UI themes
+
+ ![Dashboard logo](./dash.png)
+
 ## Getting started
 1. git clone https://github.com/seanmiller802/browsertime
 2. yarn install
