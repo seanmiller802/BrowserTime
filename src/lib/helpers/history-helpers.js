@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable import/prefer-default-export */
 import _ from 'lodash';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { format } from 'd3-format';
 import { getDisplayUrl } from './url-helpers';
 import { getLastSeven, getStartOfDay } from './millisecond-helpers';
@@ -11,8 +11,7 @@ import hourMappings from '../mappings/hourMappings';
 
 const getCategory = (url) => {
   const categories = ['News', 'Adult', 'Sports', 'Shopping', 'Entertainment', 'Social_Networking', 'Financial_Services', 'Search_Engines'];
-  let { hostname } = new URL(url);
-  hostname = hostname.substring(0, 4) === 'www.' ? hostname.substring(4) : hostname;
+  const hostname = getDisplayUrl(url);
   if (sites[hostname]) {
     if (categories.includes(sites[hostname])) {
       return sites[hostname];
@@ -21,23 +20,23 @@ const getCategory = (url) => {
   return 'Other';
 };
 
-// takes an array of history items and outputs the data grouped by date
-export const groupHistoryByDate = (data) => _(data)
-  .groupBy((item) => moment(item.lastVisitTime).startOf('day'))
-  .map((value, key) => ({ date: key, items: value }))
-  .value();
-
-// takes an array of history items and outputs the data grouped by hours of the day
-export const groupHistoryByHour = (data) => _(data)
-  .groupBy((item) => moment(item.lastVisitTime).hour())
-  .map((items, key) => ({ hour: hourMappings.find((a) => a.key === key).val, count: items.length }))
-  .value();
-
 const calculatePercentChange = (weekOneTotal, weekTwoTotal) => {
   if (weekOneTotal === 0) return 'NA';
   const diff = weekOneTotal - weekTwoTotal;
   return Math.round((diff / weekOneTotal) * 100);
 };
+
+// takes an array of history items and outputs the data grouped by date
+export const groupHistoryByDate = (data) => _(data)
+  .groupBy((item) => dayjs(item.lastVisitTime).startOf('day'))
+  .map((value, key) => ({ date: key, items: value }))
+  .value();
+
+// takes an array of history items and outputs the data grouped by hours of the day
+export const groupHistoryByHour = (data) => _(data)
+  .groupBy((item) => dayjs(item.lastVisitTime).hour())
+  .map((items, key) => ({ hour: hourMappings.find((a) => a.key === key).val, count: items.length }))
+  .value();
 
 // NEED TO CLEAN THIS UP
 export const enrichHistory = (data) => {
