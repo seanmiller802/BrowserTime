@@ -1,7 +1,9 @@
 # BrowserTime
-It's like screen time for your browser
+It's like screen time for your browser history
 
 Available on the Chrome Web Store - https://chrome.google.com/webstore/detail/browsertime/gaafojlhhgdkcjiglocphepomogeagie/
+
+Landing Page - http://browsertime.us/
 
 ## Description
 The default history page in chrome is :shit:
@@ -16,20 +18,25 @@ BrowserTime is an open source chrome extension that aims to make it better.
 
  ![Dashboard logo](./dash.png)
 
-## Getting started
-1. git clone https://github.com/seanmiller802/browsertime
-2. yarn install
-3. add .env file in root with NODE_ENV=development and PORT=9090
-4. yarn start:dev
+## Setup
+
+### Development (currently buggy. suggested to just build for production)
+Clone the repo:
+```git clone https://github.com/seanmiller802/browsertime```
+Install the dependencies
+``` npm run install```
+Add .env file in root directory
+```NODE_ENV=development PORT=9090```
+Start the development server
+```npm run start:dev```
 
 should open a new tab at localhost:9090/history.html
 
-## Production
-1. yarn build
-2. go to chrome://extensions/
-3. toggle Developer mode
-4. click load unpacked
-5. select src/build folder
-6. visit chrome://history
-
-http://browsertime.us/
+## Build for Production
+Run the build script:
+```npm run build``` 
+Go to chrome://extensions/ or brave://extensions if using Brave
+Toggle Developer mode
+Click 'Load Unpacked' button
+Select src/build folder
+Visit chrome://history or brave://history

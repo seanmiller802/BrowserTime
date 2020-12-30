@@ -53,7 +53,7 @@ export const getLastThirty = () => dayjs().startOf('day').valueOf() - (MILLISECO
  * @function getCustom - Returns an object with two Unix Timestamps (milliseconds) for the start and end of a custom date range.
  * @param {object} startDate a datejs date object
  * @param {object} endDate a datejs date object
- * @returns {object} 
+ * @returns {object}
  */
 export const getCustom = (startDate, endDate) => {
   const start = dayjs(startDate).startOf('day').valueOf();
