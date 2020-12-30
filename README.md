@@ -20,19 +20,26 @@ BrowserTime is an open source chrome extension that aims to make it better.
 
 ## Setup
 
-### Development (currently buggy. suggested to just build for production)
+### Run Development Server (currently buggy. suggested to just build for production)
 Clone the repo:
+
 ```git clone https://github.com/seanmiller802/browsertime```
+
 Install the dependencies
+
 ``` npm run install```
+
 Add .env file in root directory
+
 ```NODE_ENV=development PORT=9090```
+
 Start the development server
+
 ```npm run start:dev```
 
 should open a new tab at localhost:9090/history.html
 
-## Build for Production
+### Build for Production
 Run the build script:
 ```npm run build``` 
 Go to chrome://extensions/ or brave://extensions if using Brave
