@@ -41,9 +41,27 @@ should open a new tab at localhost:9090/history.html
 
 ### Build for Production
 Run the build script:
-```npm run build``` 
+
+```npm run build```
+
 Go to chrome://extensions/ or brave://extensions if using Brave
+
 Toggle Developer mode
+
 Click 'Load Unpacked' button
+
 Select src/build folder
+
 Visit chrome://history or brave://history
+
+## Useful Links
+
+Chrome Extension documentation - https://developer.chrome.com/docs/extensions/
+
+Material-ui component library - https://material-ui.com/
+
+Charting Libraries 
+    - @devexpress/dx-react-chart-material-ui
+    - @devexpress/dx-react-chart
+    - @devexpress/dx-react-chart
+
