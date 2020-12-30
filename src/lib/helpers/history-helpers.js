@@ -9,6 +9,8 @@ import sites from '../data/top-sites.json';
 import categoryMappings from '../mappings/categoryMappings';
 import hourMappings from '../mappings/hourMappings';
 
+/** @module history-helpers */
+
 const getCategory = (url) => {
   const categories = ['News', 'Adult', 'Sports', 'Shopping', 'Entertainment', 'Social_Networking', 'Financial_Services', 'Search_Engines'];
   const hostname = getDisplayUrl(url);
@@ -26,13 +28,21 @@ const calculatePercentChange = (weekOneTotal, weekTwoTotal) => {
   return Math.round((diff / weekOneTotal) * 100);
 };
 
-// takes an array of history items and outputs the data grouped by date
+/**
+ * @function groupHistoryByDate - Returns the history items grouped by date
+ * @param {Array<object>} data an array of history items
+ * @returns {object}
+ */
 export const groupHistoryByDate = (data) => _(data)
   .groupBy((item) => dayjs(item.lastVisitTime).startOf('day'))
   .map((value, key) => ({ date: key, items: value }))
   .value();
 
-// takes an array of history items and outputs the data grouped by hours of the day
+/**
+ * @function groupHistoryByHour - Returns the history items grouped by hour
+ * @param {Array<object>} data an array of history items
+ * @returns {object}
+ */
 export const groupHistoryByHour = (data) => _(data)
   .groupBy((item) => dayjs(item.lastVisitTime).hour())
   .map((items, key) => ({ hour: hourMappings.find((a) => a.key === key).val, count: items.length }))

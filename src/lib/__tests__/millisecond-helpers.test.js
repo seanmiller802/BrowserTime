@@ -14,7 +14,7 @@ import {
 
 describe('millisecond helper functions', () => {
   // set NOW to be the first millisecond of Wednesday, January 1, 2020 12:00:00 AM
-  // this is an abitrary date but using the first millisecond of a day makes it easier to
+  // this is an arbitrary date but using the first millisecond of a day makes it easier to
   // calculate what our fn return values should equal
   const NOW = 1577854800000;
 
