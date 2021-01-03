@@ -13,11 +13,9 @@ const FeedbackDialog = ({ open, cancel}) => {
   const [err, setErr] = useState(false);
 
   const handleClose = () => {
-    //;
   };
 
   const handleTextChange = (feedback) => {
-    console.log("yolo", feedback);
     setVal(feedback);
   };
 

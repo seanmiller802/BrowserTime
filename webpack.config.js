@@ -40,7 +40,7 @@ const config = {
       filename: 'history.html',
       template: path.join(__dirname, 'src', 'templates', 'history.html'),
     }),
-    // copy manifest and icons to build the folder
+    // copy manifest, icons, and content + background scripts to the build the folder
     new CopyWebpackPlugin([
       {
         from: 'src/manifest.json',
@@ -53,6 +53,14 @@ const config = {
       {
         from: 'src/icons',
         to: 'icons',
+      },
+      {
+        from: 'src/timeTrack.js',
+        to: "timeTrack.js"
+      },
+      {
+        from: 'src/background.js',
+        to: "background.js"
       },
     ]),
     new MomentLocalesPlugin({
