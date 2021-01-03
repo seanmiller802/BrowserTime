@@ -46,11 +46,6 @@ const App = () => {
 
   const [history, setHistory] = useState([]);
 
-  // holds the sessions for each domain
-  useEffect(() => {
-    localStorage.setItem('sessions', JSON.stringify({}));
-  }, []);
-
   // update history results if any of the controls change
   useEffect(() => {
     const searchParams = getSearchParams(searchText, range, customRange, maxResults);

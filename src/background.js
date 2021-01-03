@@ -1,3 +1,14 @@
+
+// TODO:FIX
+// after installing the extension, the content script isn't added to a tab until it has been refreshed
+// if a user views an existing tab without refreshing no time tracking can occur
+
+// setup local storage to hold page sessions
+chrome.runtime.onInstalled.addListener(function() {
+    localStorage.setItem('sessions', JSON.stringify({}));
+});
+
+
 // receives sessions from pages that contain the content script
 // and stores them in the extension's local storage
 chrome.runtime.onMessage.addListener(
