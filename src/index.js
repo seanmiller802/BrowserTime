@@ -9,6 +9,14 @@ if (module.hot) {
   module.hot.accept();
 }
 
+document.addEventListener("visibilitychange", function() {
+  if (document.visibilityState === 'visible') {
+    console.log('toast');
+  } else {
+    console.log('not toast')
+  }
+});
+
 ReactDOM.render(
   <App />,
   document.getElementById('root'),

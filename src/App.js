@@ -11,6 +11,7 @@ import History from './components/History';
 import Dashboard from './components/Dashboard';
 import DeleteToolbar from './components/DeleteToolbar';
 import ConfirmDeleteDialog from './components/ConfirmDeleteDialog';
+import FeedbackDialog from './components/FeedbackDialog';
 import {
   searchHistory,
   getSearchParams,
@@ -31,6 +32,7 @@ const App = () => {
   const [clearSelected, setClearSelected] = useState(false); // use this instead of selectedForDelete to trigger useEffect
   const [showConfirmDelete, setShowConfirmDelete] = useState(false); // comfirmation dialog when deleting all history
   const [showDashboard, setShowDashboard] = useState(false);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [showControls, setShowControls] = useState(false); // show filter controls
 
   // history search values
@@ -41,7 +43,6 @@ const App = () => {
     end: new Date(),
   });
   const [maxResults, setMaxResults] = useState(10000);
-
 
   const [history, setHistory] = useState([]);
 
@@ -72,6 +73,10 @@ const App = () => {
   const handleShowDashboard = () => {
     setShowDashboard(true);
     setRange(null);
+  };
+
+  const handleShowFeedbackForm = () => {
+    setShowFeedbackForm(true);
   };
 
   // use lastVisitTime to check if an item is selected for deletion
@@ -145,6 +150,12 @@ const App = () => {
             deleteAll={handleDeleteAll}
             cancel={() => setShowConfirmDelete(false)}
           />
+          {showFeedbackForm && (
+            <FeedbackDialog
+              open={showFeedbackForm}
+              cancel={() => setShowFeedbackForm(false)}
+            />
+          )}
           {showDeleteToolbar && (
             <DeleteToolbar
               count={selectedForDelete.length}
@@ -157,6 +168,7 @@ const App = () => {
             range={range}
             handleUpdateRange={handleUpdateRange}
             handleShowDashboard={handleShowDashboard}
+            handleShowFeedbackForm={handleShowFeedbackForm}
           />
           {!showDashboard && (
             <History

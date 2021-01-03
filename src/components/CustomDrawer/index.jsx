@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { HourglassFull, History, Launch } from '@material-ui/icons';
+import { HourglassFull, History, Launch, Forum } from '@material-ui/icons';
 import {
   Toolbar,
   Divider,
@@ -46,6 +46,7 @@ const CustomDrawer = ({
   range,
   handleUpdateRange,
   handleShowDashboard,
+  handleShowFeedbackForm
 }) => {
   const classes = useStyles();
 
@@ -92,6 +93,11 @@ const CustomDrawer = ({
             Clear browsing data
           </Button>
         </ListItem>
+        <ListItem key="feedback" onClick={() => handleShowFeedbackForm()}>
+          <Button endIcon={<Forum />}>
+            Give feedback
+          </Button>
+        </ListItem>
       </div>
       <div className={classes.version}>
         <Typography variant="caption">v1.0.0</Typography>
@@ -104,6 +110,7 @@ CustomDrawer.propTypes = {
   range: PropTypes.string.isRequired,
   handleUpdateRange: PropTypes.func.isRequired,
   handleShowDashboard: PropTypes.func.isRequired,
+  handleShowFeedbackForm: PropTypes.func.isRequired,
 };
 
 export default CustomDrawer;
