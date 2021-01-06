@@ -27,7 +27,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.13",
     "@sinonjs/fake-timers": "^6.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "d3-format": "^1.4.4",
     "d3-shape": "^2.0.0",
     "dayjs": "^1.9.6",
