@@ -17,6 +17,13 @@ import SkeletonCardSmall from './SkeletonCardSmall';
 import TopSitesSkeleton from './TopSitesSkeleton';
 import { getSearchParams, searchHistory } from '../../lib/helpers/chrome-helpers';
 import { groupHistoryByDate, groupHistoryByHour, enrichHistory } from '../../lib/helpers/history-helpers';
+import { groupSessionsByDate } from '../../lib/helpers/dashboard-helpers';
+
+const sessions = {
+  'wsj.com': { sessions: [{ start: 1608955631135, end: 1608956631135 }, { start: 1609024093220, end: 1609026093220 }, { start: 1609130641566, end: 1609130841566 }, { start: 1609130641568, end: 1609130851566 }] },
+  'duckduckgo.com': { sessions: [{ start: 1608955631134, end: 1608956631136 }, { start: 1609024093221, end: 1609026093221 }, { start: 1609130641567, end: 1609130841567 } ] },
+  'github.com': { sessions: [{ start: 1608955631133, end: 1608956631137 }, { start: 1609024093222, end: 1609026093222 }, { start: 1609130641568, end: 1609130841568 }] }
+};
 
 const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,8 +45,10 @@ const Dashboard = () => {
           });
         } else {
           const groupedByDate = groupHistoryByDate(results);
+          console.log('grouped by date', groupedByDate);
           const groupedByHour = groupHistoryByHour(results);
           const enrichedHistory = enrichHistory(groupedByDate);
+          console.log(';resdsgt', groupSessionsByDate(sessions));
           setHistory({ ...enrichedHistory, timeData: groupedByHour });
         }
         setIsLoading(false);

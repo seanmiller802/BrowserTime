@@ -9,7 +9,7 @@
   "scripts": {
     "start:dev": "node dev-server.js",
     "build": "NODE_ENV=production webpack",
-    "test": "jest",
+    "test": "TZ=UTC-05:00 jest",
     "doc": "jsdoc -c jsdoc.json"
   },
   "jest": {
@@ -27,7 +27,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.9.13",
     "@sinonjs/fake-timers": "^6.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "d3-format": "^1.4.4",
     "d3-shape": "^2.0.0",
     "dayjs": "^1.9.6",
@@ -51,6 +51,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "babel-plugin-rewire": "^1.2.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.5.3",

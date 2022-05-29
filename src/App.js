@@ -8,6 +8,7 @@ import { SettingsProvider } from './context/SettingsContext';
 import Header from './components/Header';
 import CustomDrawer from './components/CustomDrawer';
 import History from './components/History';
+import DashboardV2 from './components/DashboardV2';
 import Dashboard from './components/Dashboard';
 import DeleteToolbar from './components/DeleteToolbar';
 import ConfirmDeleteDialog from './components/ConfirmDeleteDialog';
@@ -140,6 +141,8 @@ const App = () => {
 
   const showDeleteToolbar = selectedForDelete.length > 0;
 
+  const shouldShowDashboardV2 = true;
+  
   return (
     <div className={classes.root}>
       <SettingsProvider>
@@ -191,7 +194,7 @@ const App = () => {
               forceUpdate={forceUpdate}
             />
           )}
-          {showDashboard && <Dashboard />}
+          {showDashboard && (shouldShowDashboardV2 ? <DashboardV2 /> : <Dashboard />)}
         </ThemeProvider>
       </SettingsProvider>
     </div>

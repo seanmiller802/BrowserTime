@@ -1,3 +1,4 @@
+import { RAW_SESSION_DATA_MOCK } from "./lib/test-mocks/mocks";
 
 // TODO:FIX
 // after installing the extension, the content script isn't added to a tab until it has been refreshed

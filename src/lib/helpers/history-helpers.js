@@ -11,14 +11,11 @@ import hourMappings from '../mappings/hourMappings';
 
 /** @module history-helpers */
 
-const getCategory = (url) => {
+export const getCategory = (url) => {
   const categories = ['News', 'Adult', 'Sports', 'Shopping', 'Entertainment', 'Social_Networking', 'Financial_Services', 'Search_Engines'];
   const hostname = getDisplayUrl(url);
-  if (sites[hostname]) {
-    if (categories.includes(sites[hostname])) {
-      return sites[hostname];
-    }
-  }
+  if (sites[hostname] && categories.includes(sites[hostname]))
+    return sites[hostname];
   return 'Other';
 };
 
